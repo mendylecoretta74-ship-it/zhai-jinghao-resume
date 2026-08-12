@@ -693,6 +693,105 @@
   .lb-btn-sm:hover { background: var(--navy); color: #fff; transform: scale(1.04); }
   .lb-btn-sm:active { transform: scale(.96); }
 
+  /* ---------- 分享功能 ---------- */
+  .share-fab {
+    position: fixed; right: 28px; bottom: 28px; z-index: 150;
+    width: 58px; height: 58px; border-radius: 50%;
+    border: 0; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff;
+    background: linear-gradient(150deg, var(--navy-2), var(--navy));
+    box-shadow: 0 14px 34px rgba(31,56,100,.4), inset 0 0 0 1px rgba(255,255,255,.2);
+    transition: transform .5s var(--spring), box-shadow .35s var(--ease-out);
+  }
+  .share-fab:hover { transform: translateY(-4px) scale(1.08); box-shadow: 0 20px 44px rgba(31,56,100,.5); }
+  .share-fab:active { transform: scale(.94); }
+  .share-fab svg { width: 24px; height: 24px; }
+
+  .share-modal {
+    position: fixed; inset: 0; z-index: 600;
+    background: rgba(13,26,48,.55);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    opacity: 0; visibility: hidden;
+    transition: opacity .45s var(--ease-out), visibility .45s;
+    padding: 24px;
+  }
+  .share-modal.open { opacity: 1; visibility: visible; }
+  .share-window {
+    width: min(460px, 96vw);
+    background: rgba(255,255,255,.94);
+    backdrop-filter: blur(30px) saturate(180%);
+    -webkit-backdrop-filter: blur(30px) saturate(180%);
+    border-radius: 18px; overflow: hidden;
+    border: 1px solid rgba(255,255,255,.5);
+    box-shadow: 0 50px 140px rgba(5,12,25,.55);
+    transform: scale(.9) translateY(24px);
+    transition: transform .6s var(--spring);
+  }
+  .share-modal.open .share-window { transform: none; }
+  .share-body { padding: 26px 28px 28px; text-align: center; }
+  .share-body h3 { font-size: 20px; font-weight: 800; color: var(--navy-3); }
+  .share-body .sub { margin-top: 6px; font-size: 13.5px; color: var(--muted); }
+  .qr-box {
+    width: 200px; height: 200px; margin: 22px auto 0;
+    background: #fff; border: 1px solid var(--line); border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 10px 30px rgba(31,56,100,.1);
+    overflow: hidden;
+  }
+  .qr-box svg { width: 100%; height: 100%; display: block; }
+  .share-tip { margin-top: 12px; font-size: 12.5px; color: var(--ink-2); }
+  .share-link-row {
+    display: flex; align-items: center; gap: 10px; margin-top: 16px;
+    background: var(--bg-alt); border: 1px solid var(--line); border-radius: 12px;
+    padding: 10px 14px;
+  }
+  .share-link-row span {
+    flex: 1; font-size: 12.5px; color: var(--ink-2);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: left;
+  }
+  .share-link-row button {
+    flex: 0 0 auto; border: 0; cursor: pointer;
+    background: var(--navy); color: #fff; font-size: 12.5px; font-weight: 600;
+    padding: 8px 16px; border-radius: 999px;
+    transition: transform .4s var(--spring), background .3s;
+  }
+  .share-link-row button:hover { background: var(--navy-2); transform: scale(1.05); }
+  .share-link-row button:active { transform: scale(.95); }
+  .share-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 18px;
+  }
+  .share-item {
+    border: 1px solid var(--line); background: #fff; border-radius: 14px;
+    padding: 14px 6px 12px; cursor: pointer; text-align: center;
+    transition: transform .45s var(--spring), box-shadow .35s var(--ease-out), border-color .3s;
+  }
+  .share-item:hover { transform: translateY(-4px) scale(1.04); border-color: var(--sky); box-shadow: 0 14px 32px rgba(31,56,100,.12); }
+  .share-item:active { transform: scale(.96); }
+  .share-item .ico {
+    width: 40px; height: 40px; margin: 0 auto 8px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 17px; font-weight: 800; color: #fff;
+  }
+  .share-item .ico.wechat { background: #07C160; }
+  .share-item .ico.qq { background: #12B7F5; }
+  .share-item .ico.weibo { background: #E6162D; }
+  .share-item .ico.mail { background: var(--navy); }
+  .share-item .lab { font-size: 12px; font-weight: 600; color: var(--ink-2); }
+  .share-native { margin-top: 14px; }
+  .toast {
+    position: fixed; left: 50%; bottom: 90px; z-index: 700;
+    transform: translateX(-50%) translateY(16px);
+    background: rgba(13,26,48,.92); color: #fff;
+    font-size: 13.5px; padding: 10px 22px; border-radius: 999px;
+    opacity: 0; visibility: hidden;
+    transition: opacity .4s var(--ease-out), transform .5s var(--spring), visibility .4s;
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  }
+  .toast.show { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+
   /* ---------- 响应式 ---------- */
   @media (max-width: 1120px) {
     .archive-grid { grid-template-columns: repeat(2, 1fr); }
@@ -741,6 +840,8 @@
     .contact-cards { margin-top: 32px; }
     .writing-body, .writing-side { padding: 30px 24px; }
     .sample-table th, .sample-table td { padding: 9px 10px; font-size: 12px; }
+    .share-fab { right: 16px; bottom: 16px; width: 52px; height: 52px; }
+    .share-body { padding: 22px 18px 24px; }
   }
 </style>
 </head>
@@ -800,6 +901,7 @@
     <div class="hero-cta">
       <a class="btn btn-white" href="#archive">查看行政档案 ↓</a>
       <a class="btn btn-ghost" href="#contact">联系我</a>
+      <button class="btn btn-ghost" type="button" data-share-open style="background:rgba(255,255,255,.08)">分享简历 ↗</button>
     </div>
   </div>
   <div class="wrap hero-stats">
@@ -1377,6 +1479,7 @@
         <div class="contact-actions">
           <a class="btn btn-white" href="assets/简历-翟靖昊-行政方向-优化版-20260812.docx" download>下载简历文档</a>
           <a class="btn btn-ghost" href="assets/作品集-翟靖昊-行政方向-20260812.pdf" download>下载作品集 PDF</a>
+          <button class="btn btn-ghost" type="button" data-share-open style="background:rgba(255,255,255,.1)">分享我的简历 ↗</button>
         </div>
       </div>
     </div>
@@ -1418,9 +1521,173 @@
   </div>
 </div>
 
+<!-- 浮动分享按钮 -->
+<button class="share-fab" id="shareFab" type="button" aria-label="分享我的简历" title="分享我的简历">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+    <path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/>
+  </svg>
+</button>
+
+<!-- 分享面板 -->
+<div class="share-modal" id="shareModal">
+  <div class="share-window">
+    <div class="lb-titlebar">
+      <span class="traffic"><i class="t-red" data-share-close></i><i></i><i></i></span>
+      <span class="lb-title">分享我的简历</span>
+    </div>
+    <div class="share-body">
+      <h3>把简历分享给 TA</h3>
+      <p class="sub">扫码或复制链接，对方即可查看完整简历与作品集</p>
+      <div class="qr-box" id="qrBox"></div>
+      <p class="share-tip">微信 / 手机扫码即可打开</p>
+      <div class="share-link-row">
+        <span id="shareUrlText"></span>
+        <button type="button" id="copyLinkBtn">复制链接</button>
+      </div>
+      <div class="share-grid">
+        <button class="share-item" type="button" data-share="wechat">
+          <span class="ico wechat">微</span><span class="lab">微信</span>
+        </button>
+        <button class="share-item" type="button" data-share="qq">
+          <span class="ico qq">Q</span><span class="lab">QQ</span>
+        </button>
+        <button class="share-item" type="button" data-share="weibo">
+          <span class="ico weibo">博</span><span class="lab">微博</span>
+        </button>
+        <button class="share-item" type="button" data-share="mail">
+          <span class="ico mail">邮</span><span class="lab">邮件</span>
+        </button>
+      </div>
+      <div class="share-native" id="nativeShareWrap" style="display:none">
+        <button class="btn btn-navy" type="button" id="nativeShareBtn">调用系统分享…</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast">链接已复制</div>
+
+<script src="assets/qrcode.js"></script>
 <script>
   (function () {
     "use strict";
+
+    /* 分享功能 */
+    var SHARE_FALLBACK_URL = "https://mendylecoretta74-ship-it.github.io/zhai-jinghao-resume/";
+    var shareModal = document.getElementById("shareModal");
+    var qrBox = document.getElementById("qrBox");
+    var shareUrlText = document.getElementById("shareUrlText");
+    var nativeShareWrap = document.getElementById("nativeShareWrap");
+    var toast = document.getElementById("toast");
+    var toastTimer = null;
+
+    function shareUrl() {
+      var here = location.href;
+      if (here.indexOf("file:") === 0) return SHARE_FALLBACK_URL;
+      return here;
+    }
+
+    function showToast(msg) {
+      toast.textContent = msg;
+      toast.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(function () { toast.classList.remove("show"); }, 2200);
+    }
+
+    function legacyCopy(txt) {
+      var ta = document.createElement("textarea");
+      ta.value = txt;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand("copy"); } catch (e) {}
+      document.body.removeChild(ta);
+    }
+
+    function copyText(txt, okMsg) {
+      function done() { showToast(okMsg || "链接已复制"); }
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(txt).then(done).catch(function () { legacyCopy(txt); done(); });
+      } else {
+        legacyCopy(txt);
+        done();
+      }
+    }
+
+    function renderQr(url) {
+      qrBox.innerHTML = "";
+      if (typeof qrcode === "undefined") return;
+      var qr = qrcode(0, "M");
+      qr.addData(url);
+      qr.make();
+      var svg = qr.createSvgTag(6, 12);
+      var wrap = document.createElement("div");
+      wrap.style.cssText = "width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#fff;";
+      wrap.innerHTML = svg;
+      var svgEl = wrap.querySelector("svg");
+      if (svgEl) {
+        svgEl.style.width = "100%";
+        svgEl.style.height = "100%";
+      }
+      qrBox.appendChild(wrap);
+    }
+
+    function openShare() {
+      var url = shareUrl();
+      shareUrlText.textContent = url;
+      renderQr(url);
+      shareModal.classList.add("open");
+      document.body.style.overflow = "hidden";
+      if (navigator.share) nativeShareWrap.style.display = "block";
+    }
+
+    function closeShare() {
+      shareModal.classList.remove("open");
+      document.body.style.overflow = "";
+    }
+
+    document.querySelectorAll("[data-share-open]").forEach(function (b) {
+      b.addEventListener("click", openShare);
+    });
+    document.getElementById("shareFab").addEventListener("click", openShare);
+    document.querySelectorAll("[data-share-close]").forEach(function (b) {
+      b.addEventListener("click", closeShare);
+    });
+    shareModal.addEventListener("click", function (e) {
+      if (e.target === shareModal) closeShare();
+    });
+    document.getElementById("copyLinkBtn").addEventListener("click", function () {
+      copyText(shareUrl());
+    });
+    document.getElementById("nativeShareBtn").addEventListener("click", function () {
+      if (!navigator.share) return;
+      navigator.share({
+        title: document.title,
+        text: "翟靖昊的简历与作品集",
+        url: shareUrl()
+      }).catch(function () {});
+    });
+    document.querySelectorAll("[data-share]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        var type = b.getAttribute("data-share");
+        var url = encodeURIComponent(shareUrl());
+        var title = encodeURIComponent("翟靖昊 · 简历与作品集");
+        if (type === "wechat") {
+          copyText(shareUrl(), "链接已复制，打开微信粘贴发送；也可长按二维码识别");
+        } else if (type === "qq") {
+          window.open("https://connect.qq.com/widget/shareqq/index.html?url=" + url + "&title=" + title, "_blank", "noopener");
+        } else if (type === "weibo") {
+          window.open("https://service.weibo.com/share/share.php?url=" + url + "&title=" + title, "_blank", "noopener");
+        } else if (type === "mail") {
+          location.href = "mailto:?subject=" + title + "&body=" + encodeURIComponent("你好，这是我的简历与作品集：" + shareUrl());
+        }
+      });
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && shareModal.classList.contains("open")) closeShare();
+    });
 
     /* 顶部进度条 + 导航状态 + 首屏视差 */
     var nav = document.getElementById("nav");
