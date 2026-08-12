@@ -1,0 +1,1613 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>翟靖昊 · 简历与作品集</title>
+<meta name="description" content="翟靖昊 - 行政专员 / 行政助理 / 人事行政助理求职简历网站，含个人简历、在校经历、荣誉资质、行政档案体系与8页作品集展示（个人信息均已脱敏）。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%231F3864'/%3E%3Ccircle cx='32' cy='32' r='13' fill='%23A8C4E4'/%3E%3Ccircle cx='32' cy='32' r='5' fill='%23FFFFFF'/%3E%3C/svg%3E">
+<style>
+  :root {
+    /* 作品集主色调：深藏蓝 + 灰蓝 + 白 */
+    --navy: #1F3864;
+    --navy-2: #2C4A7C;
+    --navy-3: #182C4E;
+    --slate: #486078;
+    --slate-2: #607890;
+    --sky: #A8C4E4;
+    --sky-soft: #DCE8F6;
+    --bg: #FFFFFF;
+    --bg-alt: #F2F4F8;
+    --ink: #16233A;
+    --ink-2: #3E4C63;
+    --muted: #7B879E;
+    --line: #E2E8F2;
+    --nav-h: 68px;
+    --maxw: 1200px;
+    --radius: 16px;
+    --spring: cubic-bezier(.34, 1.56, .64, 1);
+    --ease-out: cubic-bezier(.22, 1, .36, 1);
+    --font: -apple-system, BlinkMacSystemFont, "SF Pro SC", "SF Pro Text", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 14px); }
+  body {
+    font-family: var(--font);
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  ::selection { background: var(--navy); color: #fff; }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+  ul { list-style: none; }
+  button { font-family: inherit; }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; }
+
+  /* 顶部滚动进度条 */
+  .progress {
+    position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 300;
+    background: linear-gradient(90deg, var(--navy), var(--sky));
+    transform-origin: left; transform: scaleX(0);
+    transition: transform .15s ease-out;
+  }
+
+  /* ---------- 毛玻璃导航 ---------- */
+  .nav {
+    position: fixed; inset: 0 0 auto 0; z-index: 200;
+    height: var(--nav-h);
+    display: flex; align-items: center;
+    transition: background .4s var(--ease-out), box-shadow .4s var(--ease-out), border-color .4s var(--ease-out);
+    border-bottom: 1px solid transparent;
+  }
+  .nav.scrolled {
+    background: rgba(255,255,255,.72);
+    backdrop-filter: blur(22px) saturate(180%);
+    -webkit-backdrop-filter: blur(22px) saturate(180%);
+    border-color: var(--line);
+    box-shadow: 0 8px 32px rgba(31,56,100,.08);
+  }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .brand-mark {
+    position: relative; width: 38px; height: 38px; flex: 0 0 auto;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 25%, var(--navy-2), var(--navy));
+    box-shadow: 0 4px 14px rgba(31,56,100,.35), inset 0 0 0 1px rgba(255,255,255,.18);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .brand-mark::after {
+    content: "翟"; color: #fff; font-size: 17px; font-weight: 800; line-height: 1;
+  }
+  .brand-name { font-size: 19px; font-weight: 800; letter-spacing: .04em; line-height: 1.1; }
+  .brand-sub { display: block; font-size: 10px; letter-spacing: .32em; text-transform: uppercase; opacity: .55; margin-top: 2px; }
+  .nav-links { display: flex; align-items: center; gap: 4px; }
+  .nav-links a {
+    position: relative; padding: 8px 13px; font-size: 14px; font-weight: 500;
+    color: inherit; opacity: .75; transition: opacity .25s ease, transform .3s var(--spring);
+    white-space: nowrap;
+  }
+  .nav-links a::after {
+    content: ""; position: absolute; left: 13px; right: 13px; bottom: 3px;
+    height: 2px; border-radius: 2px; background: var(--navy);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform .35s var(--spring);
+  }
+  .nav-links a:hover { opacity: 1; transform: translateY(-1px); }
+  .nav-links a.active { opacity: 1; }
+  .nav-links a.active::after { transform: scaleX(1); }
+  .nav-cta {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 9px 18px; border-radius: 999px;
+    font-size: 13.5px; font-weight: 600;
+    color: #fff; background: var(--navy);
+    box-shadow: 0 6px 18px rgba(31,56,100,.28);
+    transition: transform .4s var(--spring), box-shadow .3s ease, background .3s ease;
+  }
+  .nav-cta:hover { background: var(--navy-2); transform: translateY(-1px) scale(1.03); box-shadow: 0 10px 24px rgba(31,56,100,.34); }
+  .nav-cta:active { transform: scale(.97); }
+  .nav-burger {
+    display: none; flex-direction: column; justify-content: center; gap: 5px;
+    width: 42px; height: 42px; padding: 10px; cursor: pointer; background: none; border: 0;
+  }
+  .nav-burger span { height: 2px; width: 100%; background: currentColor; border-radius: 2px; transition: transform .35s var(--spring), opacity .25s; }
+  .nav-burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-burger.open span:nth-child(2) { opacity: 0; }
+  .nav-burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* 移动端毛玻璃菜单 */
+  .mobile-menu {
+    position: fixed; inset: 0; z-index: 190;
+    background: rgba(24,44,78,.55);
+    backdrop-filter: blur(28px) saturate(160%);
+    -webkit-backdrop-filter: blur(28px) saturate(160%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+    opacity: 0; visibility: hidden;
+    transition: opacity .4s var(--ease-out), visibility .4s;
+  }
+  .mobile-menu.open { opacity: 1; visibility: visible; }
+  .mobile-menu a {
+    color: #fff; font-size: 25px; font-weight: 700; padding: 9px 20px;
+    letter-spacing: .06em; opacity: .85;
+    transition: opacity .25s, transform .35s var(--spring);
+  }
+  .mobile-menu a:hover { opacity: 1; transform: scale(1.05); color: var(--sky); }
+  .mobile-menu .mm-num { font-size: 12px; color: var(--sky); letter-spacing: .2em; margin-right: 10px; }
+
+  /* ---------- 首屏 ---------- */
+  .hero {
+    position: relative; min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    color: #fff;
+    background-color: var(--navy-3);
+    background-image:
+      radial-gradient(1100px 560px at 82% -12%, rgba(168,196,228,.32), transparent 62%),
+      radial-gradient(900px 520px at 8% 112%, rgba(44,74,124,.5), transparent 60%),
+      linear-gradient(160deg, #1F3864 0%, #182C4E 55%, #101F38 100%);
+    overflow: hidden;
+  }
+  .hero::before {
+    content: ""; position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+    background-size: 72px 72px;
+    mask-image: radial-gradient(900px 620px at 50% 42%, #000 30%, transparent 78%);
+    -webkit-mask-image: radial-gradient(900px 620px at 50% 42%, #000 30%, transparent 78%);
+  }
+  .hero::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .5;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='0.05'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .hero-inner { position: relative; z-index: 2; text-align: center; padding-top: calc(var(--nav-h) + 30px); }
+  .hero-kicker {
+    display: inline-flex; align-items: center; gap: 14px;
+    font-size: 13px; letter-spacing: .42em; text-transform: uppercase;
+    color: var(--sky); margin-bottom: 30px;
+  }
+  .hero-kicker::before, .hero-kicker::after { content: ""; width: 34px; height: 1px; background: rgba(168,196,228,.45); }
+  .hero-kicker b { color: #fff; font-weight: 700; }
+  .hero-title {
+    font-size: clamp(56px, 9.5vw, 124px);
+    line-height: 1.06; font-weight: 900; letter-spacing: .02em;
+    transform: skewX(-5deg);
+  }
+  .hero-title .line { display: block; }
+  .hero-title .line2 {
+    color: transparent;
+    -webkit-text-stroke: 2px rgba(255,255,255,.9);
+    text-shadow: 0 0 70px rgba(168,196,228,.4);
+  }
+  .hero-en {
+    margin-top: 26px; font-size: 14px; letter-spacing: .5em; text-transform: uppercase;
+    color: rgba(255,255,255,.6);
+  }
+  .hero-sub { margin-top: 22px; font-size: 18px; color: rgba(255,255,255,.85); font-weight: 400; letter-spacing: .06em; }
+  .hero-sub b { color: #fff; font-weight: 600; }
+  .hero-cta { margin-top: 44px; display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 14px 30px; border-radius: 999px;
+    font-size: 15px; font-weight: 600; letter-spacing: .04em;
+    cursor: pointer; border: 1px solid transparent;
+    transition: transform .45s var(--spring), background .3s ease, color .3s ease, border-color .3s ease, box-shadow .35s ease;
+  }
+  .btn:active { transform: scale(.96); }
+  .btn-white { background: #fff; color: var(--navy); box-shadow: 0 10px 30px rgba(10,20,40,.25); }
+  .btn-white:hover { background: var(--sky); color: var(--navy-3); transform: translateY(-2px) scale(1.03); }
+  .btn-ghost { background: transparent; color: #fff; border-color: rgba(255,255,255,.45); }
+  .btn-ghost:hover { border-color: #fff; background: rgba(255,255,255,.1); transform: translateY(-2px) scale(1.03); }
+  .btn-navy { background: var(--navy); color: #fff; box-shadow: 0 10px 26px rgba(31,56,100,.3); }
+  .btn-navy:hover { background: var(--navy-2); transform: translateY(-2px) scale(1.03); }
+  .btn-line { background: transparent; color: var(--navy); border-color: var(--navy); }
+  .btn-line:hover { background: var(--navy); color: #fff; transform: translateY(-2px) scale(1.03); }
+
+  .hero-stats {
+    position: relative; z-index: 2;
+    margin-top: 84px;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid rgba(255,255,255,.14);
+    padding-top: 26px;
+  }
+  .hero-stat { text-align: center; }
+  .hero-stat .num {
+    font-size: clamp(30px, 4vw, 46px); font-weight: 900; color: #fff; line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .hero-stat .num i { font-style: normal; color: var(--sky); font-size: .55em; vertical-align: top; margin-left: 2px; }
+  .hero-stat .lab { margin-top: 8px; font-size: 13px; letter-spacing: .18em; color: rgba(255,255,255,.6); }
+  .scroll-hint {
+    position: absolute; z-index: 2; left: 50%; bottom: 26px; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+    color: rgba(255,255,255,.5); font-size: 11px; letter-spacing: .34em;
+  }
+  .scroll-hint::after {
+    content: ""; width: 1px; height: 44px;
+    background: linear-gradient(180deg, var(--sky), transparent);
+    animation: scrollpulse 1.8s ease-in-out infinite;
+  }
+  @keyframes scrollpulse { 0%,100% { transform: scaleY(.4); transform-origin: top; } 50% { transform: scaleY(1); } }
+
+  /* ---------- 通用区块 ---------- */
+  .section { padding: 112px 0; position: relative; }
+  .section.alt { background: var(--bg-alt); }
+  .sec-head { display: flex; align-items: flex-end; gap: 22px; margin-bottom: 58px; }
+  .sec-no { font-size: 15px; font-weight: 800; color: var(--navy); letter-spacing: .1em; line-height: 1; padding-bottom: 8px; }
+  .sec-kicker {
+    display: block; font-size: 12px; font-weight: 600; letter-spacing: .4em;
+    text-transform: uppercase; color: var(--muted); margin-bottom: 8px;
+  }
+  .sec-title { font-size: clamp(30px, 4.2vw, 44px); font-weight: 900; letter-spacing: .02em; line-height: 1.15; color: var(--navy-3); }
+  .sec-line { flex: 1; height: 1px; background: var(--line); margin-bottom: 12px; }
+  .sec-desc { max-width: 660px; color: var(--ink-2); font-size: 15.5px; }
+  .sec-head .sec-desc { margin-left: auto; }
+
+  /* macOS 弹簧显现 */
+  .reveal {
+    opacity: 0; transform: translateY(30px) scale(.985);
+    transition: opacity .9s var(--ease-out), transform .9s var(--spring);
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* ---------- 个人概况 ---------- */
+  .about-grid { display: grid; grid-template-columns: 340px 1fr; gap: 64px; align-items: start; }
+  .avatar-card {
+    position: relative; border-radius: var(--radius);
+    padding: 42px 34px; color: #fff; overflow: hidden;
+    background: linear-gradient(165deg, var(--navy-2), var(--navy-3));
+    box-shadow: 0 30px 70px rgba(31,56,100,.28);
+  }
+  .avatar-card::before {
+    content: ""; position: absolute; width: 320px; height: 320px; right: -120px; top: -120px;
+    border-radius: 50%; border: 1px solid rgba(255,255,255,.16);
+    box-shadow: 0 0 0 42px rgba(255,255,255,.04), 0 0 0 86px rgba(255,255,255,.025);
+  }
+  .avatar-ring {
+    position: relative; width: 168px; height: 168px; margin: 0 auto;
+    border-radius: 50%; border: 2px solid rgba(255,255,255,.35);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .avatar-ring::before {
+    content: ""; position: absolute; inset: 14px; border-radius: 50%;
+    background: radial-gradient(circle at 32% 28%, var(--sky), var(--navy-2));
+    box-shadow: 0 0 46px rgba(168,196,228,.5);
+  }
+  .avatar-ring .char { position: relative; z-index: 2; font-size: 74px; font-weight: 900; color: #fff; line-height: 1; }
+  .avatar-name { text-align: center; margin-top: 24px; font-size: 24px; font-weight: 800; letter-spacing: .12em; }
+  .avatar-role { text-align: center; margin-top: 6px; font-size: 12.5px; letter-spacing: .24em; color: rgba(255,255,255,.65); }
+  .avatar-quote {
+    position: relative; margin-top: 28px; padding: 18px 0 0 18px;
+    border-left: 3px solid var(--sky);
+    font-size: 13.5px; line-height: 1.9; color: rgba(255,255,255,.88);
+  }
+  .avatar-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 26px; }
+  .avatar-tags span {
+    font-size: 12px; padding: 5px 12px; border-radius: 999px;
+    border: 1px solid rgba(255,255,255,.3); color: rgba(255,255,255,.88);
+  }
+  .about-main .lead { font-size: 19px; line-height: 1.9; color: var(--ink-2); margin-bottom: 34px; }
+  .about-main .lead b { color: var(--navy); }
+  .fact-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+    background: var(--line); border: 1px solid var(--line); border-radius: 14px; overflow: hidden;
+    box-shadow: 0 8px 30px rgba(31,56,100,.05);
+  }
+  .fact { background: #fff; padding: 18px 22px; display: flex; gap: 14px; align-items: flex-start; }
+  .fact .k { width: 86px; flex: 0 0 auto; font-size: 12.5px; color: var(--muted); letter-spacing: .08em; padding-top: 2px; }
+  .fact .v { font-size: 14.5px; font-weight: 600; }
+  .fact .v small { display: block; font-weight: 400; color: var(--ink-2); font-size: 13px; margin-top: 2px; }
+
+  /* ---------- 项目经历 ---------- */
+  .project-grid { display: grid; gap: 28px; }
+  .project-card {
+    position: relative; display: grid; grid-template-columns: 190px 1fr; gap: 44px;
+    background: #fff; border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 44px 48px; overflow: hidden;
+    box-shadow: 0 8px 34px rgba(31,56,100,.05);
+    transition: transform .5s var(--spring), box-shadow .4s var(--ease-out);
+  }
+  .project-card:hover { transform: translateY(-6px) scale(1.006); box-shadow: 0 30px 70px rgba(31,56,100,.14); }
+  .project-card::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: linear-gradient(180deg, var(--navy), var(--sky)); }
+  .project-num { display: flex; flex-direction: column; justify-content: center; border-right: 1px solid var(--line); padding-right: 44px; }
+  .project-num .big { font-size: 78px; font-weight: 900; line-height: .9; color: var(--navy); font-variant-numeric: tabular-nums; }
+  .project-num .big i { font-style: normal; color: var(--slate-2); }
+  .project-num .unit { margin-top: 10px; font-size: 13px; letter-spacing: .2em; color: var(--muted); }
+  .project-info .tag {
+    display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: .14em;
+    color: var(--navy); border: 1px solid rgba(31,56,100,.35); background: rgba(31,56,100,.06);
+    padding: 4px 12px; border-radius: 999px; margin-bottom: 16px;
+  }
+  .project-info h3 { font-size: 26px; font-weight: 800; color: var(--navy-3); }
+  .project-info .meta { margin-top: 6px; font-size: 13.5px; color: var(--muted); letter-spacing: .06em; }
+  .project-info ul { margin-top: 20px; display: grid; gap: 12px; }
+  .project-info li { position: relative; padding-left: 26px; color: var(--ink-2); font-size: 15px; }
+  .project-info li::before {
+    content: ""; position: absolute; left: 0; top: 9px; width: 8px; height: 8px;
+    border-radius: 50%; background: var(--navy);
+    box-shadow: 0 0 0 4px rgba(31,56,100,.12);
+  }
+  .project-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+  .project-tags span { font-size: 12px; color: var(--slate); background: var(--bg-alt); padding: 4px 12px; border-radius: 999px; }
+
+  /* ---------- 在校经历 ---------- */
+  .exp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+  .exp-card {
+    background: #fff; border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 40px 38px;
+    box-shadow: 0 8px 30px rgba(31,56,100,.05);
+    transition: transform .5s var(--spring), box-shadow .4s var(--ease-out);
+  }
+  .exp-card:hover { transform: translateY(-6px) scale(1.006); box-shadow: 0 28px 64px rgba(31,56,100,.13); }
+  .exp-role { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+  .exp-role h3 { font-size: 21px; font-weight: 800; color: var(--navy-3); }
+  .exp-role .school { margin-top: 4px; font-size: 13.5px; color: var(--muted); }
+  .exp-badge {
+    flex: 0 0 auto; font-size: 12px; font-weight: 700; letter-spacing: .1em;
+    color: #fff; background: var(--navy); padding: 5px 12px; border-radius: 999px;
+  }
+  .exp-card ul { margin-top: 22px; display: grid; gap: 14px; }
+  .exp-card li { padding: 14px 0 0; border-top: 1px dashed var(--line); }
+  .exp-card li h4 { font-size: 14.5px; font-weight: 700; color: var(--navy); letter-spacing: .02em; }
+  .exp-card li p { margin-top: 5px; font-size: 14px; color: var(--ink-2); line-height: 1.8; }
+  .exp-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+  .exp-meta span { font-size: 12px; color: var(--slate); background: var(--bg-alt); padding: 4px 12px; border-radius: 999px; }
+
+  /* ---------- 荣誉资质 ---------- */
+  .honor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+  .honor-card {
+    display: flex; gap: 24px; align-items: flex-start;
+    background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 26px 28px;
+    box-shadow: 0 6px 24px rgba(31,56,100,.04);
+    transition: transform .5s var(--spring), box-shadow .4s var(--ease-out);
+  }
+  .honor-card:hover { transform: translateY(-4px) scale(1.01); box-shadow: 0 18px 44px rgba(31,56,100,.1); }
+  .honor-year { flex: 0 0 auto; min-width: 86px; font-size: 26px; font-weight: 900; line-height: 1; color: var(--navy); font-variant-numeric: tabular-nums; }
+  .honor-body h4 { font-size: 16.5px; font-weight: 700; color: var(--navy-3); }
+  .honor-body p { margin-top: 5px; font-size: 13.5px; color: var(--muted); }
+  .honor-card.wide { grid-column: 1 / -1; }
+  .honor-card.gold .honor-year { color: #8A6D1D; }
+
+  /* ---------- 专业技能 ---------- */
+  .skill-grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: 60px; align-items: start; }
+  .meter { margin-bottom: 26px; }
+  .meter .row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 9px; }
+  .meter .name { font-size: 15px; font-weight: 600; }
+  .meter .pct { font-size: 13px; font-weight: 700; color: var(--navy); font-variant-numeric: tabular-nums; }
+  .meter .track { height: 7px; border-radius: 99px; background: #E7ECF4; overflow: hidden; }
+  .meter .fill {
+    height: 100%; width: 0; border-radius: 99px;
+    background: linear-gradient(90deg, var(--navy-2), var(--sky));
+    transition: width 1.2s var(--spring) .2s;
+  }
+  .skill-cards { display: grid; gap: 18px; }
+  .skill-card {
+    background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 24px 26px;
+    display: flex; gap: 18px;
+    box-shadow: 0 6px 24px rgba(31,56,100,.04);
+    transition: transform .5s var(--spring), box-shadow .4s var(--ease-out);
+  }
+  .skill-card:hover { transform: translateY(-4px) scale(1.01); box-shadow: 0 18px 44px rgba(31,56,100,.1); }
+  .skill-ico {
+    flex: 0 0 auto; width: 44px; height: 44px; border-radius: 12px;
+    background: rgba(31,56,100,.08); color: var(--navy);
+    display: flex; align-items: center; justify-content: center; font-size: 19px; font-weight: 800;
+  }
+  .skill-card h4 { font-size: 16px; font-weight: 700; color: var(--navy-3); }
+  .skill-card p { margin-top: 6px; font-size: 13.5px; color: var(--ink-2); line-height: 1.8; }
+
+  /* ---------- 行政档案体系 ---------- */
+  .archive-stats {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-bottom: 46px;
+  }
+  .archive-stat {
+    background: #fff; border: 1px solid var(--line); border-radius: 14px;
+    padding: 26px 24px; text-align: center;
+    box-shadow: 0 8px 28px rgba(31,56,100,.05);
+    transition: transform .5s var(--spring), box-shadow .4s var(--ease-out);
+  }
+  .archive-stat:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 18px 44px rgba(31,56,100,.1); }
+  .archive-stat .num { font-size: 38px; font-weight: 900; color: var(--navy); line-height: 1; font-variant-numeric: tabular-nums; }
+  .archive-stat .num i { font-style: normal; color: var(--slate-2); font-size: .55em; margin-left: 2px; }
+  .archive-stat .lab { margin-top: 10px; font-size: 13px; color: var(--muted); letter-spacing: .1em; }
+
+  .archive-panel {
+    background: #fff; border: 1px solid var(--line); border-radius: 20px; overflow: hidden;
+    box-shadow: 0 20px 60px rgba(31,56,100,.1);
+  }
+  .panel-bar {
+    display: flex; align-items: center; gap: 10px;
+    padding: 13px 20px; background: rgba(255,255,255,.75);
+    border-bottom: 1px solid var(--line);
+    backdrop-filter: blur(14px) saturate(160%);
+    -webkit-backdrop-filter: blur(14px) saturate(160%);
+  }
+  .traffic { display: flex; gap: 7px; flex: 0 0 auto; }
+  .traffic i { width: 12px; height: 12px; border-radius: 50%; display: block; }
+  .traffic i:nth-child(1) { background: #FF5F57; }
+  .traffic i:nth-child(2) { background: #FEBC2E; }
+  .traffic i:nth-child(3) { background: #28C840; }
+  .panel-title { font-size: 13px; font-weight: 600; color: var(--ink-2); letter-spacing: .04em; }
+  .panel-title b { color: var(--navy); }
+
+  .archive-toolbar {
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    padding: 18px 22px; flex-wrap: wrap;
+  }
+  .search {
+    display: flex; align-items: center; gap: 10px; flex: 1; min-width: 240px; max-width: 420px;
+    background: var(--bg-alt); border: 1px solid var(--line); border-radius: 999px;
+    padding: 10px 18px;
+    transition: border-color .3s, box-shadow .3s, background .3s;
+  }
+  .search:focus-within { border-color: var(--navy); box-shadow: 0 0 0 3px rgba(31,56,100,.12); background: #fff; }
+  .search svg { flex: 0 0 auto; }
+  .search input { border: 0; background: none; outline: none; font-size: 14px; width: 100%; color: var(--ink); }
+  .archive-count { font-size: 13px; color: var(--muted); white-space: nowrap; }
+  .archive-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; padding: 4px 22px 22px; }
+  .cat-card {
+    position: relative; border: 1px solid var(--line); border-radius: 14px;
+    padding: 18px 18px 16px; background: #fff;
+    transition: transform .45s var(--spring), box-shadow .35s var(--ease-out), border-color .3s;
+  }
+  .cat-card:hover { transform: translateY(-4px) scale(1.015); border-color: var(--sky); box-shadow: 0 16px 40px rgba(31,56,100,.12); }
+  .cat-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .cat-code { font-size: 12px; font-weight: 800; letter-spacing: .1em; color: var(--navy); background: rgba(31,56,100,.07); padding: 3px 9px; border-radius: 7px; }
+  .cat-count { font-size: 12px; font-weight: 700; color: var(--slate); background: var(--bg-alt); padding: 3px 10px; border-radius: 999px; white-space: nowrap; }
+  .cat-name { margin-top: 12px; font-size: 15.5px; font-weight: 700; color: var(--navy-3); line-height: 1.45; }
+  .cat-desc { margin-top: 7px; font-size: 12.5px; color: var(--ink-2); line-height: 1.75; }
+  .cat-size { margin-top: 10px; font-size: 11.5px; color: var(--muted); letter-spacing: .06em; }
+  .cat-card.hidden { display: none; }
+
+  .workflow { margin-top: 46px; }
+  .flow-steps {
+    display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px;
+    counter-reset: flow;
+  }
+  .flow-step {
+    position: relative; background: #fff; border: 1px solid var(--line); border-radius: 14px;
+    padding: 20px 16px 16px; text-align: center;
+    transition: transform .45s var(--spring), box-shadow .35s var(--ease-out), border-color .3s;
+  }
+  .flow-step:hover { transform: translateY(-5px) scale(1.03); border-color: var(--sky); box-shadow: 0 16px 40px rgba(31,56,100,.12); }
+  .flow-step .ico {
+    width: 42px; height: 42px; margin: 0 auto 12px; border-radius: 13px;
+    background: linear-gradient(150deg, var(--navy-2), var(--navy));
+    color: #fff; display: flex; align-items: center; justify-content: center;
+    font-size: 17px; font-weight: 800; box-shadow: 0 8px 20px rgba(31,56,100,.3);
+  }
+  .flow-step h4 { font-size: 14px; font-weight: 700; color: var(--navy-3); }
+  .flow-step p { margin-top: 5px; font-size: 11.5px; color: var(--muted); line-height: 1.6; }
+
+  /* 脱敏台账样例 */
+  .samples { margin-top: 46px; }
+  .seg {
+    display: inline-flex; gap: 4px; padding: 5px; border-radius: 12px;
+    background: #E9EDF4; border: 1px solid var(--line);
+    margin-bottom: 20px; flex-wrap: wrap;
+  }
+  .seg button {
+    border: 0; background: none; padding: 9px 18px; border-radius: 9px;
+    font-size: 13.5px; font-weight: 600; color: var(--ink-2); cursor: pointer;
+    transition: background .35s var(--ease-out), color .3s, box-shadow .35s var(--spring), transform .35s var(--spring);
+  }
+  .seg button:hover { transform: translateY(-1px); }
+  .seg button.active { background: #fff; color: var(--navy); box-shadow: 0 4px 14px rgba(31,56,100,.16); }
+  .sample-panel { display: none; }
+  .sample-panel.active { display: block; animation: panelIn .5s var(--spring); }
+  @keyframes panelIn { from { opacity: 0; transform: translateY(10px) scale(.99); } to { opacity: 1; transform: none; } }
+  .sample-table-wrap {
+    background: #fff; border: 1px solid var(--line); border-radius: 16px; overflow: hidden;
+    box-shadow: 0 10px 36px rgba(31,56,100,.07);
+  }
+  .sample-table-wrap { overflow-x: auto; }
+  .sample-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  .sample-table th {
+    background: var(--navy); color: #fff; font-weight: 600; font-size: 13px;
+    padding: 12px 14px; text-align: left; white-space: nowrap;
+    letter-spacing: .03em;
+  }
+  .sample-table td { padding: 11px 14px; border-bottom: 1px solid var(--line); color: var(--ink-2); white-space: nowrap; }
+  .sample-table tr:nth-child(even) td { background: var(--bg-alt); }
+  .sample-table .masked { color: var(--slate); font-family: ui-monospace, "SF Mono", Consolas, monospace; font-size: 12.5px; }
+  .sample-note {
+    display: flex; align-items: center; gap: 10px; margin-top: 14px;
+    font-size: 12.5px; color: var(--muted);
+  }
+  .sample-note .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--sky); flex: 0 0 auto; }
+
+  /* ---------- 公文与写作 ---------- */
+  .writing-card {
+    background: #fff; border: 1px solid var(--line); border-radius: 20px; overflow: hidden;
+    box-shadow: 0 20px 60px rgba(31,56,100,.1);
+    display: grid; grid-template-columns: 1.35fr 1fr;
+  }
+  .writing-body { padding: 44px 46px; }
+  .writing-tag {
+    display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: .12em;
+    color: var(--navy); background: rgba(31,56,100,.07); border: 1px solid rgba(31,56,100,.2);
+    padding: 4px 12px; border-radius: 999px; margin-bottom: 18px;
+  }
+  .writing-body h3 { font-size: 25px; font-weight: 800; color: var(--navy-3); line-height: 1.4; }
+  .writing-body .meta { margin-top: 8px; font-size: 13px; color: var(--muted); letter-spacing: .05em; }
+  .writing-body blockquote {
+    position: relative; margin-top: 24px; padding: 22px 24px;
+    background: var(--bg-alt); border-radius: 12px; border-left: 3px solid var(--navy);
+    font-size: 14.5px; line-height: 2; color: var(--ink-2);
+  }
+  .writing-actions { display: flex; gap: 12px; margin-top: 28px; flex-wrap: wrap; }
+  .writing-side {
+    display: flex; flex-direction: column; justify-content: center; gap: 14px;
+    padding: 40px 42px; color: #fff;
+    background: linear-gradient(160deg, var(--navy-2), var(--navy-3));
+  }
+  .writing-side .k { font-size: 12px; letter-spacing: .28em; color: var(--sky); text-transform: uppercase; }
+  .writing-side .v { font-size: 15px; font-weight: 600; line-height: 1.6; }
+  .writing-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .writing-chips span {
+    font-size: 12px; padding: 5px 13px; border-radius: 999px;
+    background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.22);
+  }
+
+  /* ---------- 作品集 ---------- */
+  .portfolio-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 46px; flex-wrap: wrap; }
+  .portfolio-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+  .folio-card {
+    background: #fff; border: 1px solid var(--line); border-radius: 14px; overflow: hidden;
+    cursor: pointer; position: relative;
+    box-shadow: 0 8px 28px rgba(31,56,100,.05);
+    transition: transform .5s var(--spring), box-shadow .45s var(--ease-out), z-index 0s;
+  }
+  .folio-card:hover { transform: translateY(-8px) scale(1.03); box-shadow: 0 30px 64px rgba(31,56,100,.18); z-index: 5; }
+  .folio-thumb { position: relative; aspect-ratio: 210 / 297; overflow: hidden; background: #EFF2F8; }
+  .folio-thumb img { width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform .6s var(--ease-out); }
+  .folio-card:hover .folio-thumb img { transform: scale(1.05); }
+  .folio-thumb .no {
+    position: absolute; left: 12px; top: 12px; z-index: 2;
+    font-size: 11px; font-weight: 800; letter-spacing: .08em;
+    color: #fff; background: rgba(24,44,78,.78);
+    padding: 4px 10px; border-radius: 999px;
+    backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  }
+  .folio-thumb .sample-badge {
+    position: absolute; right: 12px; top: 12px; z-index: 2;
+    font-size: 10.5px; font-weight: 700; letter-spacing: .06em;
+    color: #fff; background: var(--navy-2); padding: 4px 9px; border-radius: 999px;
+  }
+  .folio-body { padding: 16px 18px 18px; }
+  .folio-body h4 { font-size: 14.5px; font-weight: 700; line-height: 1.5; color: var(--navy-3); }
+  .folio-body p { margin-top: 5px; font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+  /* ---------- 联系与页脚 ---------- */
+  .contact-band {
+    background: linear-gradient(155deg, var(--navy-2), var(--navy-3));
+    color: #fff; border-radius: 22px;
+    padding: 64px 56px; position: relative; overflow: hidden;
+    box-shadow: 0 30px 80px rgba(31,56,100,.3);
+  }
+  .contact-band::before {
+    content: ""; position: absolute; width: 420px; height: 420px; right: -140px; top: -180px;
+    border-radius: 50%; border: 1px solid rgba(255,255,255,.16);
+    box-shadow: 0 0 0 60px rgba(255,255,255,.04), 0 0 0 120px rgba(255,255,255,.02);
+  }
+  .contact-band::after {
+    content: ""; position: absolute; width: 300px; height: 300px; left: -110px; bottom: -160px;
+    border-radius: 50%; background: radial-gradient(circle, rgba(168,196,228,.45), transparent 70%);
+  }
+  .contact-band .wrap { position: relative; z-index: 2; padding: 0; }
+  .contact-kicker { font-size: 12px; letter-spacing: .4em; color: var(--sky); text-transform: uppercase; }
+  .contact-band h2 { margin-top: 14px; font-size: clamp(28px, 4vw, 42px); font-weight: 900; line-height: 1.25; }
+  .contact-band h2 span { color: var(--sky); }
+  .contact-band .sub { margin-top: 14px; color: rgba(255,255,255,.7); font-size: 15px; max-width: 560px; }
+  .contact-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 44px; }
+  .contact-card {
+    background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.16);
+    border-radius: 14px; padding: 22px;
+    transition: background .35s var(--ease-out), transform .45s var(--spring);
+  }
+  .contact-card:hover { background: rgba(255,255,255,.13); transform: translateY(-4px) scale(1.02); }
+  .contact-card .k { font-size: 11.5px; letter-spacing: .22em; color: rgba(255,255,255,.55); }
+  .contact-card .v { margin-top: 8px; font-size: 16px; font-weight: 700; word-break: break-all; }
+  .contact-card a.v:hover { color: var(--sky); }
+  .contact-actions { margin-top: 34px; display: flex; gap: 14px; flex-wrap: wrap; }
+
+  footer { background: #0D1A30; color: rgba(255,255,255,.55); padding: 44px 0 36px; }
+  .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+  .footer-brand { display: flex; align-items: center; gap: 12px; }
+  .footer-brand .dot { width: 12px; height: 12px; border-radius: 50%; background: var(--sky); box-shadow: 0 0 14px rgba(168,196,228,.8); }
+  .footer-brand b { color: #fff; font-size: 16px; letter-spacing: .1em; }
+  .footer-en { font-size: 11px; letter-spacing: .34em; text-transform: uppercase; }
+  .footer-right { display: flex; align-items: center; gap: 24px; font-size: 12.5px; flex-wrap: wrap; }
+  .footer-right a:hover { color: #fff; }
+  .back-top {
+    display: inline-flex; align-items: center; gap: 8px; font-size: 13px;
+    color: #fff; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.16);
+    padding: 9px 18px; border-radius: 999px;
+    transition: background .3s ease, transform .4s var(--spring);
+  }
+  .back-top:hover { background: var(--navy-2); border-color: var(--navy-2); transform: translateY(-2px); }
+
+  /* ---------- macOS 窗口灯箱 ---------- */
+  .lightbox {
+    position: fixed; inset: 0; z-index: 500;
+    background: rgba(13,26,48,.6);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    opacity: 0; visibility: hidden;
+    transition: opacity .45s var(--ease-out), visibility .45s;
+    padding: 40px;
+  }
+  .lightbox.open { opacity: 1; visibility: visible; }
+  .lb-window {
+    width: min(920px, 94vw);
+    background: rgba(255,255,255,.92);
+    backdrop-filter: blur(30px) saturate(180%);
+    -webkit-backdrop-filter: blur(30px) saturate(180%);
+    border-radius: 18px; overflow: hidden;
+    border: 1px solid rgba(255,255,255,.5);
+    box-shadow: 0 50px 140px rgba(5,12,25,.6);
+    transform: scale(.9) translateY(24px);
+    transition: transform .6s var(--spring);
+  }
+  .lightbox.open .lb-window { transform: none; }
+  .lb-titlebar {
+    display: flex; align-items: center; gap: 12px;
+    padding: 13px 18px; border-bottom: 1px solid var(--line);
+    background: rgba(255,255,255,.65);
+  }
+  .lb-titlebar .traffic { cursor: pointer; }
+  .lb-titlebar .t-red:hover { background: #e0403a; }
+  .lb-title { font-size: 13.5px; font-weight: 600; color: var(--ink-2); letter-spacing: .03em; }
+  .lb-stage { max-height: 68vh; overflow: auto; background: #E9EDF4; }
+  .lb-stage img { width: 100%; height: auto; transition: opacity .35s ease; }
+  .lb-stage img.swap { opacity: 0; }
+  .lb-caption {
+    padding: 18px 22px 20px; text-align: center;
+    border-top: 1px solid var(--line);
+  }
+  .lb-caption h4 { font-size: 17px; font-weight: 800; color: var(--navy-3); }
+  .lb-caption p { margin-top: 5px; font-size: 13.5px; line-height: 1.8; color: var(--ink-2); }
+  .lb-foot { display: flex; justify-content: center; gap: 14px; margin-top: 14px; flex-wrap: wrap; }
+  .lb-btn {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 52px; height: 52px; border-radius: 50%;
+    border: 1px solid rgba(255,255,255,.28); background: rgba(255,255,255,.1);
+    color: #fff; font-size: 26px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    transition: background .3s, transform .45s var(--spring);
+  }
+  .lb-btn:hover { background: var(--navy-2); transform: translateY(-50%) scale(1.12); }
+  .lb-prev { left: 30px; }
+  .lb-next { right: 30px; }
+  .lb-btn-sm {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 13.5px; font-weight: 600; color: var(--navy);
+    background: #fff; border: 1px solid var(--navy);
+    padding: 9px 20px; border-radius: 999px; cursor: pointer;
+    transition: transform .45s var(--spring), background .3s, color .3s;
+  }
+  .lb-btn-sm:hover { background: var(--navy); color: #fff; transform: scale(1.04); }
+  .lb-btn-sm:active { transform: scale(.96); }
+
+  /* ---------- 响应式 ---------- */
+  @media (max-width: 1120px) {
+    .archive-grid { grid-template-columns: repeat(2, 1fr); }
+    .portfolio-grid { grid-template-columns: repeat(3, 1fr); }
+    .about-grid { grid-template-columns: 1fr; gap: 44px; }
+    .avatar-card { max-width: 420px; }
+    .writing-card { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 920px) {
+    .nav-links, .nav-cta { display: none; }
+    .nav-burger { display: flex; }
+    .exp-grid, .honor-grid, .skill-grid, .contact-cards, .archive-stats { grid-template-columns: 1fr; }
+    .flow-steps { grid-template-columns: repeat(3, 1fr); }
+    .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+    .project-card { grid-template-columns: 1fr; gap: 28px; }
+    .project-num { border-right: 0; border-bottom: 1px solid var(--line); padding-right: 0; padding-bottom: 24px; }
+    .section { padding: 84px 0; }
+    .hero-stats { grid-template-columns: repeat(2, 1fr); gap: 28px 0; }
+    .hero-title { transform: skewX(-4deg); }
+    .contact-band { padding: 52px 28px; }
+    .lb-prev { left: 14px; }
+    .lb-next { right: 14px; }
+  }
+  @media (max-width: 560px) {
+    .hero-inner { padding-top: calc(var(--nav-h) + 14px); }
+    .hero-kicker { font-size: 10px; letter-spacing: .22em; gap: 10px; }
+    .hero-kicker::before, .hero-kicker::after { width: 18px; }
+    .hero-title { font-size: clamp(46px, 14vw, 66px); transform: skewX(-3deg); }
+    .hero-en { font-size: 10px; letter-spacing: .16em; }
+    .hero-sub { font-size: 14.5px; letter-spacing: .02em; }
+    .hero-cta { margin-top: 32px; }
+    .archive-grid { grid-template-columns: 1fr; }
+    .flow-steps { grid-template-columns: repeat(2, 1fr); }
+    .portfolio-grid { grid-template-columns: 1fr; gap: 12px; }
+    .folio-card { display: flex; }
+    .folio-thumb { width: 96px; flex: 0 0 auto; aspect-ratio: 210 / 297; }
+    .folio-body { padding: 14px; display: flex; flex-direction: column; justify-content: center; }
+    .folio-body h4 { font-size: 13.5px; }
+    .folio-body p {
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+      font-size: 11.5px;
+    }
+    .fact-grid { grid-template-columns: 1fr; }
+    .btn { padding: 12px 22px; font-size: 14px; }
+    .contact-band { padding: 44px 22px; }
+    .contact-cards { margin-top: 32px; }
+    .writing-body, .writing-side { padding: 30px 24px; }
+    .sample-table th, .sample-table td { padding: 9px 10px; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<!-- 顶部导航 -->
+<nav class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span>
+        <span class="brand-name">翟靖昊</span>
+        <span class="brand-sub">Zhai Jinghao</span>
+      </span>
+    </a>
+    <div class="nav-links">
+      <a href="#about" class="active">个人概况</a>
+      <a href="#project">项目经历</a>
+      <a href="#experience">在校经历</a>
+      <a href="#honors">荣誉资质</a>
+      <a href="#skills">专业技能</a>
+      <a href="#archive">档案体系</a>
+      <a href="#portfolio">作品集</a>
+      <a href="#contact">联系方式</a>
+    </div>
+    <a class="nav-cta" href="assets/简历-翟靖昊-行政方向-优化版-20260812.docx" download>下载简历</a>
+    <button class="nav-burger" id="burger" aria-label="菜单">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- 移动端菜单 -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about"><span class="mm-num">01</span>个人概况</a>
+  <a href="#project"><span class="mm-num">02</span>项目经历</a>
+  <a href="#experience"><span class="mm-num">03</span>在校经历</a>
+  <a href="#honors"><span class="mm-num">04</span>荣誉资质</a>
+  <a href="#skills"><span class="mm-num">05</span>专业技能</a>
+  <a href="#archive"><span class="mm-num">06</span>行政档案体系</a>
+  <a href="#portfolio"><span class="mm-num">07</span>作品集</a>
+  <a href="#contact"><span class="mm-num">08</span>联系方式</a>
+</div>
+
+<!-- 首屏 -->
+<header class="hero" id="top">
+  <div class="wrap hero-inner" id="heroInner">
+    <div class="hero-kicker"><b>ADMIN</b> · EXECUTION · ARCHIVE</div>
+    <h1 class="hero-title">
+      <span class="line">稳步向前</span>
+      <span class="line line2">细致归档</span>
+    </h1>
+    <div class="hero-en">Steady Progress · Every Detail Matters</div>
+    <p class="hero-sub">求职意向：<b>行政专员 / 行政助理 / 人事行政助理</b></p>
+    <div class="hero-cta">
+      <a class="btn btn-white" href="#archive">查看行政档案 ↓</a>
+      <a class="btn btn-ghost" href="#contact">联系我</a>
+    </div>
+  </div>
+  <div class="wrap hero-stats">
+    <div class="hero-stat"><div class="num">354<i>人</i></div><div class="lab">信息台账管理</div></div>
+    <div class="hero-stat"><div class="num">124<i>人</i></div><div class="lab">报名统筹零差错</div></div>
+    <div class="hero-stat"><div class="num">2011<i>份</i></div><div class="lab">文件分类归档</div></div>
+    <div class="hero-stat"><div class="num">22<i>类</i></div><div class="lab">档案体系</div></div>
+  </div>
+  <div class="scroll-hint">SCROLL</div>
+</header>
+
+<!-- 01 个人概况 -->
+<section class="section" id="about">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-no">01</span>
+      <div>
+        <span class="sec-kicker">About</span>
+        <h2 class="sec-title">个人概况</h2>
+      </div>
+      <span class="sec-line"></span>
+    </div>
+    <div class="about-grid">
+      <div class="avatar-card reveal">
+        <div class="avatar-ring"><span class="char">翟</span></div>
+        <div class="avatar-name">翟靖昊</div>
+        <div class="avatar-role">行政方向 · 应届毕业生</div>
+        <p class="avatar-quote">愿从基础做起、长期稳定发展，用严谨与细致做好每一件事。</p>
+        <div class="avatar-tags">
+          <span>中共党员</span><span>校级优秀毕业生</span><span>国家励志奖学金</span>
+        </div>
+      </div>
+      <div class="about-main reveal">
+        <p class="lead">行政事务与活动执行经验扎实：<b>独立管理 354 人台账</b>、<b>统筹 124 人技能等级认定报名</b>，并搭建覆盖 <b>2011 份文件的 22 类行政档案体系</b>；擅长数据整理、公文写作与多方沟通，可快速上手<b>行政 / 人事行政助理</b>岗位。</p>
+        <div class="fact-grid">
+          <div class="fact"><span class="k">姓名</span><span class="v">翟靖昊</span></div>
+          <div class="fact"><span class="k">求职意向</span><span class="v">行政专员 / 行政助理<small>人事行政助理</small></span></div>
+          <div class="fact"><span class="k">教育背景</span><span class="v">辽宁工程职业学院<small>电气自动化技术 · 全日制专科</small></span></div>
+          <div class="fact"><span class="k">学制</span><span class="v">2023.09 – 2026.07</span></div>
+          <div class="fact"><span class="k">政治面貌</span><span class="v">中共党员<small>2026.06 加入</small></span></div>
+          <div class="fact"><span class="k">到岗时间</span><span class="v">随时</span></div>
+          <div class="fact"><span class="k">电话</span><span class="v">19529100661</span></div>
+          <div class="fact"><span class="k">邮箱</span><span class="v" style="font-size:13.5px">z3090194616@outlook.com</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 项目经历 -->
+<section class="section alt" id="project">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-no">02</span>
+      <div>
+        <span class="sec-kicker">Key Projects</span>
+        <h2 class="sec-title">项目经历</h2>
+      </div>
+      <span class="sec-line"></span>
+    </div>
+    <div class="project-grid">
+      <div class="project-card reveal">
+        <div class="project-num">
+          <div class="big">124<i>人</i></div>
+          <div class="unit">统筹报名 · 零差错</div>
+        </div>
+        <div class="project-info">
+          <span class="tag">职业技能等级认定</span>
+          <h3>电工（三级）报名统筹</h3>
+          <div class="meta">2025 – 2026 · 辽宁工程职业学院</div>
+          <ul>
+            <li>统筹 124 名学生电工（三级）认定的<b>报名组织、信息核对与团体材料报送</b>，全流程零差错。</li>
+            <li>牵头整理团体学籍名册等申报材料，<b>支撑 6 类学生事务顺利落地</b>；经手材料已制成脱敏样例，附 8 页作品集备查。</li>
+          </ul>
+          <div class="project-tags">
+            <span>报名统筹</span><span>信息核对</span><span>团体报送</span><span>零差错</span>
+          </div>
+        </div>
+      </div>
+      <div class="project-card reveal">
+        <div class="project-num">
+          <div class="big">2011<i>份</i></div>
+          <div class="unit">22 类 · 6.7 GB</div>
+        </div>
+        <div class="project-info">
+          <span class="tag">行政档案体系建设</span>
+          <h3>学校文件分类整理体系</h3>
+          <div class="meta">2023 – 2026 · 覆盖 5 个班级日常事务</div>
+          <ul>
+            <li>对经手的 <b>2011 份学校文件</b>进行系统梳理，设计 <b>C01–C22 共 22 类分类体系</b>，覆盖花名册、成绩、综测、考证报名、党团、评优、医保等全业务。</li>
+            <li>编写<b>分类总览清单与文件索引</b>（编号 / 名称 / 用途 / 文件数 / 存放位置），实现“按类可查、按名可找、长期留痕”。</li>
+            <li>全程以台账思维管理：<b>收、核、报、存</b>各环节留痕，敏感个人信息一律脱敏归档。</li>
+          </ul>
+          <div class="project-tags">
+            <span>分类体系</span><span>文件索引</span><span>台账化</span><span>脱敏归档</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 在校经历 -->
+<section class="section" id="experience">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-no">03</span>
+      <div>
+        <span class="sec-kicker">Campus Experience</span>
+        <h2 class="sec-title">在校经历</h2>
+      </div>
+      <span class="sec-line"></span>
+    </div>
+    <div class="exp-grid">
+      <article class="exp-card reveal">
+        <div class="exp-role">
+          <div>
+            <h3>辅导员助理</h3>
+            <div class="school">行政事务方向 · 辽宁工程职业学院</div>
+          </div>
+          <span class="exp-badge">行政事务</span>
+        </div>
+        <ul>
+          <li>
+            <h4>信息与档案管理</h4>
+            <p>独立管理 354 名学生信息台账与档案，统筹考试报名、评优材料收集，运用 Word / Excel 批量完成数据录入与核对，全流程零差错归档。</p>
+          </li>
+          <li>
+            <h4>活动统筹执行</h4>
+            <p>全程参与多场校园活动的筹备、人员对接、现场执行与复盘，熟悉会务、物料与流程管控全链条。</p>
+          </li>
+          <li>
+            <h4>多任务并行</h4>
+            <p>长期同步跟进 3 项以上事务，清单化推进、节点确认，沟通协调与文书处理效率高。</p>
+          </li>
+        </ul>
+        <div class="exp-meta">
+          <span>花名册台账</span><span>成绩汇总</span><span>考证报名</span><span>医保采集</span><span>评优材料</span><span>活动执行</span>
+        </div>
+      </article>
+      <article class="exp-card reveal">
+        <div class="exp-role">
+          <div>
+            <h3>班级团支部书记</h3>
+            <div class="school">辽宁工程职业学院</div>
+          </div>
+          <span class="exp-badge">组织管理</span>
+        </div>
+        <ul>
+          <li>
+            <h4>制度建设与台账管理</h4>
+            <p>完善团支部组织架构与团员档案制度，规范团费收缴并建立清晰准确的收缴记录。</p>
+          </li>
+          <li>
+            <h4>活动组织执行</h4>
+            <p>以线上线下结合方式组织“青年大学习”等主题团课，负责通知、签到、纪要等会务全流程。</p>
+          </li>
+          <li>
+            <h4>公文材料写作</h4>
+            <p>独立撰写工作计划、工作总结、活动方案、主题征文等材料，文字表达规范、条理清晰。</p>
+          </li>
+        </ul>
+        <div class="exp-meta">
+          <span>团费台账</span><span>主题团课</span><span>青年大学习</span><span>通知纪要</span><span>公文写作</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 04 荣誉与资质 -->
+<section class="section alt" id="honors">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-no">04</span>
+      <div>
+        <span class="sec-kicker">Honors &amp; Certificates</span>
+        <h2 class="sec-title">荣誉与资质</h2>
+      </div>
+      <span class="sec-line"></span>
+    </div>
+    <div class="honor-grid">
+      <div class="honor-card reveal"><span class="honor-year">2026</span><div class="honor-body"><h4>加入中国共产党</h4><p>2026.06 入党 · 校级“优秀毕业生”</p></div></div>
+      <div class="honor-card reveal"><span class="honor-year">2025</span><div class="honor-body"><h4>院级“优秀团员”</h4><p>院级“优秀学生干部”</p></div></div>
+      <div class="honor-card gold reveal"><span class="honor-year">2024</span><div class="honor-body"><h4>国家励志奖学金</h4><p>国家级励志奖学金荣誉</p></div></div>
+      <div class="honor-card reveal"><span class="honor-year">2024</span><div class="honor-body"><h4>辽宁省职业技能大赛“智能制造”赛项</h4><p>第 12 名</p></div></div>
+      <div class="honor-card wide reveal"><span class="honor-year">资质</span><div class="honor-body"><h4>语言与技能资质</h4><p>大学英语 B 级（基础英文邮件与日常书面沟通）｜ 普通话二级乙等 ｜ PS / SAI2 基础图文处理。以上荣誉与资质均可在学校存档材料中查证，证书原件备查。</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 专业技能 -->
+<section class="section" id="skills">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-no">05</span>
+      <div>
+        <span class="sec-kicker">Skills</span>
+        <h2 class="sec-title">专业技能</h2>
+      </div>
+      <span class="sec-line"></span>
+    </div>
+    <div class="skill-grid">
+      <div class="reveal">
+        <div class="meter"><div class="row"><span class="name">Word · 台账与公文排版</span><span class="pct">95%</span></div><div class="track"><div class="fill" data-w="95"></div></div></div>
+        <div class="meter"><div class="row"><span class="name">Excel · 数据录入 / 函数 / 透视表</span><span class="pct">92%</span></div><div class="track"><div class="fill" data-w="92"></div></div></div>
+        <div class="meter"><div class="row"><span class="name">档案分类与台账体系建设</span><span class="pct">93%</span></div><div class="track"><div class="fill" data-w="93"></div></div></div>
+        <div class="meter"><div class="row"><span class="name">公文写作 · 计划 / 总结 / 方案 / 征文</span><span class="pct">92%</span></div><div class="track"><div class="fill" data-w="92"></div></div></div>
+        <div class="meter"><div class="row"><span class="name">会务统筹 · 通知 / 签到 / 纪要 / 执行</span><span class="pct">90%</span></div><div class="track"><div class="fill" data-w="90"></div></div></div>
+        <div class="meter"><div class="row"><span class="name">PPT · 汇报演示制作</span><span class="pct">88%</span></div><div class="track"><div class="fill" data-w="88"></div></div></div>
+      </div>
+      <div class="skill-cards">
+        <div class="skill-card reveal"><span class="skill-ico">办</span><div><h4>办公软件</h4><p>Word（台账与公文排版）、Excel（数据录入、函数与数据透视表）、PPT（汇报演示制作）。</p></div></div>
+        <div class="skill-card reveal"><span class="skill-ico">档</span><div><h4>档案与台账</h4><p>22 类档案分类体系搭建、文件索引与留痕管理；批量数据录入、交叉核对、脱敏归档。</p></div></div>
+        <div class="skill-card reveal"><span class="skill-ico">文</span><div><h4>公文与会务</h4><p>工作计划 / 总结 / 方案 / 征文写作；通知、签到、纪要等会务全流程；PS / SAI2 基础图文处理。</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 行政档案体系 -->
+<section class="section alt" id="archive">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-no">06</span>
+      <div>
+        <span class="sec-kicker">Admin Archive</span>
+        <h2 class="sec-title">行政档案体系</h2>
+      </div>
+      <span class="sec-line"></span>
+    </div>
+    <div class="archive-stats reveal">
+      <div class="archive-stat"><div class="num">2011<i>份</i></div><div class="lab">经手文件总量</div></div>
+      <div class="archive-stat"><div class="num">22<i>类</i></div><div class="lab">分类体系 C01–C22</div></div>
+      <div class="archive-stat"><div class="num">6.7<i>GB</i></div><div class="lab">归档容量管理</div></div>
+      <div class="archive-stat"><div class="num">5<i>个</i></div><div class="lab">班级业务覆盖</div></div>
+    </div>
+
+    <div class="archive-panel reveal">
+      <div class="panel-bar">
+        <span class="traffic"><i></i><i></i><i></i></span>
+        <span class="panel-title">档案总览 · <b>分类总览清单（脱敏版）</b></span>
+      </div>
+      <div class="archive-toolbar">
+        <label class="search">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#7B879E" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+          <input type="text" id="catSearch" placeholder="搜索分类，如：考证、医保、党团…" autocomplete="off">
+        </label>
+        <span class="archive-count" id="catCount">显示 22 / 22 类</span>
+      </div>
+      <div class="archive-grid" id="catGrid">
+        <div class="cat-card reveal" data-name="学生花名册与基本信息" data-desc="各班名单、花名册、录取学籍信息、新生信息导入表等基础信息">
+          <div class="cat-head"><span class="cat-code">C01</span><span class="cat-count">76 文件</span></div>
+          <div class="cat-name">学生花名册与基本信息</div>
+          <div class="cat-desc">各班学生名单、花名册、录取 / 学籍信息、新生信息导入表等基础信息（数据脱敏归档）。</div>
+          <div class="cat-size">31.4 MB</div>
+        </div>
+        <div class="cat-card reveal" data-name="成绩与排名" data-desc="期末成绩、平均成绩、班级专业排名、成绩汇总">
+          <div class="cat-head"><span class="cat-code">C02</span><span class="cat-count">38 文件</span></div>
+          <div class="cat-name">成绩与排名</div>
+          <div class="cat-desc">期末成绩、平均成绩、班级 / 专业排名、成绩汇总表（个人成绩脱敏处理）。</div>
+          <div class="cat-size">3.0 MB</div>
+        </div>
+        <div class="cat-card reveal" data-name="综合素质测评" data-desc="综合素质测评表、每月综合成绩与扣分明细、综测排名">
+          <div class="cat-head"><span class="cat-code">C03</span><span class="cat-count">54 文件</span></div>
+          <div class="cat-name">综合素质测评</div>
+          <div class="cat-desc">综合素质测评表、每月综合成绩与扣分明细、综合素质评价排名。</div>
+          <div class="cat-size">25.8 MB</div>
+        </div>
+        <div class="cat-card reveal" data-name="考试报名与考证" data-desc="英语A/B级、四级、日语报名、电工等级认定及报考材料">
+          <div class="cat-head"><span class="cat-code">C04</span><span class="cat-count">354 文件</span></div>
+          <div class="cat-name">考试报名与考证（英语、日语、电工等）</div>
+          <div class="cat-desc">英语 A/B 级、英语四级、日语报名名单与报名表，电工等级认定及报考材料。</div>
+          <div class="cat-size">45.8 MB</div>
+        </div>
+        <div class="cat-card reveal" data-name="奖助学金与困难补助" data-desc="国家励志奖学金、国家助学金、特困补助、助学贷款">
+          <div class="cat-head"><span class="cat-code">C05</span><span class="cat-count">21 文件</span></div>
+          <div class="cat-name">奖助学金与困难补助</div>
+          <div class="cat-desc">国家励志奖学金、国家助学金、特困补助、助学贷款、导入模板与备查汇总表。</div>
+          <div class="cat-size">1.6 MB</div>
+        </div>
+        <div class="cat-card reveal" data-name="家庭经济信息" data-desc="六类非六类家庭经济困难学生信息录入表">
+          <div class="cat-head"><span class="cat-code">C06</span><span class="cat-count">15 文件</span></div>
+          <div class="cat-name">家庭经济信息（六类、非六类）</div>
+          <div class="cat-desc">六类 / 非六类家庭经济困难学生信息录入表（敏感信息脱敏处理）。</div>
+          <div class="cat-size">3.5 MB</div>
+        </div>
+        <div class="cat-card reveal" data-name="党团建设材料" data-desc="团员名单团费评议、入党积极分子与党员发展全流程材料">
+          <div class="cat-head"><span class="cat-code">C07</span><span class="cat-count">91 文件</span></div>
+          <div class="cat-name">党团建设材料</div>
+          <div class="cat-desc">团员名单 / 团费 / 团员评议 / 推优，入党积极分子与党员发展全流程材料、公示、政审、党纪学习。</div>
+          <div class="cat-size">210.8 MB</div>
+        </div>
+        <div class="cat-card reveal" data-name="荣誉证书与评优评先" data-desc="三好学生、优秀干部、优秀团员、优秀毕业生审批材料">
+          <div class="cat-head"><span class="cat-code">C08</span><span class="cat-count">43 文件</span></div>
+          <div class="cat-name">荣誉证书与评优评先</div>
+          <div class="cat-desc">三好学生、优秀干部、优秀团员、优秀毕业生审批表 / 登记表、荣誉证书照片。</div>
+          <div class="cat-size">32.0 MB</div>
+        </div>
+        <div class="cat-card reveal" data-name="学籍证明与火车票优惠" data-desc="学籍证明、团体学籍名册、高铁学生票购票信息">
+          <div class="cat-head"><span class="cat-code">C09</span><span class="cat-count">31 文件</span></div>
+          <div class="cat-name">学籍证明与火车票优惠</div>
+          <div class="cat-desc">学生学籍证明、团体学籍名册、高铁学生票购票信息表。</div>
+          <div class="cat-size">3.6 MB</div>
+        </div>
+        <div class="cat-card reveal" data-name="班级日常管理" data-desc="班会记录、留校离校名单、值岗值日、评教考勤">
+          <div class="cat-head"><span class="cat-code">C10</span><span class="cat-count">59 文件</span></div>
+          <div class="cat-name">班级日常管理</div>
+          <div class="cat-desc">班会记录与总结、放假留校 / 离校名单、值岗值日、献血名单、技能特长、评教、考勤照片。</div>
+          <div class="cat-size">49.4 MB</div>
+        </div>
+        <div class="cat-card reveal" data-name="课程教学与学习资料" data-desc="课表、课程标准与考核方案、复习题试题、补考安排、讲稿PPT">
+          <div class="cat-head"><span class="cat-code">C11</span><span class="cat-count">55 文件</span></div>
+          <div class="cat-name">课程教学与学习资料</div>
+          <div class="cat-desc">课表、课程标准与考核方案、复习题 / 试题 / 答案、补考与考场安排、讲稿、教学 PPT。</div>
+          <div class="cat-size">10.0 MB</div>
+        </div>
+        <div class="cat-card reveal" data-name="就业与职业规划" data-desc="职业生涯规划书PPT、职业规划大赛材料、求职简历">
+          <div class="cat-head"><span class="cat-code">C12</span><span class="cat-count">22 文件</span></div>
+          <div class="cat-name">就业与职业规划</div>
+          <div class="cat-desc">职业生涯规划书 / PPT、职业规划大赛通知与材料、求职简历、就业展示 PPT。</div>
+          <div class="cat-size">68.9 MB</div>
+        </div>
+        <div class="cat-card reveal" data-name="毕业论文与毕业设计" data-desc="电气专业毕业设计论文及论文模板">
+          <div class="cat-head"><span class="cat-code">C13</span><span class="cat-count">17 文件</span></div>
+          <div class="cat-name">毕业论文与毕业设计</div>
+          <div class="cat-desc">电气专业毕业设计论文（PLC、电梯、交通灯、喷泉等）及论文模板。</div>
+          <div class="cat-size">15.0 MB</div>
+        </div>
+        <div class="cat-card reveal" data-name="学生证件照与电子照片" data-desc="按班级存放的学生电子证件照">
+          <div class="cat-head"><span class="cat-code">C14</span><span class="cat-count">932 文件</span></div>
+          <div class="cat-name">学生证件照与电子照片</div>
+          <div class="cat-desc">按班级存放的学生电子证件照（用于报名、学籍、评优等；照片不对外公开）。</div>
+          <div class="cat-size">2.2 GB</div>
+        </div>
+        <div class="cat-card reveal" data-name="活动照片与班级照片" data-desc="网课照片、班级集体照片与视频">
+          <div class="cat-head"><span class="cat-code">C15</span><span class="cat-count">29 文件</span></div>
+          <div class="cat-name">活动照片与班级照片</div>
+          <div class="cat-desc">网课照片、班级集体照片 / 视频等。</div>
+          <div class="cat-size">33.6 MB</div>
+        </div>
+        <div class="cat-card reveal" data-name="安全与主题教育活动" data-desc="国家安全、防溺水、消防、反诈、宪法、征文等">
+          <div class="cat-head"><span class="cat-code">C16</span><span class="cat-count">21 文件</span></div>
+          <div class="cat-name">安全与主题教育活动</div>
+          <div class="cat-desc">国家安全、防溺水、消防、反诈、宪法、征文等主题教育与班会材料。</div>
+          <div class="cat-size">53.4 MB</div>
+        </div>
+        <div class="cat-card reveal" data-name="生活事务与通知" data-desc="医保参保、城乡居民批量采集、献血指导">
+          <div class="cat-head"><span class="cat-code">C17</span><span class="cat-count">7 文件</span></div>
+          <div class="cat-name">生活事务与通知（医保、献血等）</div>
+          <div class="cat-desc">医保参保须知与政策、城乡居民批量采集登记、献血前后指导等。</div>
+          <div class="cat-size">4.7 MB</div>
+        </div>
+        <div class="cat-card reveal" data-name="工作总结与述职报告" data-desc="学期工作总结、述职报告、公众号宣传稿">
+          <div class="cat-head"><span class="cat-code">C18</span><span class="cat-count">7 文件</span></div>
+          <div class="cat-name">工作总结与述职报告</div>
+          <div class="cat-desc">学期工作总结、述职报告、公众号宣传稿等材料。</div>
+          <div class="cat-size">78.4 MB</div>
+        </div>
+        <div class="cat-card reveal" data-name="创新创业项目" data-desc="学生创业计划书">
+          <div class="cat-head"><span class="cat-code">C19</span><span class="cat-count">3 文件</span></div>
+          <div class="cat-name">创新创业项目</div>
+          <div class="cat-desc">学生创业计划书（环保水瓶、茶舍等）。</div>
+          <div class="cat-size">0.0 MB</div>
+        </div>
+        <div class="cat-card reveal" data-name="软件工具与游戏娱乐" data-desc="常用软件安装包、游戏客户端">
+          <div class="cat-head"><span class="cat-code">C20</span><span class="cat-count">107 文件</span></div>
+          <div class="cat-name">软件工具与游戏娱乐</div>
+          <div class="cat-desc">常用软件安装包、游戏客户端、素材与系统文件（工具类留存）。</div>
+          <div class="cat-size">3.9 GB</div>
+        </div>
+        <div class="cat-card reveal" data-name="学生个人材料与作业" data-desc="学生个人专属材料、课程作业与个人文稿">
+          <div class="cat-head"><span class="cat-code">C21</span><span class="cat-count">10 文件</span></div>
+          <div class="cat-name">学生个人材料与作业</div>
+          <div class="cat-desc">学生个人专属材料、课程作业与个人文稿。</div>
+          <div class="cat-size">1.3 MB</div>
+        </div>
+        <div class="cat-card reveal" data-name="其他未分类杂项" data-desc="空文档、临时文件、来源不明文件">
+          <div class="cat-head"><span class="cat-code">C22</span><span class="cat-count">19 文件</span></div>
+          <div class="cat-name">其他未分类杂项</div>
+          <div class="cat-desc">空文档、临时文件、录音、来源不明的文件，已列入待人工核对。</div>
+          <div class="cat-size">7.1 MB</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="workflow">
+      <h3 class="sec-title" style="font-size:26px; margin-bottom:26px">日常事务处理流程</h3>
+      <div class="flow-steps">
+        <div class="flow-step reveal"><div class="ico">收</div><h4>接收通知</h4><p>接收学校 / 部门通知、模板与任务要求</p></div>
+        <div class="flow-step reveal"><div class="ico">发</div><h4>发布收集</h4><p>向班级发布通知、模板与截止时间</p></div>
+        <div class="flow-step reveal"><div class="ico">录</div><h4>批量录入</h4><p>多通道收集材料，Excel 批量导入整理</p></div>
+        <div class="flow-step reveal"><div class="ico">核</div><h4>交叉核对</h4><p>学号、证件、照片逐一核对查漏</p></div>
+        <div class="flow-step reveal"><div class="ico">报</div><h4>汇总报送</h4><p>整理团体材料按要求上报</p></div>
+        <div class="flow-step reveal"><div class="ico">存</div><h4>归档留痕</h4><p>按 22 类体系分类归档、台账可查</p></div>
+      </div>
+    </div>
+
+    <div class="samples">
+      <h3 class="sec-title" style="font-size:26px; margin-bottom:8px">台账结构样例（已脱敏）</h3>
+      <p class="sec-desc" style="margin-bottom:22px">以下为实际经手台账的字段结构示意，所有姓名、证件号、电话等均已替换为脱敏占位，仅作工作方法展示。</p>
+      <div class="seg reveal" id="seg">
+        <button class="active" data-tab="t1">花名册台账</button>
+        <button data-tab="t2">成绩汇总</button>
+        <button data-tab="t3">考试报名表</button>
+        <button data-tab="t4">综测评分表</button>
+      </div>
+      <div class="sample-panel active reveal" id="t1">
+        <div class="sample-table-wrap">
+          <table class="sample-table">
+            <thead><tr><th>序号</th><th>学号</th><th>姓名</th><th>性别</th><th>身份证号</th><th>民族</th><th>政治面貌</th><th>本人电话</th><th>宿舍</th></tr></thead>
+            <tbody>
+              <tr><td>01</td><td class="masked">20239143**</td><td class="masked">张**</td><td>男</td><td class="masked">2101**********26X</td><td>汉族</td><td>群众</td><td class="masked">151****0101</td><td>3#213</td></tr>
+              <tr><td>02</td><td class="masked">20239143**</td><td class="masked">李**</td><td>女</td><td class="masked">2107**********434</td><td>满族</td><td>共青团员</td><td class="masked">138****7662</td><td>3#222</td></tr>
+              <tr><td>03</td><td class="masked">20239143**</td><td class="masked">王**</td><td>男</td><td class="masked">1527**********518</td><td>汉族</td><td>共青团员</td><td class="masked">151****1930</td><td>3#213</td></tr>
+              <tr><td>…</td><td class="masked">…</td><td class="masked">…</td><td>…</td><td class="masked">…</td><td>…</td><td>…</td><td class="masked">…</td><td>…</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="sample-note"><span class="dot"></span>字段结构参考《电气班级在校学生花名册》，示例数据为脱敏占位，非真实信息。</div>
+      </div>
+      <div class="sample-panel reveal" id="t2">
+        <div class="sample-table-wrap">
+          <table class="sample-table">
+            <thead><tr><th>学生</th><th>第一学期总成绩</th><th>第一学期平均</th><th>第二学期总成绩</th><th>第二学期平均</th><th>期末平均</th></tr></thead>
+            <tbody>
+              <tr><td class="masked">学生A</td><td class="masked">9XX.X</td><td class="masked">8X.X</td><td class="masked">11XX.X</td><td class="masked">8X.X</td><td class="masked">8X.X</td></tr>
+              <tr><td class="masked">学生B</td><td class="masked">9XX.X</td><td class="masked">8X.X</td><td class="masked">11XX.X</td><td class="masked">8X.X</td><td class="masked">8X.X</td></tr>
+              <tr><td class="masked">学生C</td><td class="masked">9XX.X</td><td class="masked">8X.X</td><td class="masked">11XX.X</td><td class="masked">8X.X</td><td class="masked">8X.X</td></tr>
+              <tr><td class="masked">…</td><td class="masked">…</td><td class="masked">…</td><td class="masked">…</td><td class="masked">…</td><td class="masked">…</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="sample-note"><span class="dot"></span>字段结构参考《电气期末成绩汇总》，数值为脱敏示例，不关联任何真实学生。</div>
+      </div>
+      <div class="sample-panel reveal" id="t3">
+        <div class="sample-table-wrap">
+          <table class="sample-table">
+            <thead><tr><th>考点代码</th><th>姓名</th><th>证件类型</th><th>证件号码</th><th>学院</th><th>专业</th><th>班级</th><th>照片状态</th></tr></thead>
+            <tbody>
+              <tr><td>21280</td><td class="masked">王**</td><td>居民身份证</td><td class="masked">2112**********317</td><td>电气工程系</td><td>电气自动化技术</td><td>电气233班</td><td>已上传</td></tr>
+              <tr><td>21280</td><td class="masked">高**</td><td>居民身份证</td><td class="masked">2102**********81X</td><td>电气工程系</td><td>电气自动化技术</td><td>竞赛231班</td><td>已上传</td></tr>
+              <tr><td>21280</td><td class="masked">刘**</td><td>居民身份证</td><td class="masked">2112**********516</td><td>电气工程系</td><td>电气自动化技术</td><td>竞赛231班</td><td>待补</td></tr>
+              <tr><td>…</td><td class="masked">…</td><td>…</td><td class="masked">…</td><td>…</td><td>…</td><td>…</td><td>…</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="sample-note"><span class="dot"></span>字段结构参考《高等学校英语 B 级考试报名表》，示例数据为脱敏占位，非真实信息。</div>
+      </div>
+      <div class="sample-panel reveal" id="t4">
+        <div class="sample-table-wrap">
+          <table class="sample-table">
+            <thead><tr><th>序号</th><th>学号</th><th>姓名</th><th>起评分</th><th>思想品德</th><th>学风</th><th>实践</th><th>公寓</th><th>合计</th></tr></thead>
+            <tbody>
+              <tr><td>01</td><td class="masked">20239143**</td><td class="masked">赵**</td><td>60</td><td>+3</td><td>+2</td><td>+1</td><td>0</td><td>66</td></tr>
+              <tr><td>02</td><td class="masked">20239143**</td><td class="masked">陈**</td><td>60</td><td>+2</td><td>+2</td><td>0</td><td>0</td><td>64</td></tr>
+              <tr><td>03</td><td class="masked">20239143**</td><td class="masked">孙**</td><td>60</td><td>+3</td><td>+1</td><td>+1</td><td>-1</td><td>64</td></tr>
+              <tr><td>…</td><td class="masked">…</td><td class="masked">…</td><td>…</td><td>…</td><td>…</td><td>…</td><td>…</td><td>…</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="sample-note"><span class="dot"></span>字段结构参考《班级月度综合成绩表》，示例数据为脱敏占位，非真实信息。</div>
+      </div>
+      <div class="writing-actions" style="margin-top:24px">
+        <a class="btn btn-navy" href="assets/档案体系总览-脱敏版.xlsx" download>下载档案体系总览（脱敏版）</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 07 公文与写作 -->
+<section class="section" id="writing">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-no">07</span>
+      <div>
+        <span class="sec-kicker">Writing</span>
+        <h2 class="sec-title">公文与写作</h2>
+      </div>
+      <span class="sec-line"></span>
+    </div>
+    <div class="writing-card reveal">
+      <div class="writing-body">
+        <span class="writing-tag">主题征文 · 本人原创</span>
+        <h3>《加强国家安全教育，筑牢中华民族安全之基》</h3>
+        <div class="meta">2024 年“总体国家安全观 · 创新引领10周年”主题征文 · 独立撰写</div>
+        <blockquote>“苟利国家生死以，岂因祸福避趋之”。国家安全教育是国家安全保障体系的重要组成部分。加强国家安全教育，需要健全教育体系、创新教育手段、扩大覆盖面、加大投入，筑牢中华民族安全之基，实现国家安全和人民安居乐业的美好愿景……</blockquote>
+        <div class="writing-actions">
+          <a class="btn btn-navy" href="assets/公文写作样例-国家安全教育征文.docx" download>下载征文全文</a>
+        </div>
+      </div>
+      <div class="writing-side">
+        <div>
+          <div class="k">Covered Materials</div>
+          <div class="v" style="margin-top:10px">能独立撰写的材料类型：</div>
+        </div>
+        <div class="writing-chips">
+          <span>工作计划</span><span>工作总结</span><span>活动方案</span><span>主题征文</span><span>会议纪要</span><span>通知</span><span>签到表</span><span>宣传稿</span>
+        </div>
+        <div style="margin-top:8px">
+          <div class="k">Standard</div>
+          <div class="v" style="margin-top:10px">文字表达规范、条理清晰，排版符合公文要求，可适应规范型企业文书工作。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 08 作品集 -->
+<section class="section alt" id="portfolio">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-no">08</span>
+      <div>
+        <span class="sec-kicker">Portfolio</span>
+        <h2 class="sec-title">作品集</h2>
+      </div>
+      <span class="sec-line"></span>
+    </div>
+    <div class="portfolio-head reveal">
+      <p class="sec-desc">8 页求职作品集：个人概况、行政实务成果、荣誉资质与两份脱敏工作样例（个人评价申请表、学校团体学籍名册节选）。点击卡片在窗口中放大查看。</p>
+      <a class="btn btn-navy" href="assets/作品集-翟靖昊-行政方向-20260812.pdf" download>下载完整作品集 PDF</a>
+    </div>
+    <div class="portfolio-grid" id="folioGrid">
+      <div class="folio-card reveal" data-page="1" data-title="封面 · 求职作品集" data-desc="翟靖昊 · 行政专员 / 行政助理 / 人事行政助理。行政事务 · 档案台账 · 会务统筹 · 公文写作。中共党员 ｜ 校级优秀毕业生 ｜ 国家励志奖学金。">
+        <div class="folio-thumb"><span class="no">01</span><img src="assets/portfolio-pages/page-1.png" alt="作品集封面"></div>
+        <div class="folio-body"><h4>封面 · 求职作品集</h4><p>行政事务 · 档案台账 · 会务统筹 · 公文写作</p></div>
+      </div>
+      <div class="folio-card reveal" data-page="2" data-title="个人概况与核心技能" data-desc="基本信息、教育背景、求职意向与核心技能概览：办公软件、公文写作、会务统筹、档案台账、图文处理与语言能力。">
+        <div class="folio-thumb"><span class="no">02</span><img src="assets/portfolio-pages/page-2.png" alt="个人概况与核心技能"></div>
+        <div class="folio-body"><h4>01 个人概况与核心技能</h4><p>定位：行政事务与活动执行经验扎实</p></div>
+      </div>
+      <div class="folio-card reveal" data-page="3" data-title="行政实务成果（一）· 辅导员助理" data-desc="354 人台账管理 · 6 类学生事务支撑 · 0 差错归档 · 3+ 项事务并行。信息与档案管理、活动统筹执行、多任务并行。">
+        <div class="folio-thumb"><span class="no">03</span><img src="assets/portfolio-pages/page-3.png" alt="行政实务成果一"></div>
+        <div class="folio-body"><h4>02 行政实务成果（一）</h4><p>辅导员助理 · 354 人台账零差错</p></div>
+      </div>
+      <div class="folio-card reveal" data-page="4" data-title="行政实务成果（二）· 班级团支部书记" data-desc="制度建设与台账管理、活动组织执行、公文材料写作，以及 124 人电工（三级）考试报名统筹说明。">
+        <div class="folio-thumb"><span class="no">04</span><img src="assets/portfolio-pages/page-4.png" alt="行政实务成果二"></div>
+        <div class="folio-body"><h4>03 行政实务成果（二）</h4><p>班级团支部书记 · 组织与文书</p></div>
+      </div>
+      <div class="folio-card reveal" data-page="5" data-title="荣誉与资质" data-desc="2024 国家励志奖学金、省职业技能大赛第 12 名；2025 院级优秀团员与学生干部；2026 入党、校级优秀毕业生；大学英语 B 级等。">
+        <div class="folio-thumb"><span class="no">05</span><img src="assets/portfolio-pages/page-5.png" alt="荣誉与资质"></div>
+        <div class="folio-body"><h4>04 荣誉与资质</h4><p>奖学金 · 大赛 · 评优 · 语言资质</p></div>
+      </div>
+      <div class="folio-card reveal" data-page="6" data-title="工作样例（一）· 个人评价申请表" data-desc="本人申报电工（三级）职业技能等级认定时填写的个人评价申请表实物样例。身份证号、联系方式、证明人等信息均已脱敏。">
+        <div class="folio-thumb"><span class="no">06</span><span class="sample-badge">脱敏样例</span><img src="assets/portfolio-pages/page-6.png" alt="个人评价申请表"></div>
+        <div class="folio-body"><h4>05 工作样例（一）</h4><p>个人评价申请表 · 信息已脱敏</p></div>
+      </div>
+      <div class="folio-card reveal" data-page="7" data-title="工作样例（二）· 学校团体学籍名册（节选）" data-desc="124 名考生统一申报电工（三级）认定的团体学籍材料节选。负责台账核对、名册整理与报送，信息零差错（姓名、电话、学号、身份证号及学院信息均已脱敏）。">
+        <div class="folio-thumb"><span class="no">07</span><span class="sample-badge">脱敏样例</span><img src="assets/portfolio-pages/page-7.png" alt="学校团体学籍名册"></div>
+        <div class="folio-body"><h4>06 工作样例（二）</h4><p>团体学籍名册节选 · 已脱敏</p></div>
+      </div>
+      <div class="folio-card reveal" data-page="8" data-title="自我评价与联系方式" data-desc="行政事务与活动执行经验扎实，擅长数据整理、文档归档与多方沟通协调。电话 19529100661，邮箱 z3090194616@outlook.com，随时到岗。">
+        <div class="folio-thumb"><span class="no">08</span><img src="assets/portfolio-pages/page-8.png" alt="自我评价与联系方式"></div>
+        <div class="folio-body"><h4>07 自我评价与联系方式</h4><p>愿从基础做起，长期稳定发展</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 09 联系方式 -->
+<section class="section" id="contact">
+  <div class="wrap">
+    <div class="contact-band reveal">
+      <div class="wrap">
+        <div class="contact-kicker">Get In Touch</div>
+        <h2>愿从基础做起，<span>长期稳定发展</span></h2>
+        <p class="sub">期待与您面谈。我会用严谨、细致与执行力，把每一件行政事务做到位。</p>
+        <div class="contact-cards">
+          <div class="contact-card"><div class="k">联系电话</div><a class="v" href="tel:19529100661">19529100661</a></div>
+          <div class="contact-card"><div class="k">电子邮箱</div><a class="v" href="mailto:z3090194616@outlook.com">z3090194616@outlook.com</a></div>
+          <div class="contact-card"><div class="k">到岗时间</div><div class="v">随时</div></div>
+          <div class="contact-card"><div class="k">政治面貌</div><div class="v">中共党员</div></div>
+        </div>
+        <div class="contact-actions">
+          <a class="btn btn-white" href="assets/简历-翟靖昊-行政方向-优化版-20260812.docx" download>下载简历文档</a>
+          <a class="btn btn-ghost" href="assets/作品集-翟靖昊-行政方向-20260812.pdf" download>下载作品集 PDF</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-inner">
+    <div class="footer-brand">
+      <span class="dot"></span>
+      <b>翟靖昊</b>
+      <span class="footer-en">Zhai Jinghao · Admin</span>
+    </div>
+    <div class="footer-right">
+      <span>© 2026 翟靖昊 · 简历与作品集</span>
+      <span style="opacity:.7">网站内个人信息资料均已脱敏</span>
+      <a class="back-top" href="#top">回到顶部 ↑</a>
+    </div>
+  </div>
+</footer>
+
+<!-- macOS 窗口灯箱 -->
+<div class="lightbox" id="lightbox">
+  <button class="lb-btn lb-prev" id="lbPrev" aria-label="上一页">‹</button>
+  <button class="lb-btn lb-next" id="lbNext" aria-label="下一页">›</button>
+  <div class="lb-window">
+    <div class="lb-titlebar">
+      <span class="traffic"><i class="t-red"></i><i></i><i></i></span>
+      <span class="lb-title" id="lbTitle">作品集预览</span>
+    </div>
+    <div class="lb-stage"><img id="lbImg" src="" alt="作品集页面"></div>
+    <div class="lb-caption">
+      <h4 id="lbName"></h4>
+      <p id="lbDesc"></p>
+      <div class="lb-foot">
+        <a class="lb-btn-sm" href="assets/作品集-翟靖昊-行政方向-20260812.pdf" download>查看完整作品集 PDF</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    "use strict";
+
+    /* 顶部进度条 + 导航状态 + 首屏视差 */
+    var nav = document.getElementById("nav");
+    var progress = document.getElementById("progress");
+    var heroInner = document.getElementById("heroInner");
+    var ticking = false;
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () {
+        var y = window.scrollY;
+        var max = document.documentElement.scrollHeight - window.innerHeight;
+        progress.style.transform = "scaleX(" + (max > 0 ? y / max : 0) + ")";
+        nav.classList.toggle("scrolled", y > 40);
+        if (y < window.innerHeight && heroInner) {
+          heroInner.style.transform = "translateY(" + y * 0.18 + "px)";
+          heroInner.style.opacity = Math.max(0, 1 - y / (window.innerHeight * 0.9));
+        }
+        ticking = false;
+      });
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+
+    /* 移动端毛玻璃菜单 */
+    var burger = document.getElementById("burger");
+    var mobileMenu = document.getElementById("mobileMenu");
+    burger.addEventListener("click", function () {
+      burger.classList.toggle("open");
+      mobileMenu.classList.toggle("open");
+    });
+    mobileMenu.querySelectorAll("a").forEach(function (a) {
+      a.addEventListener("click", function () {
+        burger.classList.remove("open");
+        mobileMenu.classList.remove("open");
+      });
+    });
+
+    /* macOS 弹簧显现 */
+    var revealEls = document.querySelectorAll(".reveal");
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) {
+          en.target.classList.add("visible");
+          io.unobserve(en.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: "0px 0px -30px 0px" });
+    revealEls.forEach(function (el, i) {
+      el.style.transitionDelay = (i % 5) * 0.05 + "s";
+      io.observe(el);
+    });
+
+    /* 技能条动画 */
+    var meters = document.querySelectorAll(".meter");
+    var meterIo = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) {
+          var fill = en.target.querySelector(".fill");
+          fill.style.width = fill.getAttribute("data-w") + "%";
+          meterIo.unobserve(en.target);
+        }
+      });
+    }, { threshold: 0.4 });
+    meters.forEach(function (m) { meterIo.observe(m); });
+
+    /* 激活导航项 */
+    var navLinks = document.querySelectorAll(".nav-links a");
+    var sections = [];
+    navLinks.forEach(function (a) {
+      var s = document.querySelector(a.getAttribute("href"));
+      if (s) sections.push(s);
+    });
+    var secIo = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) {
+          var id = en.target.getAttribute("id");
+          navLinks.forEach(function (a) {
+            a.classList.toggle("active", a.getAttribute("href") === "#" + id);
+          });
+        }
+      });
+    }, { rootMargin: "-42% 0px -50% 0px" });
+    sections.forEach(function (s) { secIo.observe(s); });
+
+    /* 档案分类搜索 */
+    var search = document.getElementById("catSearch");
+    var catCards = Array.prototype.slice.call(document.querySelectorAll(".cat-card"));
+    var catCount = document.getElementById("catCount");
+    function filterCats() {
+      var q = search.value.trim().toLowerCase();
+      var shown = 0;
+      catCards.forEach(function (c) {
+        var hay = (c.getAttribute("data-name") + " " + c.getAttribute("data-desc") + " " + c.querySelector(".cat-code").textContent).toLowerCase();
+        var ok = !q || hay.indexOf(q) !== -1;
+        c.classList.toggle("hidden", !ok);
+        if (ok) shown++;
+      });
+      catCount.textContent = "显示 " + shown + " / " + catCards.length + " 类";
+    }
+    search.addEventListener("input", filterCats);
+
+    /* 台账样例分段控件 */
+    var segBtns = Array.prototype.slice.call(document.querySelectorAll("#seg button"));
+    segBtns.forEach(function (b) {
+      b.addEventListener("click", function () {
+        segBtns.forEach(function (x) { x.classList.remove("active"); });
+        b.classList.add("active");
+        document.querySelectorAll(".sample-panel").forEach(function (p) { p.classList.remove("active"); });
+        document.getElementById(b.getAttribute("data-tab")).classList.add("active");
+      });
+    });
+
+    /* macOS 窗口灯箱 */
+    var lightbox = document.getElementById("lightbox");
+    var lbImg = document.getElementById("lbImg");
+    var lbName = document.getElementById("lbName");
+    var lbDesc = document.getElementById("lbDesc");
+    var lbTitle = document.getElementById("lbTitle");
+    var cards = Array.prototype.slice.call(document.querySelectorAll(".folio-card"));
+    var current = 0;
+
+    function showCard(i) {
+      if (i < 0) i = cards.length - 1;
+      if (i > cards.length - 1) i = 0;
+      current = i;
+      var c = cards[i];
+      var nextSrc = c.querySelector("img").src;
+      if (lbImg.src !== nextSrc) {
+        lbImg.classList.add("swap");
+        setTimeout(function () {
+          lbImg.src = nextSrc;
+          lbImg.onload = function () { lbImg.classList.remove("swap"); };
+        }, 180);
+      }
+      lbName.textContent = "第 " + c.getAttribute("data-page") + " 页 · " + c.getAttribute("data-title");
+      lbDesc.textContent = c.getAttribute("data-desc");
+      lbTitle.textContent = "作品集预览 · 第 " + c.getAttribute("data-page") + " 页";
+    }
+    function openLb(i) {
+      showCard(i);
+      lightbox.classList.add("open");
+      document.body.style.overflow = "hidden";
+    }
+    function closeLb() {
+      lightbox.classList.remove("open");
+      document.body.style.overflow = "";
+    }
+    cards.forEach(function (c, i) {
+      c.addEventListener("click", function () { openLb(i); });
+    });
+    document.getElementById("lbPrev").addEventListener("click", function () { showCard(current - 1); });
+    document.getElementById("lbNext").addEventListener("click", function () { showCard(current + 1); });
+    lightbox.addEventListener("click", function (e) {
+      if (e.target === lightbox) closeLb();
+    });
+    document.querySelector(".lb-titlebar .traffic i.t-red").addEventListener("click", closeLb);
+    document.addEventListener("keydown", function (e) {
+      if (!lightbox.classList.contains("open")) return;
+      if (e.key === "Escape") closeLb();
+      if (e.key === "ArrowLeft") showCard(current - 1);
+      if (e.key === "ArrowRight") showCard(current + 1);
+    });
+
+    /* 作品集 Dock 式放大（桌面端） */
+    var grid = document.getElementById("folioGrid");
+    if (window.matchMedia("(hover: hover)").matches) {
+      cards.forEach(function (card, idx) {
+        card.addEventListener("mouseenter", function () {
+          cards.forEach(function (c, j) {
+            var d = Math.abs(j - idx);
+            var s = d === 0 ? 1.06 : (d === 1 ? 1.0 : 1.0);
+            c.style.transform = "translateY(-8px) scale(" + s + ")";
+            c.style.zIndex = d === 0 ? 6 : 3;
+            c.style.transition = "transform .5s cubic-bezier(.34,1.56,.64,1), box-shadow .45s cubic-bezier(.22,1,.36,1)";
+          });
+        });
+        card.addEventListener("mouseleave", function () {
+          cards.forEach(function (c) {
+            c.style.transform = "";
+            c.style.zIndex = "";
+            c.style.transition = "";
+          });
+        });
+      });
+    }
+  })();
+</script>
+</body>
+</html>
