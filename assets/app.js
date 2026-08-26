@@ -22,11 +22,12 @@
   var counted = false;
 
   var pageMeta = [
-    { id: "cover",   name: "封面",     en: "COVER" },
+    { id: "cover",     name: "简介",       en: "INTRO" },
     { id: "job",     name: "岗位解读", en: "JOB BRIEF" },
     { id: "match",   name: "能力匹配", en: "CAPABILITY" },
     { id: "project", name: "项目展示", en: "PROJECT" },
-    { id: "results", name: "成果指标", en: "RESULTS" }
+    { id: "portfolio", name: "作品集",   en: "PORTFOLIO" },
+    { id: "results", name: "成果与联系", en: "RESULTS" }
   ];
 
   function pad(n) { return (n < 10 ? "0" : "") + n; }
@@ -36,6 +37,9 @@
     $$(".flip-dot").forEach(function (d, i) {
       d.classList.toggle("active", i === current);
       d.setAttribute("aria-selected", i === current ? "true" : "false");
+    });
+    $$(".sec-link").forEach(function (l, i) {
+      l.classList.toggle("active", i === current);
     });
     var counter = $("#flipCount");
     if (counter) counter.textContent = pad(current) + " / " + pad(total - 1);
@@ -142,6 +146,14 @@
     if (e.key === "ArrowRight") goTo(current + 1, 1);
     if (e.key === "Home") goTo(0, -1);
     if (e.key === "End") goTo(total - 1, 1);
+  });
+
+  /* 浏览器前进 / 后退或手动改锚点时，跟随 hash 切换板块 */
+  window.addEventListener("hashchange", function () {
+    var id = location.hash.replace("#", "").toLowerCase();
+    pageMeta.forEach(function (m, i) {
+      if (m.id === id && i !== current) goTo(i, i > current ? 1 : -1);
+    });
   });
 
   /* -------------------------------------------------------
