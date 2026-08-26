@@ -49,6 +49,11 @@
     var target = views.filter(function (v) { return v.id === id; })[0] || views[0];
     views.forEach(function (v) { v.classList.toggle("active", v === target); });
     setActiveLink(target.id);
+    var isLight = ["about", "projects", "contact"].indexOf(target.id) !== -1;
+    sideNav.classList.toggle("side-light", isLight);
+    var topbar = $(".topbar");
+    if (topbar) topbar.classList.toggle("light", isLight);
+    document.body.classList.toggle("light-chapter", isLight);
     window.scrollTo(0, 0);
     animateView(target.id);
     if (target.id === "skills") {
@@ -167,7 +172,7 @@
       var r = heroPanel.getBoundingClientRect();
       var rx = ((e.clientY - r.top) / r.height - 0.5) * -8;
       var ry = ((e.clientX - r.left) / r.width - 0.5) * 10;
-      heroPanel.style.transform = "rotate(-2deg) rotateX(" + rx.toFixed(2) + "deg) rotateY(" + ry.toFixed(2) + "deg)";
+      heroPanel.style.transform = "rotateX(" + rx.toFixed(2) + "deg) rotateY(" + ry.toFixed(2) + "deg)";
     });
     hero.addEventListener("mouseleave", function () {
       heroPanel.style.transform = "";
