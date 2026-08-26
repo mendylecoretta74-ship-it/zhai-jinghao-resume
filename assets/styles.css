@@ -375,6 +375,56 @@ ul, ol { list-style: none; }
 .sb-panel small { display: block; font-size: 10.5px; color: var(--g4); letter-spacing: .1em; }
 .sb-arrow { font-size: 22px; flex: none; color: var(--red); font-weight: 900; }
 
+/* ---------------- 00 首页 · 交互入口 ---------------- */
+.pg-home { --pg: var(--yellow); background: var(--black); color: var(--paper); }
+.home-head { margin-bottom: 44px; position: relative; z-index: 2; }
+.home-head .cover-title { font-size: clamp(46px, 7vw, 96px); }
+.home-head .cover-meta { margin-top: 22px; }
+.hub-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px;
+  position: relative; z-index: 2;
+}
+.hub-card {
+  position: relative;
+  display: flex; flex-direction: column; gap: 12px;
+  background: var(--paper); color: var(--black);
+  border: 3px solid var(--black);
+  box-shadow: 10px 10px 0 rgba(255, 255, 255, .85);
+  padding: 24px 22px 22px;
+  min-height: 196px;
+  transition: transform .18s var(--spring), box-shadow .18s var(--spring);
+}
+.hub-card:nth-child(odd) { transform: rotate(-1deg); }
+.hub-card:nth-child(even) { transform: rotate(1.1deg) translateY(8px); }
+.hub-card:hover { transform: translate(-3px, -3px) rotate(-.4deg); box-shadow: 15px 15px 0 rgba(255, 255, 255, .95); }
+.hub-card:nth-child(even):hover { transform: translate(-3px, -3px) rotate(1.4deg) translateY(5px); }
+.hub-top { display: flex; align-items: center; justify-content: space-between; }
+.hub-no { font-family: var(--mono); font-weight: 900; font-size: 11px; letter-spacing: .14em; color: var(--red); }
+.hub-arrow {
+  width: 30px; height: 30px; flex: none;
+  border: 2px solid var(--black); color: var(--black);
+  display: flex; align-items: center; justify-content: center;
+  transition: background .2s, color .2s;
+}
+.hub-card:hover .hub-arrow { background: var(--black); color: var(--paper); }
+.hub-arrow .icon { width: 16px; height: 16px; }
+.hub-ico {
+  width: 44px; height: 44px; flex: none;
+  background: var(--pg); color: var(--black);
+  border: 3px solid var(--black); box-shadow: 4px 4px 0 rgba(11, 11, 11, .85);
+  display: flex; align-items: center; justify-content: center;
+}
+.hub-ico .icon { width: 22px; height: 22px; }
+.hub-card h3 { font-size: 21px; font-weight: 900; }
+.hub-card p { font-size: 12.5px; color: var(--g2); }
+.hub-stat {
+  margin-top: auto;
+  font-family: var(--mono); font-size: 10.5px; font-weight: 700; letter-spacing: .08em;
+  color: var(--red);
+  border-top: 2px dashed var(--black); padding-top: 12px;
+}
+.pg-home .cover-foot { margin-top: 46px; }
+
 /* ---------------- 01 岗位解读 ---------------- */
 .pg-job { --pg: var(--red); background: var(--paper); color: var(--black); }
 .job-cards { display: grid; grid-template-columns: 1.3fr .7fr; gap: 44px; align-items: start; }
@@ -819,7 +869,7 @@ ul, ol { list-style: none; }
 .pg-match :focus-visible, .pg-results :focus-visible, .topbar :focus-visible, .menu :focus-visible, .flipbar :focus-visible { outline-color: var(--yellow); }
 
 /* 手绘描边由 rough.js 在运行时绘制：这些卡片的 CSS 边框改为透明，保留占位宽度 */
-.summary-card, .kw-card, .ability-band, .match-card, .star, .ev-shot, .writing-card, .search-box, .arc-item,
+.summary-card, .kw-card, .ability-band, .match-card, .star, .ev-shot, .writing-card, .search-box, .arc-item, .hub-card,
 .panel, .mini, .stat-card, .honor, .contact-card, .flow-cell, .sb-panel {
   border-color: transparent !important;
 }
@@ -831,6 +881,7 @@ ul, ol { list-style: none; }
   .cover-grid { grid-template-columns: 1fr; gap: 30px; min-height: 0; }
   .cover-art { order: -1; max-width: 560px; margin-inline: auto; width: 100%; }
   .cover-foot { margin-top: 34px; }
+  .hub-grid { grid-template-columns: repeat(2, 1fr); }
   .job-cards { grid-template-columns: 1fr; gap: 30px; }
   .kw-card { transform: rotate(1.4deg); }
   .ability-band { grid-template-columns: 1fr; }
@@ -894,6 +945,8 @@ ul, ol { list-style: none; }
   .eyebrow::before { width: 26px; height: 3px; }
   .cover-grid { gap: 26px; }
   .cover-art { order: 2; }
+  .hub-grid { grid-template-columns: 1fr; }
+  .hub-card { min-height: 0; }
   .storyboard { flex-direction: column; gap: 4px; margin-top: 20px; }
   .sb-arrow { transform: rotate(90deg); font-size: 18px; line-height: 1; }
   .sb-panel { width: 100%; padding: 10px 8px; }

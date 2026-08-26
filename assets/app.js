@@ -22,7 +22,8 @@
   var counted = false;
 
   var pageMeta = [
-    { id: "cover",     name: "简介",       en: "INTRO" },
+    { id: "home",     name: "首页",       en: "HOME" },
+    { id: "intro",    name: "简介",       en: "INTRO" },
     { id: "job",     name: "岗位解读", en: "JOB BRIEF" },
     { id: "match",   name: "能力匹配", en: "CAPABILITY" },
     { id: "project", name: "项目展示", en: "PROJECT" },
@@ -127,11 +128,8 @@
       if (!isNaN(target)) goTo(target, target > current ? 1 : -1);
     });
   });
-  $("#prevBtn").addEventListener("click", function () { goTo(current - 1, -1); });
-  $("#nextBtn").addEventListener("click", function () { goTo(current + 1, 1); });
-
   /* -------------------------------------------------------
-     键盘翻页
+     键盘快速导航
      ------------------------------------------------------- */
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape") {
@@ -142,8 +140,6 @@
     if (menuOpen || !shareModal.hidden || !lightbox.hidden) return;
     var tag = (e.target.tagName || "").toLowerCase();
     if (tag === "input" || tag === "textarea") return;
-    if (e.key === "ArrowLeft") goTo(current - 1, -1);
-    if (e.key === "ArrowRight") goTo(current + 1, 1);
     if (e.key === "Home") goTo(0, -1);
     if (e.key === "End") goTo(total - 1, 1);
   });
@@ -155,23 +151,6 @@
       if (m.id === id && i !== current) goTo(i, i > current ? 1 : -1);
     });
   });
-
-  /* -------------------------------------------------------
-     触摸左右滑动翻页
-     ------------------------------------------------------- */
-  var sx = null, sy = null;
-  $("#stage").addEventListener("pointerdown", function (e) {
-    if (e.pointerType !== "touch") return;
-    sx = e.clientX; sy = e.clientY;
-  }, { passive: true });
-  $("#stage").addEventListener("pointerup", function (e) {
-    if (e.pointerType !== "touch" || sx === null) return;
-    var dx = e.clientX - sx, dy = e.clientY - sy;
-    sx = null; sy = null;
-    if (Math.abs(dx) > 70 && Math.abs(dy) < 90) {
-      goTo(current + (dx < 0 ? 1 : -1), dx < 0 ? 1 : -1);
-    }
-  }, { passive: true });
 
   /* -------------------------------------------------------
      目录面板
