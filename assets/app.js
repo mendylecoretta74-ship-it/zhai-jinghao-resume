@@ -1,6 +1,6 @@
 /* =========================================================
    翟靖昊 · 行政方向求职作品集
-   URBAN COMIC MONOCHROME · 漫画翻页交互
+   URBAN COMIC MONOCHROME · 漫画风格 · 板块交互
    GSAP core + qrcode
    ========================================================= */
 (function () {
@@ -13,7 +13,7 @@
   var staticMode = /[?&]static\b/.test(location.search);
 
   /* -------------------------------------------------------
-     翻页状态
+     板块状态
      ------------------------------------------------------- */
   var pageEls = $$(".page");
   var total = pageEls.length;
@@ -35,15 +35,9 @@
 
   function updateChrome() {
     var m = pageMeta[current];
-    $$(".flip-dot").forEach(function (d, i) {
-      d.classList.toggle("active", i === current);
-      d.setAttribute("aria-selected", i === current ? "true" : "false");
-    });
     $$(".sec-link").forEach(function (l, i) {
       l.classList.toggle("active", i === current);
     });
-    var counter = $("#flipCount");
-    if (counter) counter.textContent = pad(current) + " / " + pad(total - 1);
     var title = $("#topbarTitle");
     if (title) title.textContent = pad(current) + " · " + m.name;
     if (history.replaceState) history.replaceState(null, "", "#" + m.id);
@@ -101,22 +95,19 @@
     locked = true;
     var out = pageEls[current];
     var inn = pageEls[i];
-    var rot = (dir < 0 ? 1 : -1) * 1.2;
 
     var tl = gsap.timeline({ onComplete: function () { locked = false; } });
     tl.to(out, {
-        autoAlpha: 0, y: -34, rotation: rot,
-        duration: 0.26, ease: "power2.in",
+        autoAlpha: 0, y: -18,
+        duration: 0.22, ease: "power2.in",
         onComplete: function () {
           activate(i);
           gsap.set(out, { clearProps: "transform" });
         }
       })
-      .set("#flash", { autoAlpha: 1 })
-      .to("#flash", { autoAlpha: 0, duration: 0.12, ease: "power2.out" })
-      .fromTo(inn, { y: 44, scale: 0.975, autoAlpha: 0 }, {
-        y: 0, scale: 1, autoAlpha: 1,
-        duration: 0.5, ease: "power3.out"
+      .fromTo(inn, { y: 26, autoAlpha: 0 }, {
+        y: 0, autoAlpha: 1,
+        duration: 0.42, ease: "power2.out"
       });
   }
 
