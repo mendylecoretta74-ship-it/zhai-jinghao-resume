@@ -57,6 +57,10 @@
     closeMenu();
   }
 
+  /* 初始视图：尽早显示，避免后续脚本异常导致内容空白 */
+  var startId = (location.hash || "#home").replace("#", "");
+  activate(startId);
+
   chLinks.forEach(function (link) {
     link.addEventListener("click", function (e) {
       e.preventDefault();
@@ -70,10 +74,6 @@
     var id = location.hash.replace("#", "");
     activate(id);
   });
-
-  /* 初始视图：优先跟随 hash */
-  var startId = (location.hash || "#home").replace("#", "");
-  activate(startId);
 
   /* -------------------------------------------------------
      右侧浏览栏（移动端抽屉）
@@ -99,60 +99,62 @@
      ------------------------------------------------------- */
   var canvas = $("#particles");
   if (canvas && !reduceMotion) {
-    var ctx = canvas.getContext("2d");
-    var parts = [];
-    var W = 0, H = 0;
-    var COLORS = ["232,180,74", "85,200,218", "244,241,232"];
+    try {
+      var ctx = canvas.getContext("2d");
+      var parts = [];
+      var W = 0, H = 0;
+      var COLORS = ["232,180,74", "85,200,218", "244,241,232"];
 
-    function resize() {
-      var dpr = Math.min(window.devicePixelRatio || 1, 2);
-      W = window.innerWidth; H = window.innerHeight;
-      canvas.width = W * dpr; canvas.height = H * dpr;
-      canvas.style.width = W + "px"; canvas.style.height = H + "px";
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    }
-
-    function initParts() {
-      parts = [];
-      var count = Math.min(46, Math.max(24, Math.floor(W / 34)));
-      for (var i = 0; i < count; i++) {
-        parts.push({
-          x: Math.random() * W,
-          y: Math.random() * H,
-          r: Math.random() * 1.8 + 0.6,
-          vx: (Math.random() - 0.5) * 0.18,
-          vy: -Math.random() * 0.22 - 0.04,
-          a: Math.random() * 0.3 + 0.08,
-          c: COLORS[Math.floor(Math.random() * COLORS.length)]
-        });
+      function resize() {
+        var dpr = Math.min(window.devicePixelRatio || 1, 2);
+        W = window.innerWidth; H = window.innerHeight;
+        canvas.width = W * dpr; canvas.height = H * dpr;
+        canvas.style.width = W + "px"; canvas.style.height = H + "px";
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       }
-    }
 
-    function tick() {
-      ctx.clearRect(0, 0, W, H);
-      for (var i = 0; i < parts.length; i++) {
-        var p = parts[i];
-        p.x += p.vx; p.y += p.vy;
-        if (p.y < -6) { p.y = H + 6; p.x = Math.random() * W; }
-        if (p.x < -6) p.x = W + 6;
-        if (p.x > W + 6) p.x = -6;
-        var tw = 0.6 + 0.4 * Math.sin(Date.now() / 1400 + i);
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(" + p.c + "," + (p.a * tw).toFixed(3) + ")";
-        ctx.fill();
+      function initParts() {
+        parts = [];
+        var count = Math.min(46, Math.max(24, Math.floor(W / 34)));
+        for (var i = 0; i < count; i++) {
+          parts.push({
+            x: Math.random() * W,
+            y: Math.random() * H,
+            r: Math.random() * 1.8 + 0.6,
+            vx: (Math.random() - 0.5) * 0.18,
+            vy: -Math.random() * 0.22 - 0.04,
+            a: Math.random() * 0.3 + 0.08,
+            c: COLORS[Math.floor(Math.random() * COLORS.length)]
+          });
+        }
       }
+
+      function tick() {
+        ctx.clearRect(0, 0, W, H);
+        for (var i = 0; i < parts.length; i++) {
+          var p = parts[i];
+          p.x += p.vx; p.y += p.vy;
+          if (p.y < -6) { p.y = H + 6; p.x = Math.random() * W; }
+          if (p.x < -6) p.x = W + 6;
+          if (p.x > W + 6) p.x = -6;
+          var tw = 0.6 + 0.4 * Math.sin(Date.now() / 1400 + i);
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = "rgba(" + p.c + "," + (p.a * tw).toFixed(3) + ")";
+          ctx.fill();
+        }
+        requestAnimationFrame(tick);
+      }
+
+      document.addEventListener("visibilitychange", function () {
+        if (!document.hidden) requestAnimationFrame(tick);
+      });
+
+      resize();
+      initParts();
+      window.addEventListener("resize", function () { resize(); initParts(); }, { passive: true });
       requestAnimationFrame(tick);
-    }
-
-    document.addEventListener("visibilitychange", function () {
-      if (!document.hidden) requestAnimationFrame(tick);
-    });
-
-    resize();
-    initParts();
-    window.addEventListener("resize", function () { resize(); initParts(); }, { passive: true });
-    requestAnimationFrame(tick);
+    } catch (e) { /* 粒子为装饰，失败不影响阅读 */ }
   }
 
   /* -------------------------------------------------------

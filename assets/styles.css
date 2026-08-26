@@ -145,8 +145,9 @@ ul, ol { list-style: none; }
 
 /* ---------------- 章节视图（单视图切换） ---------------- */
 main { margin-right: var(--side-w); }
-.chapter { display: none; position: relative; z-index: 2; }
-.chapter.active { display: block; }
+.chapter { display: block; position: relative; z-index: 2; }
+.js .chapter { display: none; }
+.js .chapter.active { display: block; }
 .chapter > * { max-width: 1000px; margin-inline: auto; }
 .ch-head { padding: 92px 24px 36px; }
 .ch-head.dark { color: var(--paper); }
