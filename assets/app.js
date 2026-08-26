@@ -1,7 +1,7 @@
 /* =========================================================
    翟靖昊 · 行政方向求职作品集
    ANIME CUTSCENE × COMIC STORYBOARD
-   GSAP + ScrollTrigger · 粒子 · 视差 · 项目弹层
+   右侧章节浏览栏 · 单视图切换 · 粒子 · 项目弹层
    ========================================================= */
 (function () {
   "use strict";
@@ -13,37 +13,86 @@
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var isTouch = window.matchMedia("(hover: none)").matches;
   var isWechat = /MicroMessenger/i.test(navigator.userAgent);
+  var hasGsap = typeof gsap !== "undefined";
 
   /* -------------------------------------------------------
-     顶部导航：滚动态 + 章节高亮
+     章节视图切换（只显示当前板块）
      ------------------------------------------------------- */
-  var nav = $("#topNav");
-  var chLinks = $$(".ch-link");
+  var views = $$(".chapter");
+  var chLinks = $$(".ch-link[data-view]");
+  var sideNav = $("#sideNav");
 
-  function setActive(id) {
+  function setActiveLink(id) {
     chLinks.forEach(function (l) {
-      l.classList.toggle("active", l.getAttribute("href") === "#" + id);
+      l.classList.toggle("active", l.getAttribute("data-view") === id);
     });
   }
 
-  if (typeof ScrollTrigger !== "undefined") {
-    $$(".chapter").forEach(function (sec) {
-      ScrollTrigger.create({
-        trigger: sec,
-        start: "top 45%",
-        end: "bottom 45%",
-        onToggle: function (self) { if (self.isActive) setActive(sec.id); }
-      });
-    });
-    ScrollTrigger.create({
-      start: 30,
-      onUpdate: function (self) { nav.classList.toggle("scrolled", self.scroll() > 30); }
+  function animateView(id) {
+    var sec = document.getElementById(id);
+    if (!sec) return;
+    var els = $$(".reveal", sec);
+    if (reduceMotion || !hasGsap || !els.length) {
+      els.forEach(function (el) { el.style.opacity = 1; });
+      return;
+    }
+    gsap.fromTo(els, { autoAlpha: 0, y: 26 }, {
+      autoAlpha: 1, y: 0,
+      duration: 0.65,
+      stagger: 0.06,
+      ease: "power2.out",
+      overwrite: "auto"
     });
   }
 
-  window.addEventListener("scroll", function () {
-    nav.classList.toggle("scrolled", window.scrollY > 30);
-  }, { passive: true });
+  function activate(id) {
+    var target = views.filter(function (v) { return v.id === id; })[0] || views[0];
+    views.forEach(function (v) { v.classList.toggle("active", v === target); });
+    setActiveLink(target.id);
+    window.scrollTo(0, 0);
+    animateView(target.id);
+    if (target.id === "skills") {
+      $$(".skill-card").forEach(function (c) { c.classList.add("on"); });
+    }
+    closeMenu();
+  }
+
+  chLinks.forEach(function (link) {
+    link.addEventListener("click", function (e) {
+      e.preventDefault();
+      var id = link.getAttribute("data-view");
+      if (location.hash !== "#" + id) location.hash = id;
+      activate(id);
+    });
+  });
+
+  window.addEventListener("hashchange", function () {
+    var id = location.hash.replace("#", "");
+    activate(id);
+  });
+
+  /* 初始视图：优先跟随 hash */
+  var startId = (location.hash || "#home").replace("#", "");
+  activate(startId);
+
+  /* -------------------------------------------------------
+     右侧浏览栏（移动端抽屉）
+     ------------------------------------------------------- */
+  var menuOpen = false;
+  function openMenu() {
+    menuOpen = true;
+    sideNav.classList.add("open");
+    sideNav.setAttribute("aria-hidden", "false");
+    $("#sideClose").focus();
+  }
+  function closeMenu() {
+    if (!menuOpen) return;
+    menuOpen = false;
+    sideNav.classList.remove("open");
+    sideNav.setAttribute("aria-hidden", "true");
+  }
+  $("#menuBtn").addEventListener("click", openMenu);
+  $("#sideClose").addEventListener("click", closeMenu);
 
   /* -------------------------------------------------------
      背景粒子（缓慢漂浮，性能优先）
@@ -53,7 +102,7 @@
     var ctx = canvas.getContext("2d");
     var parts = [];
     var W = 0, H = 0;
-    var COLORS = ["rgba(232,180,74,", "rgba(85,200,218,", "rgba(244,241,232,"];
+    var COLORS = ["232,180,74", "85,200,218", "244,241,232"];
 
     function resize() {
       var dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -65,7 +114,7 @@
 
     function initParts() {
       parts = [];
-      var count = Math.min(46, Math.max(24, Math.floor(W / 32)));
+      var count = Math.min(46, Math.max(24, Math.floor(W / 34)));
       for (var i = 0; i < count; i++) {
         parts.push({
           x: Math.random() * W,
@@ -73,7 +122,7 @@
           r: Math.random() * 1.8 + 0.6,
           vx: (Math.random() - 0.5) * 0.18,
           vy: -Math.random() * 0.22 - 0.04,
-          a: Math.random() * 0.32 + 0.08,
+          a: Math.random() * 0.3 + 0.08,
           c: COLORS[Math.floor(Math.random() * COLORS.length)]
         });
       }
@@ -90,16 +139,14 @@
         var tw = 0.6 + 0.4 * Math.sin(Date.now() / 1400 + i);
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = p.c + (p.a * tw).toFixed(3) + ")";
+        ctx.fillStyle = "rgba(" + p.c + "," + (p.a * tw).toFixed(3) + ")";
         ctx.fill();
       }
       requestAnimationFrame(tick);
     }
 
-    var visible = true;
     document.addEventListener("visibilitychange", function () {
-      visible = !document.hidden;
-      if (visible) requestAnimationFrame(tick);
+      if (!document.hidden) requestAnimationFrame(tick);
     });
 
     resize();
@@ -109,19 +156,8 @@
   }
 
   /* -------------------------------------------------------
-     Hero：滚动视差 + 卡片 3D 倾斜
+     Hero：档案卡 3D 倾斜
      ------------------------------------------------------- */
-  if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined" && !reduceMotion) {
-    $$("[data-depth]").forEach(function (el) {
-      var d = parseFloat(el.getAttribute("data-depth")) || 0;
-      gsap.to(el, {
-        y: -90 * d * 2,
-        ease: "none",
-        scrollTrigger: { trigger: "#home", start: "top top", end: "bottom top", scrub: true }
-      });
-    });
-  }
-
   var heroPanel = $("#heroPanel");
   var hero = $("#home");
   if (heroPanel && hero && !isTouch && !reduceMotion) {
@@ -134,38 +170,6 @@
     hero.addEventListener("mouseleave", function () {
       heroPanel.style.transform = "";
     });
-  }
-
-  /* -------------------------------------------------------
-     滚动显现（GSAP ScrollTrigger）
-     ------------------------------------------------------- */
-  if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
-    gsap.utils.toArray(".reveal").forEach(function (el) {
-      gsap.fromTo(el, { autoAlpha: 0, y: 30 }, {
-        autoAlpha: 1, y: 0,
-        duration: 0.75,
-        ease: "power2.out",
-        scrollTrigger: { trigger: el, start: "top 88%", once: true }
-      });
-    });
-  } else {
-    $$(".reveal").forEach(function (el) { el.style.opacity = 1; });
-  }
-
-  /* -------------------------------------------------------
-     技能条填充
-     ------------------------------------------------------- */
-  if (typeof ScrollTrigger !== "undefined") {
-    $$(".skill-card").forEach(function (card) {
-      ScrollTrigger.create({
-        trigger: card,
-        start: "top 85%",
-        once: true,
-        onEnter: function () { card.classList.add("on"); }
-      });
-    });
-  } else {
-    $$(".skill-card").forEach(function (card) { card.classList.add("on"); });
   }
 
   /* -------------------------------------------------------
@@ -383,28 +387,6 @@
     lightboxImg.src = "";
   }
   $$("[data-lb-close]").forEach(function (el) { el.addEventListener("click", closeLightbox); });
-
-  /* -------------------------------------------------------
-     移动端章节菜单
-     ------------------------------------------------------- */
-  var menuOverlay = $("#menuOverlay");
-  var menuOpen = false;
-  function openMenu() {
-    menuOpen = true;
-    menuOverlay.classList.add("open");
-    menuOverlay.setAttribute("aria-hidden", "false");
-    $("#menuClose").focus();
-    document.body.style.overflow = "hidden";
-  }
-  function closeMenu() {
-    menuOpen = false;
-    menuOverlay.classList.remove("open");
-    menuOverlay.setAttribute("aria-hidden", "true");
-    document.body.style.overflow = "";
-  }
-  $("#menuBtn").addEventListener("click", openMenu);
-  $("#menuClose").addEventListener("click", closeMenu);
-  $$(".menu-link").forEach(function (l) { l.addEventListener("click", closeMenu); });
 
   /* -------------------------------------------------------
      分享：复制链接 + 二维码
