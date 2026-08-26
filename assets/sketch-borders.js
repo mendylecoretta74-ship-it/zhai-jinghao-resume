@@ -12,7 +12,7 @@
 
   var groups = [
     { sel: ".page-no", ellipse: true },
-    { sel: ".summary-card,.kw-card,.ability-band,.match-card,.star,.ev-shot,.writing-card,.search-box,.arc-item,.hub-card", color: DARK },
+    { sel: ".summary-card,.kw-card,.ability-band,.match-card,.star,.ev-shot,.writing-card,.search-box,.arc-item,.profile-card,.hub-item", color: DARK },
     { sel: ".panel,.mini,.stat-card,.honor,.contact-card", color: LIGHT },
     { sel: ".flow-cell", color: DARK, dash: true },
     { sel: ".sb-panel", color: LIGHT, dash: true }
