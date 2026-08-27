@@ -92,7 +92,7 @@ ul, ol { list-style: none; }
   width: 300px;
   display: flex; flex-direction: column; gap: 14px;
   padding: 40px 22px 34px;
-  background: rgba(12, 14, 18, .32);
+  background: rgba(12, 14, 18, .24);
   -webkit-backdrop-filter: blur(26px) saturate(150%);
   backdrop-filter: blur(26px) saturate(150%);
   border-left: 1px solid rgba(255, 255, 255, .12);
@@ -102,12 +102,12 @@ ul, ol { list-style: none; }
   isolation: isolate;
 }
 
-/* 第二层玻璃：内层磨砂 + 折射高光，让背景更深地透入 */
+/* 第二层磨砂：无渐变，仅叠加模糊让背景更深地透入 */
 .side-nav::before {
   content: "";
   position: absolute; inset: 0;
   z-index: -1;
-  background: radial-gradient(120% 70% at 18% 0%, rgba(255, 255, 255, .22), transparent 55%), linear-gradient(160deg, rgba(255, 255, 255, .12), rgba(255, 255, 255, .03) 42%, transparent 65%);
+  background: rgba(255, 255, 255, .02);
   -webkit-backdrop-filter: blur(10px) saturate(140%);
   backdrop-filter: blur(10px) saturate(140%);
   pointer-events: none;
@@ -118,7 +118,7 @@ ul, ol { list-style: none; }
   content: "";
   position: absolute; inset: 0;
   z-index: -1;
-  opacity: .55;
+  opacity: .45;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
   mix-blend-mode: overlay;
   pointer-events: none;
@@ -662,18 +662,18 @@ main { min-height: 100vh; }
 /* 桌面端：白色章节下侧栏自动切浅色，与页面自然交融（移动端抽屉保持深色） */
 @media (min-width: 1101px) {
   .side-nav.side-light {
-    background: rgba(255, 255, 255, .36);
+    background: rgba(255, 255, 255, .28);
     -webkit-backdrop-filter: blur(26px) saturate(160%);
     backdrop-filter: blur(26px) saturate(160%);
     border-left-color: rgba(255, 255, 255, .6);
     box-shadow: inset 1px 0 0 rgba(255, 255, 255, .7), inset 0 1px 0 rgba(255, 255, 255, .8), -30px 0 70px rgba(18, 19, 20, .1);
   }
   .side-nav.side-light::before {
-    background: linear-gradient(160deg, rgba(255, 255, 255, .6), rgba(255, 255, 255, .14) 45%, transparent 72%);
+    background: rgba(255, 255, 255, .05);
     -webkit-backdrop-filter: blur(8px) saturate(150%);
     backdrop-filter: blur(8px) saturate(150%);
   }
-  .side-nav.side-light::after { opacity: .3; }
+  .side-nav.side-light::after { opacity: .22; }
   .side-nav.side-light .brand { border-bottom-color: rgba(18, 19, 20, .08); }
   .side-nav.side-light .brand-name { color: var(--text); }
   .side-nav.side-light .brand-sub { color: var(--dim); }
