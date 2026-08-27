@@ -210,7 +210,10 @@ main { min-height: 100vh; }
   min-height: 100vh;
   min-height: 100dvh;
   display: flex; align-items: center;
-  background: var(--ink);
+  background-color: var(--ink);
+  background-image: linear-gradient(180deg, rgba(0, 0, 0, .42), rgba(0, 0, 0, .76)), url("images/bg-hero-night.jpg");
+  background-size: cover;
+  background-position: center;
   color: #fff;
   overflow: hidden;
 }
@@ -287,7 +290,14 @@ main { min-height: 100vh; }
 .pc-data span { font-size: 11px; font-weight: 600; color: var(--dim); }
 
 /* ---------------- CHAPTER 01 · ABOUT ---------------- */
-.about { background: var(--paper); color: var(--text); min-height: 100vh; min-height: 100dvh; }
+.about {
+  background-color: var(--paper);
+  background-image: linear-gradient(rgba(255, 255, 255, .9), rgba(255, 255, 255, .94)), url("images/bg-about-dunes.jpg");
+  background-size: cover;
+  background-position: center;
+  color: var(--text);
+  min-height: 100vh; min-height: 100dvh;
+}
 .about-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 28px; padding: 0 24px 110px; }
 .comic-panel {
   position: relative;
@@ -436,7 +446,14 @@ main { min-height: 100vh; }
 .cover-card:hover .cover-read .icon { transform: translateX(5px); }
 
 /* ---------------- CHAPTER 04 · EXPERIENCE ---------------- */
-.experience { background: var(--ink); color: #fff; min-height: 100vh; min-height: 100dvh; }
+.experience {
+  background-color: var(--ink);
+  background-image: linear-gradient(rgba(0, 0, 0, .8), rgba(0, 0, 0, .88)), url("images/bg-experience-ridge.jpg");
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+  min-height: 100vh; min-height: 100dvh;
+}
 .timeline { position: relative; padding: 0 24px 36px; }
 .timeline::before {
   content: "";
