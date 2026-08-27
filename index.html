@@ -1,440 +1,86 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>翟靖昊 · 行政方向求职作品集</title>
-  <meta name="description" content="354 人学生台账 · 124 人电工认定报名统筹 · 1904 份档案分类整理 · 独立开发会议纪要智能分析工作台。行政事务、档案台账、会务统筹、公文写作与 AI 工作流。">
+  <meta name="description" content="行政事务、档案台账、会务统筹、公文写作与 AI 工作流。354 人台账 · 124 人报名统筹 · 1904 份档案整理。">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="翟靖昊 · 行政方向求职作品集">
   <meta property="og:title" content="翟靖昊 · 行政方向求职作品集">
-  <meta property="og:description" content="354 人学生台账 · 124 人电工认定报名统筹 · 1904 份档案分类整理 · 独立开发会议纪要智能分析工作台。行政事务、档案台账、会务统筹、公文写作与 AI 工作流。">
+  <meta property="og:description" content="行政事务、档案台账、会务统筹、公文写作与 AI 工作流。">
   <meta property="og:image" content="https://mendylecoretta74-ship-it.github.io/zhai-jinghao-resume/assets/images/og-cover.png">
   <meta property="og:url" content="https://mendylecoretta74-ship-it.github.io/zhai-jinghao-resume/">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='6' fill='%23000000'/%3E%3Ctext x='32' y='44' font-size='34' font-weight='900' font-family='sans-serif' fill='%23FFFFFF' text-anchor='middle'%3E%E7%BF%9F%3C/text%3E%3C/svg%3E">
-  <link rel="preload" as="image" href="assets/images/bg-hero-night.jpg">
-  <link rel="stylesheet" href="assets/styles.css?v=17">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000000'/%3E%3Ctext x='32' y='44' font-size='34' font-family='Georgia,serif' fill='%23FCF9F3' text-anchor='middle'%3E%E7%BF%9F%3C/text%3E%3C/svg%3E">
+  <link rel="preload" as="font" type="font/woff2" href="assets/fonts/stix-two-text-latin.woff2" crossorigin>
+  <link rel="stylesheet" href="assets/styles.css?v=18">
 </head>
 <body>
 
-  <!-- Shader 式启动画面（1 秒，可跳过） -->
-  <div class="boot" id="boot" aria-hidden="true">
-    <div class="boot-inner">
-      <p class="boot-title">ZHAI JINGHAO</p>
-      <p class="boot-meta">求职作品集 · PORTFOLIO · v1.0</p>
-      <div class="boot-bar"><i></i></div>
-    </div>
+  <a class="skip" href="#content">Skip to content</a>
+
+  <!-- 全屏画布：页面主体（粒子场 / 大标题 / 项目预览均绘制于此，DOM 不承载可见主视觉） -->
+  <canvas id="scene" aria-hidden="true"></canvas>
+
+  <!-- 内部滚动容器：DOM 只承载 UI 层与语义层 -->
+  <div class="viewport" id="viewport">
+    <main id="content">
+
+      <section class="screen screen-home" data-section="home" aria-label="Hero">
+        <h1 class="sr-only">翟靖昊 - 行政方向求职作品集</h1>
+        <p class="scroll-hint">SCROLL TO INSPECT MY CLOSED DEALS</p>
+      </section>
+
+      <section class="screen screen-work" data-section="work" aria-label="Selected Work">
+        <div class="carousel">
+          <p class="counter" id="counter">01 / 03</p>
+          <h2 class="work-title" id="workTitle">电工（三级）认定报名统筹</h2>
+          <p class="work-desc" id="workDesc">124 名学生 · 4 个班级 · 全流程零差错。</p>
+          <p class="work-meta" id="workMeta">报名组织 — 信息核对 — 材料报送</p>
+          <p class="work-links" id="workLinks"></p>
+          <div class="carousel-nav">
+            <button id="prevBtn" type="button" aria-label="Previous project">←</button>
+            <button id="nextBtn" type="button" aria-label="Next project">→</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen screen-about" data-section="about" aria-label="About Us">
+        <h2 class="about-head">把行政的秩序感，做成产品。</h2>
+        <p class="about-text">台账、公文、会务与 AI 工作流。四年行政实务，数据零差错。愿从基础做起，在成都长期稳定发展。</p>
+        <dl class="about-meta">
+          <div><dt>教育</dt><dd>辽宁工程职业学院 · 电气自动化技术（2023 - 2026）</dd></div>
+          <div><dt>经历</dt><dd>辅导员助理 · 班级团支部书记</dd></div>
+          <div><dt>技能</dt><dd>Excel 台账 / 公文排版 / PPT / AI 工作流</dd></div>
+          <div><dt>荣誉</dt><dd>国家励志奖学金 · 优秀毕业生 · 中共党员</dd></div>
+        </dl>
+      </section>
+
+      <section class="screen screen-contact" data-section="contact" aria-label="Contact">
+        <h2 class="contact-head">保持联系。</h2>
+        <p class="contact-line"><a href="mailto:z3090194616@outlook.com">z3090194616@outlook.com</a></p>
+        <p class="contact-line">195 2910 0661</p>
+        <p class="contact-line">意向城市 成都 · 2026 年 9 月起到岗</p>
+        <a class="cta-line" href="mailto:z3090194616@outlook.com">Book a call</a>
+      </section>
+
+      <footer class="footer">
+        <p>© 2026 翟靖昊 · 行政方向求职作品集</p>
+        <a class="cta-line" href="mailto:z3090194616@outlook.com">Book a call</a>
+      </footer>
+
+    </main>
   </div>
 
-  <!-- 统一图标库 -->
-  <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
-    <defs>
-      <symbol id="i-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></symbol>
-      <symbol id="i-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
-      <symbol id="i-arrow-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></symbol>
-      <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
-      <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></symbol>
-      <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
-      <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
-      <symbol id="i-map-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></symbol>
-      <symbol id="i-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></symbol>
-      <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></symbol>
-      <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
-      <symbol id="i-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></symbol>
-      <symbol id="i-share" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.59 13.51 6.83 3.98"/><path d="m15.41 6.51-6.82 3.98"/></symbol>
-      <symbol id="i-file" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></symbol>
-      <symbol id="i-folder" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></symbol>
-      <symbol id="i-layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></symbol>
-      <symbol id="i-spark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.8a2 2 0 0 0 1.3 1.3L21 12l-5.8 1.9a2 2 0 0 0-1.3 1.3L12 21l-1.9-5.8a2 2 0 0 0-1.3-1.3L3 12l5.8-1.9a2 2 0 0 0 1.3-1.3Z"/></symbol>
-      <symbol id="i-briefcase" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></symbol>
-      <symbol id="i-pen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4Z"/></symbol>
-      <symbol id="i-clipboard" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></symbol>
-      <symbol id="i-award" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></symbol>
-      <symbol id="i-graduation" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></symbol>
-      <symbol id="i-calendar-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/><path d="m9 16 2 2 4-4"/></symbol>
-      <symbol id="i-list-checks" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h.01"/><path d="M3 12h.01"/><path d="M3 18h.01"/><path d="M10 6h11"/><path d="M10 12h11"/><path d="M10 18h11"/></symbol>
-      <symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
-      <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
-      <symbol id="i-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></symbol>
-    </defs>
-  </svg>
+  <!-- 顶部导航（固定层）：4 项 + 全站 CTA -->
+  <nav class="nav" aria-label="Main navigation">
+    <a class="nav-logo" href="#home" data-target="home">ZHAI JINGHAO — Home</a>
+    <a href="#work" data-target="work">Selected Work</a>
+    <a href="#about" data-target="about">About Us</a>
+    <a href="#contact" data-target="contact">Contact</a>
+    <a class="cta-line nav-cta" href="mailto:z3090194616@outlook.com">Book a call</a>
+  </nav>
 
-  <!-- 移动端顶部栏 -->
-  <header class="topbar">
-    <a class="brand" href="#home" aria-label="回到首页">
-      <span class="brand-name">翟靖昊</span>
-      <span class="brand-sub">ZHAI JINGHAO</span>
-    </a>
-    <button class="menu-btn" id="menuBtn" type="button" aria-label="打开章节菜单">
-      <svg class="icon"><use href="#i-menu"/></svg>
-    </button>
-  </header>
-
-  <!-- 右侧浏览栏 -->
-  <aside class="side-nav" id="sideNav">
-    <button class="side-close" id="sideClose" type="button" aria-label="关闭菜单">
-      <svg class="icon"><use href="#i-x"/></svg>
-    </button>
-    <a class="brand" href="#home" data-view="home" aria-label="回到首页">
-      <span class="brand-name">翟靖昊</span>
-      <span class="brand-sub">ZHAI JINGHAO · ADMIN</span>
-    </a>
-    <nav class="chapters" aria-label="章节导航">
-      <a class="ch-link active" href="#home" data-view="home"><span class="ch-no">00</span><span class="ch-name">Home</span><span class="ch-zh">首页</span></a>
-      <a class="ch-link" href="#about" data-view="about"><span class="ch-no">01</span><span class="ch-name">About Me</span><span class="ch-zh">关于我</span></a>
-      <a class="ch-link" href="#skills" data-view="skills"><span class="ch-no">02</span><span class="ch-name">Skills</span><span class="ch-zh">技能</span></a>
-      <a class="ch-link" href="#projects" data-view="projects"><span class="ch-no">03</span><span class="ch-name">Projects</span><span class="ch-zh">项目</span></a>
-      <a class="ch-link" href="#experience" data-view="experience"><span class="ch-no">04</span><span class="ch-name">Experience</span><span class="ch-zh">经历</span></a>
-      <a class="ch-link" href="#contact" data-view="contact"><span class="ch-no">05</span><span class="ch-name">Contact</span><span class="ch-zh">联系</span></a>
-    </nav>
-    <div class="side-foot">
-      <a class="btn btn-paper btn-sm" href="assets/files/简历-翟靖昊.docx" download>
-        <svg class="icon"><use href="#i-download"/></svg>下载简历
-      </a>
-      <p class="side-note">ZHAI JINGHAO PORTFOLIO 2026</p>
-    </div>
-  </aside>
-
-  <!-- 背景粒子层 -->
-  <canvas id="particles" aria-hidden="true"></canvas>
-
-  <main id="main">
-
-    <!-- CHAPTER 00 · PROLOGUE（首页 Hero） -->
-    <section id="home" class="chapter hero">
-      <div class="hero-speed" data-depth="0.35" aria-hidden="true"></div>
-      <div class="hero-halftone" data-depth="0.5" aria-hidden="true"></div>
-      <div class="hero-inner">
-        <div class="hero-copy" data-depth="0.12">
-          <p class="ch-label">CHAPTER 00 · PROLOGUE</p>
-          <h1 class="hero-name">翟靖昊</h1>
-          <p class="hero-name-sub">ZHAI JINGHAO</p>
-          <p class="hero-adv">354 人台账独立管理、124 人认定报名零差错统筹，公文写作与多方协调在行，能用 AI 工作流提效，愿长期稳定发展。</p>
-          <p class="hero-intro">行政事务与活动执行经验扎实的应届毕业生，擅长数据整理、公文写作与多方沟通；担任辅导员助理期间沉淀 AI 工作流与 Agent 办公实践能力，独立开发会议纪要智能分析工作台，兼具业务理解与项目落地能力，愿从基础做起、在成都长期稳定发展。</p>
-          <div class="hero-stats">
-            <div><b>354</b><span>人台账</span></div>
-            <div><b>124</b><span>人报名</span></div>
-            <div><b>1904</b><span>份档案</span></div>
-          </div>
-          <div class="hero-cta">
-            <a class="btn btn-accent" href="#projects">进入故事<svg class="icon"><use href="#i-arrow-right"/></svg></a>
-            <a class="btn btn-ghost" href="assets/files/简历-翟靖昊.docx" download>
-              <svg class="icon"><use href="#i-download"/></svg>下载简历
-            </a>
-          </div>
-        </div>
-        <div class="hero-panel" id="heroPanel" data-depth="0.55">
-          <div class="panel-card">
-            <p class="pc-label">CANDIDATE FILE · 个人档案</p>
-            <p class="pc-role">行政专员 · 行政助理 · 人事行政助理</p>
-            <ul class="pc-tags">
-              <li>中共党员</li><li>校级优秀毕业生</li><li>国家励志奖学金</li>
-            </ul>
-            <div class="pc-data">
-              <div><b>21</b><span>档案分类</span></div>
-              <div><b>0</b><span>差错归档</span></div>
-              <div><b>1</b><span>AI 工作台</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CHAPTER 01 · ABOUT ME -->
-    <section id="about" class="chapter about">
-      <div class="ch-head">
-        <p class="ch-label">CHAPTER 01 · ABOUT ME</p>
-        <h2 class="ch-title">关于我<span class="outline-ink">About</span></h2>
-        <p class="ch-sub">把「台账、核对、文书、统筹」做成日常的行政人</p>
-      </div>
-      <div class="about-grid">
-        <article class="comic-panel panel-story reveal">
-          <p class="panel-tag">PERSONAL FILE · 个人定位</p>
-          <p class="story-text">行政事务与活动执行经验扎实的应届毕业生：独立管理 354 人信息台账，统筹 124 人电工（三级）认定报名全流程；担任辅导员助理，具备 AI 工作流与 Agent 办公实践能力，独立开发会议纪要智能分析工作台，擅长数据整理、公文写作与多方沟通；愿从基础做起，在成都长期稳定发展。</p>
-          <div class="panel-chips">
-            <span>354 人台账</span><span>124 人报名</span><span>1904 份档案</span><span>1 个 AI 工作台</span>
-          </div>
-        </article>
-        <article class="comic-panel panel-style reveal">
-          <p class="panel-tag">WORK STYLE · 工作方式</p>
-          <ul class="style-list">
-            <li><svg class="icon"><use href="#i-check"/></svg>严谨细致，经手事务零差错</li>
-            <li><svg class="icon"><use href="#i-check"/></svg>清单与节点推进，执行力强</li>
-            <li><svg class="icon"><use href="#i-check"/></svg>沉稳倾听，善于多方协调</li>
-          </ul>
-          <p class="panel-quote">「上手即可承接，无需额外培养」</p>
-        </article>
-        <article class="comic-panel panel-edu reveal">
-          <p class="panel-tag">EDUCATION · 教育背景</p>
-          <h3>辽宁工程职业学院</h3>
-          <p>电气自动化技术（全日制专科）</p>
-        <p class="dim">2023.09 - 2026.07</p>
-          <div class="panel-chips one">
-            <span>中共党员</span><span>校级优秀毕业生</span>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- CHAPTER 02 · SKILLS -->
-    <section id="skills" class="chapter skills">
-      <div class="ch-head dark">
-        <p class="ch-label">CHAPTER 02 · SKILLS</p>
-        <h2 class="ch-title">技能矩阵<span class="outline-cyan">Skill Matrix</span></h2>
-        <p class="ch-sub">办公 · 会务 · 图文 · 统筹 · AI 工作流，五模块在线</p>
-      </div>
-      <div class="holo-console reveal">
-        <span class="holo-corner tl"></span><span class="holo-corner tr"></span><span class="holo-corner bl"></span><span class="holo-corner br"></span>
-        <div class="holo-head">
-          <span class="holo-title">SKILL MATRIX // 05 MODULES</span>
-          <span class="holo-status"><i class="dot"></i>SYSTEM ONLINE</span>
-        </div>
-        <div class="skill-grid">
-          <article class="skill-card">
-            <span class="sk-ico"><svg class="icon"><use href="#i-layers"/></svg></span>
-            <h3>办公软件</h3>
-            <p>Word 台账与公文排版 · Excel 函数与数据透视表 · PPT 汇报制作</p>
-            <div class="sk-bar"><i style="--w:92%"></i></div>
-            <span class="sk-tag">熟练 · 高频使用</span>
-          </article>
-          <article class="skill-card">
-            <span class="sk-ico"><svg class="icon"><use href="#i-pen"/></svg></span>
-            <h3>公文与会务</h3>
-            <p>计划 / 总结 / 方案写作，通知、签到、纪要等会务全流程</p>
-            <div class="sk-bar"><i style="--w:88%"></i></div>
-            <span class="sk-tag">熟练 · 独立完成</span>
-          </article>
-          <article class="skill-card">
-            <span class="sk-ico"><svg class="icon"><use href="#i-list-checks"/></svg></span>
-            <h3>统筹执行</h3>
-            <p>清单化推进、节点确认，沟通协调与文书处理效率高</p>
-            <div class="sk-bar"><i style="--w:86%"></i></div>
-            <span class="sk-tag">熟练 · 多线并行</span>
-          </article>
-          <article class="skill-card">
-            <span class="sk-ico"><svg class="icon"><use href="#i-spark"/></svg></span>
-            <h3>AI 工作流</h3>
-            <p>Claude / Codex / DeepSeek V4 等工具，落地会议纪要工作台，流程自动化与知识沉淀</p>
-            <div class="sk-bar"><i style="--w:80%"></i></div>
-            <span class="sk-tag">熟练 · 已落地项目</span>
-          </article>
-          <article class="skill-card">
-            <span class="sk-ico"><svg class="icon"><use href="#i-file"/></svg></span>
-            <h3>图文处理</h3>
-            <p>PS / SAI2 基础图文处理与版式制作</p>
-            <div class="sk-bar"><i style="--w:62%"></i></div>
-            <span class="sk-tag">基础 · 可独立完成</span>
-          </article>
-        </div>
-        <div class="holo-foot">
-          <span>HOVER TO INSPECT · 悬停查看</span>
-          <span>CLAUDE / CODEX / DEEPSEEK V4</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- CHAPTER 03 · PROJECTS -->
-    <section id="projects" class="chapter projects">
-      <div class="ch-head">
-        <p class="ch-label">CHAPTER 03 · PROJECTS</p>
-        <h2 class="ch-title">项目章节<span class="outline-ink">Story Arcs</span></h2>
-        <p class="ch-sub">每个项目都是一话漫画 · 点击封面进入剧情</p>
-      </div>
-      <div class="cover-grid">
-        <article class="cover-card reveal" data-project="p1" tabindex="0" role="button" aria-label="打开项目：电工（三级）认定报名统筹">
-          <div class="cover-art">
-            <img src="assets/images/evidence-rosters.png" alt="学校团体学籍名册节选（已脱敏）" loading="lazy">
-            <span class="cover-scan"></span>
-          </div>
-          <div class="cover-body">
-            <span class="cover-ch">CH.03-01 · 统筹篇</span>
-            <h3>电工（三级）认定报名统筹</h3>
-            <p>124 名学生 · 4 个班级 · 全流程零差错</p>
-            <div class="cover-tags"><span>报名组织</span><span>信息核对</span><span>材料报送</span></div>
-            <span class="cover-read">READ <svg class="icon"><use href="#i-arrow-right"/></svg></span>
-          </div>
-        </article>
-        <article class="cover-card reveal" data-project="p2" tabindex="0" role="button" aria-label="打开项目：会议纪要智能分析工作台">
-          <div class="cover-art">
-            <img src="assets/images/workbench-overview.png" alt="会议纪要智能分析工作台总览" loading="lazy">
-            <span class="cover-scan"></span>
-          </div>
-          <div class="cover-body">
-            <span class="cover-ch">CH.03-02 · 未来篇</span>
-            <h3>会议纪要智能分析工作台</h3>
-            <p>独立开发 · 导入 → 分析 → 导出全自动链路</p>
-            <div class="cover-tags"><span>独立开发</span><span>AI 工作流</span><span>在线 Demo</span></div>
-            <span class="cover-read">READ <svg class="icon"><use href="#i-arrow-right"/></svg></span>
-          </div>
-        </article>
-        <article class="cover-card reveal" data-project="p3" tabindex="0" role="button" aria-label="打开项目：作品集与档案体系">
-          <div class="cover-art">
-            <img src="assets/images/page-1.png" alt="求职作品集封面" loading="lazy">
-            <span class="cover-scan"></span>
-          </div>
-          <div class="cover-body">
-            <span class="cover-ch">CH.03-03 · 资料篇</span>
-            <h3>作品集与档案体系</h3>
-        <p>8 页作品集 · 公文样例 · C01-C21 档案分类</p>
-            <div class="cover-tags"><span>作品集</span><span>公文写作</span><span>档案管理</span></div>
-            <span class="cover-read">READ <svg class="icon"><use href="#i-arrow-right"/></svg></span>
-          </div>
-        </article>
-      </div>
-      <p class="cover-hint"><svg class="icon" style="width:15px;height:15px"><use href="#i-arrow-left"/></svg> 横向滑动浏览项目 <svg class="icon" style="width:15px;height:15px"><use href="#i-arrow-right"/></svg></p>
-    </section>
-
-    <!-- CHAPTER 04 · EXPERIENCE -->
-    <section id="experience" class="chapter experience">
-      <div class="ch-head dark">
-        <p class="ch-label">CHAPTER 04 · EXPERIENCE</p>
-        <h2 class="ch-title">经历时间线<span class="outline-cyan">Timeline</span></h2>
-        <p class="ch-sub">从台账管理到 AI 工作流，一步一步走过来</p>
-      </div>
-      <div class="timeline">
-        <div class="tl-item reveal">
-      <span class="tl-year">2023-2026</span>
-          <div class="tl-card">
-            <h3>辽宁工程职业学院 · 电气自动化技术</h3>
-            <p>全日制专科 · 在校期间担任辅导员助理与班级团支部书记</p>
-          </div>
-        </div>
-        <div class="tl-item reveal">
-          <span class="tl-year">在校 · 任职</span>
-          <div class="tl-card">
-            <h3>辅导员助理</h3>
-            <ul>
-              <li>独立管理 354 名学生信息台账与档案，支撑 6 类学生事务落地</li>
-              <li>统筹 124 人电工（三级）认定报名，材料全流程零差错</li>
-              <li>参与多场校园活动筹备与现场执行，清单化推进多线事务</li>
-            </ul>
-          </div>
-        </div>
-        <div class="tl-item reveal">
-          <span class="tl-year">在校 · 任职</span>
-          <div class="tl-card">
-            <h3>班级团支部书记</h3>
-            <ul>
-              <li>完善团支部制度与团员档案，规范团费收缴记录</li>
-              <li>组织「青年大学习」等主题团课，负责通知、签到、纪要全流程</li>
-              <li>独立撰写工作计划、工作总结与活动方案</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="honor-panel reveal">
-        <p class="panel-tag dark">ACHIEVEMENTS · 荣誉与资质</p>
-        <div class="honor-grid">
-          <div class="honor-chip"><b>2026</b><span>加入中国共产党 · 校级“优秀毕业生”</span></div>
-          <div class="honor-chip"><b>2025</b><span>院级“优秀团员” · 院级“优秀学生干部”</span></div>
-          <div class="honor-chip"><b>2024</b><span>国家励志奖学金 · 省技能大赛“智能制造”第 12 名</span></div>
-          <div class="honor-chip"><b>资质</b><span>英语 B 级 · 普通话二级乙等 · PS/SAI2 · AI 工具</span></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CHAPTER 05 · CONTACT -->
-    <section id="contact" class="chapter contact">
-      <div class="ch-head">
-        <p class="ch-label">CHAPTER 05 · CONTACT</p>
-        <h2 class="ch-title">联系我<span class="outline-ink">Contact</span></h2>
-        <p class="ch-sub">欢迎交流 · 愿在成都长期稳定发展</p>
-      </div>
-      <div class="contact-grid">
-        <div class="contact-card reveal">
-          <span class="c-ico"><svg class="icon"><use href="#i-phone"/></svg></span>
-          <span class="c-label">电话</span>
-          <b>19529100661</b>
-        </div>
-        <div class="contact-card reveal">
-          <span class="c-ico"><svg class="icon"><use href="#i-mail"/></svg></span>
-          <span class="c-label">邮箱</span>
-          <b>z3090194616@outlook.com</b>
-        </div>
-        <div class="contact-card reveal">
-          <span class="c-ico"><svg class="icon"><use href="#i-map-pin"/></svg></span>
-          <span class="c-label">意向城市</span>
-          <b>成都（长期稳定发展）</b>
-        </div>
-        <div class="contact-card reveal">
-          <span class="c-ico"><svg class="icon"><use href="#i-calendar"/></svg></span>
-          <span class="c-label">到岗时间</span>
-          <b>2026 年 9 月起</b>
-        </div>
-      </div>
-      <div class="contact-actions reveal">
-        <a class="btn btn-dark" href="assets/files/简历-翟靖昊.docx" download>
-          <svg class="icon"><use href="#i-download"/></svg>下载简历
-        </a>
-        <a class="btn btn-dark" href="assets/files/作品集-翟靖昊-行政方向-20260812.pdf" target="_blank" rel="noopener">
-          <svg class="icon"><use href="#i-file"/></svg>查看作品集 PDF
-        </a>
-        <a class="btn btn-accent" href="workbench/index.html" target="_blank" rel="noopener">
-          <svg class="icon"><use href="#i-spark"/></svg>体验工作台 Demo
-        </a>
-        <button class="btn btn-ghost-dark" id="shareCta" type="button">
-          <svg class="icon"><use href="#i-share"/></svg>分享给招聘方
-        </button>
-      </div>
-      <div class="data-note reveal">
-        <p>数据口径：简历 / 作品集 / 档案清单 一致 · 均可在学校存档材料中查证</p>
-        <p>本站仅展示本人信息与档案分类元数据，不含任何第三方学生个人信息。</p>
-      </div>
-  <footer class="site-foot">© 2026 翟靖昊 · 行政方向求职作品集</footer>
-    </section>
-
-  </main>
-
-  <!-- 项目详情弹层（镜头推进） -->
-  <div class="p-modal" id="pModal" role="dialog" aria-modal="true" aria-labelledby="pmTitle" hidden>
-    <div class="pm-backdrop" data-pm-close></div>
-    <div class="pm-panel">
-      <button class="pm-close" type="button" data-pm-close aria-label="关闭">
-        <svg class="icon"><use href="#i-x"/></svg>
-      </button>
-      <div class="pm-head">
-        <span class="pm-ch" id="pmCh">CH.03-01</span>
-        <h3 id="pmTitle">项目</h3>
-        <p id="pmTag"></p>
-      </div>
-      <div class="pm-body" id="pmBody"></div>
-    </div>
-  </div>
-
-  <!-- 分享弹层 -->
-  <div class="share-modal" id="shareModal" role="dialog" aria-modal="true" aria-labelledby="shareTitle" hidden>
-    <div class="share-backdrop" data-share-close></div>
-    <div class="share-panel">
-      <div class="share-head">
-        <h3 id="shareTitle">分享作品集</h3>
-        <button class="share-close" type="button" data-share-close aria-label="关闭">
-          <svg class="icon"><use href="#i-x"/></svg>
-        </button>
-      </div>
-      <div class="share-body">
-        <div class="qr-box"><div class="qr" id="qrCode"></div></div>
-        <p class="qr-tip">微信内长按二维码识别，或复制链接发送给朋友</p>
-        <div class="link-row">
-          <span class="link-text" id="shareUrlText"></span>
-          <button class="btn btn-dark btn-sm" id="copyLinkBtn" type="button">
-            <svg class="icon"><use href="#i-copy"/></svg><span id="copyLabel">复制链接</span>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 图片灯箱 -->
-  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="图片放大查看" hidden>
-    <div class="lb-backdrop" data-lb-close></div>
-    <button class="lb-close" type="button" data-lb-close aria-label="关闭">
-      <svg class="icon"><use href="#i-x"/></svg>
-    </button>
-    <img class="lb-img" id="lightboxImg" src="" alt="工作成果截图放大查看">
-  </div>
-
-  <script src="assets/vendor/gsap.min.js?v=3"></script>
-  <script src="assets/vendor/qrcode.js?v=3"></script>
-  <script src="assets/app.js?v=5"></script>
+  <script src="assets/app.js?v=6"></script>
 </body>
 </html>
