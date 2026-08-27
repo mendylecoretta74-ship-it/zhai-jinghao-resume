@@ -16,6 +16,11 @@
   --bg: #000000;
   --fg: #fcf9f3;
   --serif: "STIX Two Text", "Noto Serif SC", "Songti SC", "SimSun", Georgia, serif;
+  /* 迪士尼12法则缓动：缓入缓出 / 回弹过冲 / 快压慢放 */
+  --ease-out:   cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-snap:  cubic-bezier(0.65, 0, 0.35, 1);
+  --dur: 0.3s;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -97,12 +102,23 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   font-size: 13px; letter-spacing: .15em;
 }
 .nav a {
+  position: relative;
   opacity: .55;
-  transition: opacity .2s;
+  transition: opacity .2s var(--ease-out), transform .3s var(--ease-spring);
   white-space: nowrap;
 }
+/* 下划线生长：次要动作，from scaleX 0 */
+.nav a::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -4px;
+  height: 1px; background: currentColor;
+  transform: scaleX(0); transform-origin: left center;
+  transition: transform .35s var(--ease-out);
+}
 .nav a:hover, .nav a.active { opacity: 1; }
+.nav a:hover { transform: translateY(-1px); }
+.nav a:hover::after, .nav a.active::after { transform: scaleX(1); }
 .nav-logo { font-weight: 700; }
+.nav-logo::after { display: none; }
 .nav-cta { margin-left: auto; border-bottom: 1px solid currentColor; opacity: .8; }
 
 /* ---------- 全站 CTA：下划线式，无按钮底色 ---------- */
@@ -110,11 +126,26 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   display: inline-block;
   border-bottom: 1px solid currentColor;
   opacity: .8;
-  transition: opacity .2s;
+  transition: opacity .2s var(--ease-out), transform .3s var(--ease-spring);
 }
-.cta-line:hover { opacity: 1; }
+.cta-line:hover { opacity: 1; transform: translateY(-1px); }
 
-/* ---------- Selected Work：单件轮播 ---------- */
+/* ---------- Selected Work：单件轮播（文字居中，预览图在下方） ---------- */
+.carousel {
+  width: min(820px, 92vw);
+  margin: 0 auto;
+  text-align: center;
+  transition: none; /* 布局切换由 GSAP flip 驱动，CSS 不做 transition */
+}
+/* 桌面：work 屏激活时文字块丝滑左移（Flip 动画由 JS 驱动） */
+@media (min-width: 761px) {
+  .carousel.work-left {
+    margin: 0 auto 0 0; /* margin-left:0 + margin-right:auto → flex 交叉轴左靠（双 auto 会居中） */
+    width: min(560px, 44vw);
+    text-align: left;
+  }
+  .carousel.work-left .work-desc { margin-left: 0; } /* 小标题与主标题左对齐（去块居中） */
+}
 .counter {
   font-size: 12px; letter-spacing: .4em;
   opacity: .45;
@@ -126,7 +157,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   line-height: 1.15;
 }
 .work-desc {
-  margin-top: 18px;
+  margin: 18px auto 0; /* 居中：max-width 限制的块需 margin auto */
   font-size: 17px;
   line-height: 1.7;
   opacity: .9;
@@ -138,7 +169,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   opacity: .6;
 }
 .work-links {
-  margin-top: 22px;
+  margin-top: 24px;
   font-size: 13px;
   display: flex; gap: 24px; justify-content: center; flex-wrap: wrap;
 }
@@ -149,19 +180,26 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 .work-links a:hover { opacity: 1; }
 
-.carousel-nav {
-  margin-top: 44px;
-  display: flex; gap: 16px; justify-content: center;
+.carousel-nav { display: none; } /* 翻页按钮已移除，保留占位防样式断链 */
+
+/* 标题切换条：垂直列表，左对齐；当前项下划线高亮 */
+.work-tabs {
+  margin-top: 28px;
+  width: 100%;
+  display: flex; flex-direction: column; align-items: flex-start;
+  gap: 8px;
+  font-size: 13px; letter-spacing: .08em;
 }
-.carousel-nav button {
-  width: 48px; height: 48px;
-  border: 1px solid rgba(252, 249, 243, .55);
-  border-radius: 0;
-  opacity: .55;
-  font-size: 16px; line-height: 1;
-  transition: opacity .2s;
+.work-tabs button {
+  background: none; border: none; border-bottom: 1px solid transparent;
+  padding: 0 2px 3px;
+  color: var(--fg); font-family: inherit; font-size: inherit; letter-spacing: inherit;
+  opacity: .45; cursor: pointer;
+  transition: opacity .2s var(--ease-out), border-color .2s var(--ease-out);
+  will-change: transform;
 }
-.carousel-nav button:hover, .carousel-nav button:active { opacity: 1; }
+.work-tabs button:hover { opacity: .85; }
+.work-tabs button.active { opacity: 1; border-bottom-color: currentColor; }
 
 /* ---------- About ---------- */
 .about-head {
@@ -172,6 +210,18 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   margin-top: 20px;
   max-width: 42ch;
   font-size: 16px; line-height: 1.7; opacity: .85;
+}
+/* 个人优势小节（shader 风小节标：小字、大字距、低透明度） */
+.about-label {
+  margin-top: 40px;
+  font-size: 12px;
+  letter-spacing: .3em;
+  opacity: .45;
+}
+.about-strengths {
+  margin: 14px auto 0;
+  max-width: 42ch;
+  font-size: 15px; line-height: 1.8; opacity: .85;
 }
 .about-meta {
   margin-top: 44px;
@@ -218,9 +268,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .work-title, .about-head, .contact-head { font-size: clamp(26px, 7vw, 40px); }
   .about-meta div { flex-direction: column; gap: 2px; }
   .about-meta dt { min-width: 0; text-align: center; }
-  .carousel-nav button { width: 44px; height: 44px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .nav a, .cta-line, .carousel-nav button, .work-links a, .contact-line a { transition: none; }
+  .nav a, .cta-line, .work-tabs button, .work-links a, .contact-line a { transition: none; }
 }
