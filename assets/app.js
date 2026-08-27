@@ -21,6 +21,8 @@
   var views = $$(".chapter");
   var chLinks = $$(".ch-link[data-view]");
   var sideNav = $("#sideNav");
+  var switching = false;
+  var pendingId = null;
 
   function setActiveLink(id) {
     chLinks.forEach(function (l) {
@@ -45,7 +47,7 @@
     });
   }
 
-  function activate(id) {
+  function applyState(id) {
     var target = views.filter(function (v) { return v.id === id; })[0] || views[0];
     views.forEach(function (v) { v.classList.toggle("active", v === target); });
     setActiveLink(target.id);
@@ -60,6 +62,36 @@
       $$(".skill-card").forEach(function (c) { c.classList.add("on"); });
     }
     closeMenu();
+  }
+
+  function activate(id) {
+    if (switching) { pendingId = id; return; }
+    var target = views.filter(function (v) { return v.id === id; })[0] || views[0];
+    var out = document.querySelector(".chapter.active");
+    if (!target || out === target || reduceMotion || !hasGsap || !out) {
+      applyState(id);
+      return;
+    }
+
+    /* 章节过渡：淡出当前 → 切换 → 淡入新章节，黑/白背景自然过渡 */
+    switching = true;
+    var finish = function () {
+      applyState(id);
+      gsap.fromTo(target, { autoAlpha: 0, y: 22 }, {
+        autoAlpha: 1, y: 0,
+        duration: 0.42,
+        ease: "power2.out",
+        onComplete: function () {
+          switching = false;
+          if (pendingId) {
+            var p = pendingId;
+            pendingId = null;
+            activate(p);
+          }
+        }
+      });
+    };
+    gsap.to(out, { autoAlpha: 0, y: -12, duration: 0.24, ease: "power2.in", onComplete: finish });
   }
 
   /* 初始视图：尽早显示，避免后续脚本异常导致内容空白 */
