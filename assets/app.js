@@ -140,7 +140,7 @@
       var ctx = canvas.getContext("2d");
       var parts = [];
       var W = 0, H = 0;
-      var COLORS = ["0,112,209", "83,177,255", "255,255,255"];
+      var COLORS = ["109,91,208", "167,155,240", "255,255,255"];
 
       function resize() {
         var dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -491,4 +491,22 @@
       if (menuOpen) { closeMenu(); return; }
     }
   });
+
+  /* -------------------------------------------------------
+     Shader 式启动画面：1 秒后淡出；减少动效或已看过则直接跳过
+     ------------------------------------------------------- */
+  var boot = document.getElementById("boot");
+  if (boot) {
+    var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var bootDone = function () {
+      boot.classList.add("done");
+      setTimeout(function () { boot.remove(); }, 500);
+    };
+    if (reduceMotion || sessionStorage.getItem("zhai-booted")) {
+      boot.remove();
+    } else {
+      sessionStorage.setItem("zhai-booted", "1");
+      setTimeout(bootDone, 1050);
+    }
+  }
 })();
