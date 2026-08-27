@@ -208,6 +208,7 @@ main { min-height: 100vh; }
 /* ---------------- CHAPTER 00 · HERO ---------------- */
 .hero {
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex; align-items: center;
   background: var(--ink);
   color: #fff;
@@ -286,7 +287,7 @@ main { min-height: 100vh; }
 .pc-data span { font-size: 11px; font-weight: 600; color: var(--dim); }
 
 /* ---------------- CHAPTER 01 · ABOUT ---------------- */
-.about { background: var(--paper); color: var(--text); min-height: 100vh; }
+.about { background: var(--paper); color: var(--text); min-height: 100vh; min-height: 100dvh; }
 .about-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 28px; padding: 0 24px 110px; }
 .comic-panel {
   position: relative;
@@ -313,7 +314,7 @@ main { min-height: 100vh; }
 .panel-edu .dim { color: var(--dim); font-weight: 500; }
 
 /* ---------------- CHAPTER 02 · SKILLS（全息控制台） ---------------- */
-.skills { background: var(--ink); color: #fff; min-height: 100vh; }
+.skills { background: var(--ink); color: #fff; min-height: 100vh; min-height: 100dvh; }
 .holo-console {
   position: relative;
   width: min(1000px, calc(100% - 48px));
@@ -387,12 +388,12 @@ main { min-height: 100vh; }
 .holo-foot { position: relative; z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; border-top: 1px solid rgba(83, 177, 255, .25); padding-top: 14px; font-family: var(--mono); font-size: 9.5px; letter-spacing: .18em; color: rgba(255, 255, 255, .4); }
 
 /* ---------------- CHAPTER 03 · PROJECTS（漫画封面） ---------------- */
-.projects { background: var(--paper); color: var(--text); min-height: 100vh; }
+.projects { background: var(--paper); color: var(--text); min-height: 100vh; min-height: 100dvh; }
 .cover-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 28px; padding: 0 24px 110px; }
 .cover-card {
   background: #fff;
   border: 1px solid var(--line-light);
-  border-radius: 14px;
+  border-radius: 12px;
   box-shadow: 0 14px 34px rgba(18, 19, 20, .06);
   overflow: hidden;
   cursor: pointer;
@@ -435,7 +436,7 @@ main { min-height: 100vh; }
 .cover-card:hover .cover-read .icon { transform: translateX(5px); }
 
 /* ---------------- CHAPTER 04 · EXPERIENCE ---------------- */
-.experience { background: var(--ink); color: #fff; min-height: 100vh; }
+.experience { background: var(--ink); color: #fff; min-height: 100vh; min-height: 100dvh; }
 .timeline { position: relative; padding: 0 24px 36px; }
 .timeline::before {
   content: "";
@@ -484,7 +485,7 @@ main { min-height: 100vh; }
 .honor-chip span { font-size: 13px; color: rgba(255, 255, 255, .75); font-weight: 600; }
 
 /* ---------------- CHAPTER 05 · CONTACT ---------------- */
-.contact { background: var(--paper); color: var(--text); min-height: 100vh; }
+.contact { background: var(--paper); color: var(--text); min-height: 100vh; min-height: 100dvh; }
 .contact-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; padding: 0 24px; }
 .contact-card {
   background: #fff;

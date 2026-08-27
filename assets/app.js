@@ -140,7 +140,7 @@
       var ctx = canvas.getContext("2d");
       var parts = [];
       var W = 0, H = 0;
-      var COLORS = ["232,180,74", "85,200,218", "244,241,232"];
+      var COLORS = ["0,112,209", "83,177,255", "255,255,255"];
 
       function resize() {
         var dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -442,7 +442,7 @@
       qr.make();
       box.innerHTML = qr.createSvgTag(5, 8);
     } catch (e) {
-      box.innerHTML = '<p style="font-size:12px;color:#6E747E">二维码生成失败</p>';
+      box.innerHTML = '<p style="font-size:12px;color:#6B6B6B">二维码生成失败</p>';
     }
   }
 
