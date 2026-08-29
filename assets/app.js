@@ -15,9 +15,38 @@
   var ctx = scene.getContext("2d");
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var FG = "252, 249, 243"; // 暖白 #fcf9f3
-  var bgImg = new Image(); bgImg.src = "assets/images/bg-lake.jpg"; // 背景图（已压暗的氛围层，全景版）
+  var bgImg = new Image(); bgImg.src = "assets/images/bg-lake.jpg"; // AI 高清细节修复背景图（保留原构图，适配大屏铺满）
   var bgCache = null; // 背景离屏缓存：按视口尺寸渲染一次，每帧直接 blit（省去逐帧缩放）
   var frameCount = 0; // 帧计数：连线等重计算隔帧执行，降载
+
+  function drawBackgroundCover(target) {
+    var iw = bgImg.naturalWidth, ih = bgImg.naturalHeight;
+    if (!iw || !ih) return;
+    var scale = Math.max(W / iw, H / ih);
+    var bw = iw * scale, bh = ih * scale;
+    target.imageSmoothingEnabled = true;
+    target.imageSmoothingQuality = "high";
+    target.drawImage(bgImg, (W - bw) / 2, (H - bh) / 2, bw, bh);
+  }
+
+  function drawEdgeTreatment() {
+    var edge = ctx.createLinearGradient(0, 0, W, 0);
+    edge.addColorStop(0, "rgba(5,6,5,.28)");
+    edge.addColorStop(.12, "rgba(5,6,5,.06)");
+    edge.addColorStop(.5, "rgba(5,6,5,0)");
+    edge.addColorStop(.88, "rgba(5,6,5,.06)");
+    edge.addColorStop(1, "rgba(5,6,5,.28)");
+    ctx.fillStyle = edge;
+    ctx.fillRect(0, 0, W, H);
+
+    var vertical = ctx.createLinearGradient(0, 0, 0, H);
+    vertical.addColorStop(0, "rgba(5,6,5,.2)");
+    vertical.addColorStop(.24, "rgba(5,6,5,0)");
+    vertical.addColorStop(.76, "rgba(5,6,5,0)");
+    vertical.addColorStop(1, "rgba(5,6,5,.22)");
+    ctx.fillStyle = vertical;
+    ctx.fillRect(0, 0, W, H);
+  }
 
   /* ---------- 尺寸与 DPR ---------- */
   var W = 0, H = 0;
@@ -32,9 +61,7 @@
       bgCache = document.createElement("canvas");
       bgCache.width = W; bgCache.height = H;
       var bctx = bgCache.getContext("2d");
-      var bs = Math.min(W / bgImg.naturalWidth, H / bgImg.naturalHeight);
-      var bw = bgImg.naturalWidth * bs, bh = bgImg.naturalHeight * bs;
-      bctx.drawImage(bgImg, (W - bw) / 2, (H - bh) / 2, bw, bh);
+      drawBackgroundCover(bctx);
     }
     initParticles();
     if (typeof alignNavToPreview === "function") alignNavToPreview(); // resize 后按键组随预览图位置重算
@@ -69,8 +96,8 @@
   var projects = [
     {
       title: "354 人信息台账管理",
-      desc: "独立管理 · 批量录入核对 · 归档零差错",
-      meta: "台账维护 — 数据核验 — 定期报送",
+      desc: "批量录入核对与定期报送，归档零差错",
+      meta: "台账维护 / 数据核验 / 定期报送",
       links: [
         { label: "作品集 PDF", href: "assets/files/作品集-翟靖昊-行政方向-20260812.pdf", blank: true },
         { label: "简历 DOCX", href: "assets/files/简历-翟靖昊.docx", blank: false }
@@ -78,8 +105,8 @@
     },
     {
       title: "电工（三级）认定报名统筹",
-      desc: "124 名学生 · 4 个班级 · 全流程零差错",
-      meta: "报名组织 — 信息核对 — 材料报送",
+      desc: "124 名学生、4 个班级，报名到报送全流程零差错",
+      meta: "报名组织 / 信息核对 / 材料报送",
       img: "assets/images/evidence-rosters.png",
       links: [
         { label: "作品集 PDF", href: "assets/files/作品集-翟靖昊-行政方向-20260812.pdf", blank: true },
@@ -88,8 +115,8 @@
     },
     {
       title: "会议纪要智能分析工作台",
-      desc: "独立开发 · 导入 → 分析 → 导出全自动链路",
-      meta: "独立开发 — 自动化链路 — 在线 Demo",
+      desc: "导入会议文稿，生成摘要、行动项与可导出纪要",
+      meta: "独立开发 / 行动项追踪 / DOCX 导出",
       img: "assets/images/workbench-overview.png",
       links: [
         { label: "在线 Demo", href: "workbench/index.html", blank: true },
@@ -98,9 +125,9 @@
     },
     {
       title: "作品集与档案体系",
-      desc: "8 页作品集 · 公文样例 · C01-C21 档案分类",
-      meta: "作品集 — 公文写作 — 档案管理",
-      img: "assets/images/page-1.png",
+      desc: "1904 份文件，C01-C21 分类，配套公文样例",
+      meta: "档案分类 / 公文写作 / PDF 作品集",
+      img: "assets/images/portfolio-preview-20260828.png",
       links: [
         { label: "作品集 PDF", href: "assets/files/作品集-翟靖昊-行政方向-20260812.pdf", blank: true },
         { label: "简历 DOCX", href: "assets/files/简历-翟靖昊.docx", blank: false }
@@ -112,6 +139,7 @@
   var imgs = [];
   function loadImages() {
     projects.forEach(function (p, i) {
+      if (!p.img) return;
       var im = new Image();
       im.onload = function () { imgs[i] = im; };
       im.src = p.img;
@@ -138,6 +166,19 @@
       if (l.blank) { a.target = "_blank"; a.rel = "noopener"; }
       linksEl.appendChild(a);
     });
+    if (p.img) {
+      var preview = document.createElement("button");
+      preview.type = "button";
+      preview.className = "preview-button";
+      preview.textContent = "查看项目图";
+      preview.setAttribute("aria-label", "查看" + p.title + "项目图");
+      preview.addEventListener("click", function (e) {
+        e.stopPropagation();
+        settleWorkPosition();
+        openLightbox();
+      });
+      linksEl.appendChild(preview);
+    }
     updateTabs();
   }
 
@@ -145,20 +186,28 @@
   function updateTabs() {
     var wrap = document.getElementById("workTabs");
     if (!wrap) return;
-    wrap.innerHTML = "";
-    projects.forEach(function (p, i) {
-      var b = document.createElement("button");
-      b.type = "button";
-      b.textContent = p.title;
-      if (i === idx) b.className = "active";
-      b.addEventListener("click", function () { animateCarouselTo(i); });
-      wrap.appendChild(b);
+    if (wrap.children.length !== projects.length) {
+      wrap.innerHTML = "";
+      projects.forEach(function (p, i) {
+        var b = document.createElement("button");
+        b.type = "button";
+        b.textContent = p.title;
+        b.addEventListener("click", function () { animateCarouselTo(i); });
+        wrap.appendChild(b);
+      });
+    }
+    Array.prototype.forEach.call(wrap.children, function (b, i) {
+      var active = i === idx;
+      b.classList.toggle("active", active);
+      b.setAttribute("aria-pressed", active ? "true" : "false");
     });
   }
 
   function jumpTo(target) { idx = (target + projects.length) % projects.length; renderCarousel(); }
 
   document.addEventListener("keydown", function (e) {
+    var workActive = document.querySelector('.nav a[data-target="work"].active');
+    if (!workActive) return;
     if (e.key === "ArrowLeft") { e.preventDefault(); animateCarouselTo(idx - 1); }
     if (e.key === "ArrowRight") { e.preventDefault(); animateCarouselTo(idx + 1); }
   });
@@ -312,6 +361,9 @@
     if (!im || lightbox.active) return;
     lightbox.active = true;
     lightbox.img = im;
+    document.body.classList.add("lightbox-open");
+    var trigger = document.querySelector(".preview-button");
+    if (trigger) trigger.setAttribute("aria-expanded", "true");
     var s = Math.min(W * .85 / im.width, H * .75 / im.height);
     lightbox.w = im.width * s; lightbox.h = im.height * s;
     if (reduce) lightbox.p = 1;
@@ -319,8 +371,11 @@
   function closeLightbox() {
     if (!lightbox.active) return;
     lightbox.active = false;
-    if (reduce) { lightbox.img = null; lightbox.p = 0; }
+    var trigger = document.querySelector(".preview-button");
+    if (trigger) trigger.setAttribute("aria-expanded", "false");
+    if (reduce) { lightbox.img = null; lightbox.p = 0; document.body.classList.remove("lightbox-open"); }
   }
+  scene.addEventListener("click", function () { if (lightbox.active) closeLightbox(); });
   viewport.addEventListener("click", function (e) {
     if (lightbox.active) { closeLightbox(); return; }
     if (imgHover) openLightbox(); // 点击预览图本体才开
@@ -408,12 +463,12 @@
       ctx.drawImage(bgCache, 0, 0, W, H);
       ctx.globalAlpha = 1;
     } else if (bgImg.complete && bgImg.naturalWidth) {
-      var bs = Math.min(W / bgImg.naturalWidth, H / bgImg.naturalHeight);
-      var bw = bgImg.naturalWidth * bs, bh = bgImg.naturalHeight * bs;
       ctx.globalAlpha = revealObj.b;
-      ctx.drawImage(bgImg, (W - bw) / 2, (H - bh) / 2, bw, bh);
+      drawBackgroundCover(ctx);
       ctx.globalAlpha = 1;
     }
+
+    drawEdgeTreatment();
 
     ctx.globalAlpha = revealObj.b; // 开场：粒子随背景一起浮现（b→1 后恢复正常透明度）
     for (var i = 0; i < parts.length; i++) {
@@ -452,7 +507,7 @@
 
     var local = smooth - workScreen.offsetTop;
     // 布局衔接状态机：work 屏进入（local≈0）→ 文字左移 + 图放大右移；离开 → 平滑复位
-    var layoutIn = local > -60 && local < 90;
+    var layoutIn = local > -60 && local < 90 && !!projects[idx].img;
     if (layoutIn !== layoutActivePrev) {
       layoutActivePrev = layoutIn;
       playLayout(layoutIn);
@@ -489,7 +544,11 @@
         ctx.drawImage(lightbox.img, (W - lw) / 2, (H - lh) / 2, lw, lh);
         ctx.globalAlpha = 1;
       }
-      if (!lightbox.active && lightbox.p < .01) { lightbox.active = false; lightbox.img = null; }
+      if (!lightbox.active && lightbox.p < .01) {
+        lightbox.active = false;
+        lightbox.img = null;
+        document.body.classList.remove("lightbox-open");
+      }
     }
 
     requestAnimationFrame(tick);
@@ -511,7 +570,6 @@
   var secEls = document.querySelectorAll(".screen");
   var titleAnimated = {};            // 区块标题字距过渡：每区块仅首次停靠播一次
   function playLayout(inLayout) {
-    return; // 停用：左文右图衔接动画已被「全居中」布局取代（保留函数体以便恢复）
     // 文字容器 Flip 左移/复位（手写 Flip：class 切换瞬间测位移差，fromTo 动画归零）
     var before = carouselEl.getBoundingClientRect().left;
     carouselEl.classList.toggle("work-left", inLayout);
@@ -528,6 +586,13 @@
       carouselEl.style.transform = "";
     }
   }
+  function settleWorkPosition() {
+    var top = workScreen.offsetTop;
+    scrollTarget = top;
+    smooth = top;
+    scrollProxy.v = top;
+    viewport.scrollTop = top;
+  }
   function animateCarouselTo(target) {
     if (carAnimating) return;
     target = (target + projects.length) % projects.length;
@@ -537,16 +602,17 @@
     if (diff > 1) diff -= projects.length;
     if (diff < -1) diff += projects.length;
     var dir = diff > 0 ? 1 : -1;
-    if (!window.gsap || reduce) { jumpTo(target); return; } // 降级：原硬切
+    if (!window.gsap || reduce) { jumpTo(target); settleWorkPosition(); return; }
     carAnimating = true;
     var items = [counterEl, titleEl, descEl, metaEl, linksEl];
     var xOut = 48 * dir, xIn = -48 * dir; // 方向感知：prev 左出右入，next 右出左入（位移加大，滑动感可见）
-    var tl = gsap.timeline({ onComplete: function () { carAnimating = false; } });
+    var tl = gsap.timeline({ onComplete: function () { carAnimating = false; settleWorkPosition(); } });
     // 预备动作：容器向切换方向微移（anticipation），随后内容滑出
     tl.to(carouselEl, { x: -10 * dir, duration: 0.12, ease: "power2.in", overwrite: "auto" })
       .to(items, { opacity: 0, x: xOut, duration: 0.3, ease: "power2.in", stagger: 0.04, overwrite: "auto" }, "-=0.1")
       .add(function () { // 内容切换 + 预览图同步归位（杜绝切换帧闪现：t=0 即旧图接管、新图 alpha 归 0）
         jumpTo(target);
+        settleWorkPosition();
         var oldIm = imgs[oldIdx];
         if (oldIm && window.gsap && !reduce) {
           prevImg = oldIm;
@@ -583,7 +649,7 @@
 
   // 3) 区块首次进入：错峰 rise（staging + follow-through；只播一次）
   var revealed = {};
-  var revealObserver = new IntersectionObserver(function (entries) {
+  var revealObserver = (!window.gsap || reduce) ? null : new IntersectionObserver(function (entries) {
     entries.forEach(function (en) {
       if (!en.isIntersecting) return;
       var sec = en.target, name = sec.getAttribute("data-section");
@@ -599,11 +665,11 @@
       }
     });
   }, { threshold: 0.4 });
-  Array.prototype.forEach.call(document.querySelectorAll(".screen"), function (s) { revealObserver.observe(s); });
+  if (revealObserver) Array.prototype.forEach.call(document.querySelectorAll(".screen"), function (s) { revealObserver.observe(s); });
 
-  // 4) 首页滚动提示：标题之后缓入（timing 分层）
-  var hint = document.querySelector(".scroll-hint");
-  if (hint) {
-    gsap.fromTo(hint, { opacity: 0 }, { opacity: 0.45, duration: 0.8, ease: "power2.out", delay: 1.3 });
+  // 4) 首页能力摘要：标题之后缓入（timing 分层）
+  var heroMeta = document.querySelector(".hero-meta");
+  if (heroMeta && window.gsap && !reduce) {
+    gsap.fromTo(heroMeta, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out", delay: 1.0 });
   }
 })();

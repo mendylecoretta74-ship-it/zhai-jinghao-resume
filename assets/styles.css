@@ -13,8 +13,10 @@
 }
 
 :root {
-  --bg: #000000;
+  --bg: #050605;
   --fg: #fcf9f3;
+  --muted: rgba(252, 249, 243, .62);
+  --line: rgba(252, 249, 243, .2);
   --serif: "STIX Two Text", "Noto Serif SC", "Songti SC", "SimSun", Georgia, serif;
   /* 迪士尼12法则缓动：缓入缓出 / 回弹过冲 / 快压慢放 */
   --ease-out:   cubic-bezier(0.16, 1, 0.3, 1);
@@ -36,15 +38,13 @@ body {
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  user-select: none;
-  -webkit-user-select: none;
 }
 
 a { color: inherit; text-decoration: none; }
 button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
 
 ::selection { background: rgba(252, 249, 243, .25); color: var(--fg); }
-:focus-visible { outline: 1px solid var(--fg); outline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--fg); outline-offset: 4px; }
 
 .sr-only {
   position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
@@ -68,10 +68,15 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   position: fixed; inset: 0; z-index: 0;
   display: block;
 }
+.lightbox-open #scene {
+  z-index: 40;
+  cursor: zoom-out !important;
+}
 
 .viewport {
   position: fixed; inset: 0; z-index: 1;
   overflow-y: auto; overflow-x: hidden;
+  overflow-anchor: none;
   scrollbar-width: none;
   touch-action: pan-y;
 }
@@ -79,31 +84,49 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 /* ---------- 一屏一节 ---------- */
 .screen {
-  min-height: 100vh;
+  min-height: 100dvh;
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
   text-align: center;
   padding: 96px 24px 64px;
 }
 
-.screen-home { justify-content: flex-end; padding-bottom: 9vh; }
+.screen-home { position: relative; justify-content: center; }
 
-.scroll-hint {
-  font-size: 12px; letter-spacing: .2em; text-transform: uppercase;
-  opacity: .45;
-  padding-bottom: 4vh;
+.hero-meta {
+  position: absolute;
+  left: 24px; right: 24px; bottom: clamp(64px, 9vh, 92px);
+  text-align: center;
+  pointer-events: none;
+}
+.hero-role {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  color: rgba(252, 249, 243, .94);
+  text-shadow: 0 1px 12px rgba(0, 0, 0, .72);
+}
+.hero-proof {
+  margin-top: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  color: rgba(252, 249, 243, .84);
+  text-shadow: 0 1px 12px rgba(0, 0, 0, .72);
 }
 
 /* ---------- 顶部导航 ---------- */
 .nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 20;
-  display: flex; align-items: baseline; gap: 28px;
-  padding: 26px 32px;
+  display: flex; align-items: center; gap: 28px;
+  min-height: 72px;
+  padding: 20px 32px;
   font-size: 13px; letter-spacing: .15em;
+  background: linear-gradient(to bottom, rgba(5, 6, 5, .78), rgba(5, 6, 5, 0));
 }
 .nav a {
   position: relative;
-  opacity: .55;
+  opacity: .66;
   transition: opacity .2s var(--ease-out), transform .3s var(--ease-spring);
   white-space: nowrap;
 }
@@ -116,6 +139,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 .nav a:hover, .nav a.active { opacity: 1; }
 .nav a:hover { transform: translateY(-1px); }
+.nav a:active, .cta-line:active, .work-tabs button:active { transform: scale(.98); }
 .nav a:hover::after, .nav a.active::after { transform: scaleX(1); }
 .nav-logo { font-weight: 700; }
 .nav-logo::after { display: none; }
@@ -140,11 +164,12 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 /* 桌面：work 屏激活时文字块丝滑左移（Flip 动画由 JS 驱动） */
 @media (min-width: 761px) {
   .carousel.work-left {
-    margin: 0 auto 0 0; /* margin-left:0 + margin-right:auto → flex 交叉轴左靠（双 auto 会居中） */
-    width: min(560px, 44vw);
+    margin: 0 auto 0 0;
+    width: min(560px, 46vw);
     text-align: left;
   }
-  .carousel.work-left .work-desc { margin-left: 0; } /* 小标题与主标题左对齐（去块居中） */
+  .carousel.work-left .work-desc { margin-left: auto; margin-right: 0; text-align: right; }
+  .carousel.work-left .work-links { justify-content: flex-start; }
 }
 .counter {
   font-size: 12px; letter-spacing: .4em;
@@ -158,27 +183,32 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 .work-desc {
   margin: 18px auto 0; /* 居中：max-width 限制的块需 margin auto */
-  font-size: 17px;
+  text-align: right;
+  font-size: clamp(17px, 1.3vw, 19px);
+  font-weight: 600;
   line-height: 1.7;
-  opacity: .9;
+  color: rgba(252, 249, 243, .94);
+  text-shadow: 0 1px 12px rgba(0, 0, 0, .72);
   max-width: 46ch;
 }
 .work-meta {
   margin-top: 10px;
-  font-size: 12px; letter-spacing: .15em;
-  opacity: .6;
+  font-size: 14px; font-weight: 600; letter-spacing: .1em;
+  color: rgba(252, 249, 243, .84);
+  text-shadow: 0 1px 12px rgba(0, 0, 0, .72);
 }
 .work-links {
   margin-top: 24px;
   font-size: 13px;
   display: flex; gap: 24px; justify-content: center; flex-wrap: wrap;
 }
-.work-links a {
+.work-links a, .work-links .preview-button {
   border-bottom: 1px solid currentColor;
   opacity: .8;
-  transition: opacity .2s;
+  transition: opacity .2s, transform .2s var(--ease-out);
 }
-.work-links a:hover { opacity: 1; }
+.work-links a:hover, .work-links .preview-button:hover { opacity: 1; }
+.work-links .preview-button:active { transform: scale(.98); }
 
 .carousel-nav { display: none; } /* 翻页按钮已移除，保留占位防样式断链 */
 
@@ -186,26 +216,44 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .work-tabs {
   margin-top: 28px;
   width: 100%;
-  display: flex; flex-direction: column; align-items: flex-start;
-  gap: 8px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 24px;
   font-size: 13px; letter-spacing: .08em;
+  text-align: left;
 }
 .work-tabs button {
-  background: none; border: none; border-bottom: 1px solid transparent;
-  padding: 0 2px 3px;
+  background: none; border: none; border-bottom: 1px solid var(--line);
+  padding: 9px 2px 8px;
+  text-align: left;
   color: var(--fg); font-family: inherit; font-size: inherit; letter-spacing: inherit;
   opacity: .45; cursor: pointer;
-  transition: opacity .2s var(--ease-out), border-color .2s var(--ease-out);
-  will-change: transform;
+  transition: opacity .2s var(--ease-out), border-color .2s var(--ease-out), transform .2s var(--ease-out);
 }
 .work-tabs button:hover { opacity: .85; }
 .work-tabs button.active { opacity: 1; border-bottom-color: currentColor; }
 
 /* ---------- About ---------- */
 .about-head {
-  font-size: clamp(26px, 5vw, 52px);
+  font-size: clamp(26px, 4vw, 44px);
   font-weight: 700; line-height: 1.15;
 }
+.screen-about {
+  display: grid;
+  grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+  grid-template-rows: auto auto auto;
+  column-gap: clamp(48px, 8vw, 112px);
+  row-gap: 16px;
+  align-content: center;
+  align-items: start;
+  text-align: left;
+  padding-inline: clamp(48px, 8vw, 120px);
+}
+.screen-about .about-head { grid-column: 1; grid-row: 1; }
+.screen-about .about-text { grid-column: 1; grid-row: 2; }
+.screen-about .about-label { grid-column: 2; grid-row: 1; }
+.screen-about .about-strengths { grid-column: 2; grid-row: 2; }
+.screen-about .about-meta { grid-column: 1 / -1; grid-row: 3; }
 .about-text {
   margin-top: 20px;
   max-width: 42ch;
@@ -213,29 +261,33 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 /* 个人优势小节（shader 风小节标：小字、大字距、低透明度） */
 .about-label {
-  margin-top: 40px;
+  margin-top: 8px;
   font-size: 12px;
   letter-spacing: .3em;
   opacity: .45;
 }
 .about-strengths {
-  margin: 14px auto 0;
-  max-width: 42ch;
+  margin: 0;
+  max-width: 48ch;
   font-size: 15px; line-height: 1.8; opacity: .85;
 }
 .about-meta {
-  margin-top: 44px;
-  display: grid; gap: 14px;
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
   font-size: 14px;
 }
 .about-meta div {
-  display: flex; gap: 20px; justify-content: center; align-items: baseline;
+  display: block;
 }
 .about-meta dt {
   font-size: 12px; letter-spacing: .3em; opacity: .45;
-  min-width: 4em; text-align: right;
+  min-width: 4em; text-align: left;
 }
-.about-meta dd { opacity: .9; }
+.about-meta dd { margin-top: 6px; opacity: .9; }
 
 /* ---------- Contact ---------- */
 .contact-head {
@@ -252,7 +304,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .screen-contact .cta-line { margin-top: 40px; font-size: 15px; }
 
 .footer {
-  min-height: 20vh;
+  min-height: 18dvh;
   display: flex; flex-direction: column;
   align-items: center; justify-content: center; gap: 14px;
   font-size: 12px; letter-spacing: .15em; opacity: .4;
@@ -262,12 +314,24 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 /* ---------- 响应式 ---------- */
 @media (max-width: 760px) {
-  .nav { gap: 16px; padding: 18px 18px; font-size: 12px; letter-spacing: .1em; }
-  .nav-logo { display: none; }
-  .screen { padding: 96px 20px 56px; }
+  .nav { justify-content: space-between; gap: 12px; min-height: 60px; padding: 16px 18px; font-size: 12px; letter-spacing: .08em; }
+  .nav-logo { display: block; width: 20px; overflow: hidden; font-size: 0; opacity: 1; }
+  .nav-logo::before { content: "翟"; font-size: 14px; letter-spacing: 0; }
+  .nav-cta { display: none; }
+  .screen { padding: 84px 20px 48px; }
+  .hero-meta { bottom: 72px; left: 20px; right: 20px; }
+  .hero-role { font-size: 13px; line-height: 1.8; letter-spacing: .04em; }
+  .hero-proof { font-size: 12px; line-height: 1.7; }
+  .work-meta { font-size: 13px; letter-spacing: .07em; }
   .work-title, .about-head, .contact-head { font-size: clamp(26px, 7vw, 40px); }
-  .about-meta div { flex-direction: column; gap: 2px; }
-  .about-meta dt { min-width: 0; text-align: center; }
+  .work-tabs { grid-template-columns: 1fr; gap: 0; }
+  .screen-about { display: flex; align-items: stretch; text-align: left; padding-inline: 20px; }
+  .screen-about { padding-top: 72px; padding-bottom: 28px; }
+  .screen-about .about-head, .screen-about .about-label { text-align: center; }
+  .about-label { margin-top: 24px; }
+  .about-strengths { margin-top: 12px; max-width: none; }
+  .about-meta { grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 22px; padding-top: 18px; }
+  .about-meta dt { min-width: 0; text-align: left; }
 }
 
 @media (prefers-reduced-motion: reduce) {
