@@ -908,7 +908,13 @@
       toast("分析完成");
       gotoPage("analysis");
     });
-    $$(".topbar .btn-solid, #page-dash .head-side .btn-solid").forEach((b) => (b.onclick = openPick));
+    $$(".topbar .btn-solid, #heroUploadBtn").forEach((b) => (b.onclick = openPick));
+    const demoBtn = $("#demoBtn");
+    if (demoBtn) demoBtn.onclick = () => {
+      const sample = getOrCreateSampleMeeting();
+      state.currentId = sample.id;
+      gotoPage("analysis");
+    };
     const ghost = $("#page-dash .head-side .btn-ghost");
     if (ghost) ghost.onclick = () => {
       if (!state.meetings.length) return toast("暂无会议可导出");
@@ -982,6 +988,61 @@
         .then(({ resp, j }) => resp.ok ? { text: j.text || "" } : { error: "转写失败：" + ((j.error && j.error.message) || resp.status) })
         .catch((err) => ({ error: "转写请求失败：" + err.message }));
     }
+  }
+
+  function bindSidebarShell() {
+    const app = $(".app");
+    const sidebar = $("#workbenchSidebar");
+    const toggle = $("#sidebarToggle");
+    const overlay = $("#sidebarOverlay");
+    if (!app || !sidebar || !toggle || !overlay) return;
+
+    const mobile = () => window.matchMedia("(max-width:760px)").matches;
+    const setMobileOpen = (open) => {
+      sidebar.classList.toggle("open", open);
+      overlay.classList.toggle("on", open);
+      sidebar.setAttribute("aria-hidden", open ? "false" : "true");
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      toggle.setAttribute("aria-label", open ? "关闭导航栏" : "打开导航栏");
+    };
+    const setDesktopCollapsed = (collapsed) => {
+      app.classList.toggle("sidebar-collapsed", collapsed);
+      sidebar.setAttribute("aria-hidden", collapsed ? "true" : "false");
+      toggle.setAttribute("aria-expanded", collapsed ? "false" : "true");
+      toggle.setAttribute("aria-label", collapsed ? "展开导航栏" : "收起导航栏");
+      try { localStorage.setItem("mmw_sidebar_collapsed_v1", collapsed ? "1" : "0"); } catch (e) {}
+    };
+
+    if (!mobile()) {
+      let collapsed = false;
+      try { collapsed = localStorage.getItem("mmw_sidebar_collapsed_v1") === "1"; } catch (e) {}
+      setDesktopCollapsed(collapsed);
+    } else {
+      setMobileOpen(false);
+    }
+
+    toggle.addEventListener("click", () => {
+      if (mobile()) setMobileOpen(!sidebar.classList.contains("open"));
+      else setDesktopCollapsed(!app.classList.contains("sidebar-collapsed"));
+    });
+    overlay.addEventListener("click", () => setMobileOpen(false));
+    $$(".nav-item[data-page]", sidebar).forEach((item) => item.addEventListener("click", () => {
+      if (mobile()) setMobileOpen(false);
+    }));
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && mobile() && sidebar.classList.contains("open")) {
+        setMobileOpen(false);
+        toggle.focus();
+      }
+    });
+    window.addEventListener("resize", () => {
+      if (mobile()) setMobileOpen(false);
+      else {
+        sidebar.classList.remove("open");
+        overlay.classList.remove("on");
+        setDesktopCollapsed(app.classList.contains("sidebar-collapsed"));
+      }
+    });
   }
 
   function fmtSize(n) {
@@ -1082,7 +1143,17 @@
       templateName,
       templateId,
       analysis,
+      isSample: true,
     }, SAMPLE_TEXT);
+  }
+
+  function getOrCreateSampleMeeting() {
+    const sample = state.meetings.find((m) => m.isSample || m.title === "示例：产品迭代周会");
+    if (sample) {
+      if (!sample.isSample) { sample.isSample = true; persist(); }
+      return sample;
+    }
+    return seedSample();
   }
 
   function init() {
@@ -1100,6 +1171,7 @@
     const al = $("#avatarLetter");
     if (al) al.textContent = (s.name || "Z").slice(0, 1).toUpperCase();
     bindImport();
+    bindSidebarShell();
     renderNavBadge();
     if (state.meetings.length) {
       state.currentId = state.meetings[0].id;
