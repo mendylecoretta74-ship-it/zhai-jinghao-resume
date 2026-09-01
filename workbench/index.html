@@ -88,6 +88,7 @@
     transition:border-color .25s ease, color .25s ease;
   }
   .btn-ghost:hover { border-color:var(--ink-900); color:var(--ink-900); }
+  .btn:disabled { opacity:.48; cursor:wait; pointer-events:none; }
   .avatar {
     width:30px; height:30px; border-radius:50%; background:var(--black); color:#fff;
     display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:600;
@@ -223,7 +224,7 @@
   .sec-num { font-family:var(--mono); font-size:10px; color:var(--ink-400); font-weight:600; }
 
   /* Summary */
-  .summary { font-size:13px; line-height:2; color:var(--ink-700); font-weight:450; }
+  .summary { font-size:13px; line-height:2; color:var(--ink-900); font-weight:500; }
   .summary strong { color:var(--ink-900); font-weight:700; background:#f0f0ee; padding:0 4px; border-radius:2px; }
 
   /* Decisions */
@@ -233,13 +234,13 @@
     width:20px; height:20px; border:1px solid var(--black); border-radius:2px;
     display:flex; align-items:center; justify-content:center; flex:0 0 auto; margin-top:2px; color:var(--black);
   }
-  .decision p { font-size:12.5px; line-height:1.75; color:var(--ink-700); font-weight:450; }
+  .decision p { font-size:12.5px; line-height:1.75; color:var(--ink-900); font-weight:500; }
   .decision b { color:var(--ink-900); font-weight:650; }
-  .decision .tag { display:block; margin-top:4px; font-size:10.5px; color:var(--ink-400); font-weight:500; }
+  .decision .tag { display:block; margin-top:4px; font-size:10.5px; color:var(--ink-700); font-weight:550; }
 
   /* Action rows */
   .action-row {
-    display:grid; grid-template-columns:minmax(0,1fr) 96px 62px 66px; gap:12px; align-items:center;
+    display:grid; grid-template-columns:minmax(0,1fr) 96px 62px 66px 24px; gap:12px; align-items:center;
     padding:11px 6px 11px 10px; border-bottom:1px solid var(--line);
     transition:background .22s ease; position:relative;
   }
@@ -252,20 +253,26 @@
   .action-row:hover { background:#fafaf8; }
   .action-row:hover::before { transform:scaleY(1); }
   .action-name { font-size:12.5px; font-weight:600; color:var(--ink-900); }
-  .action-name small { display:block; color:var(--ink-400); font-weight:450; font-size:10.5px; margin-top:2px; }
-  .person { display:flex; align-items:center; gap:7px; font-size:11.5px; color:var(--ink-700); font-weight:500; }
+  .action-name small { display:block; color:var(--ink-700); font-weight:500; font-size:10.5px; margin-top:2px; }
+  .person { display:flex; align-items:center; gap:7px; font-size:11.5px; color:var(--ink-900); font-weight:550; }
   .pavatar {
     width:20px; height:20px; border-radius:50%; background:var(--ink-900); color:#fff;
     display:flex; align-items:center; justify-content:center; font-size:9px; font-weight:600;
   }
-  .due { font-family:var(--mono); font-size:10.5px; color:var(--ink-500); }
+  .due { font-family:var(--mono); font-size:10.5px; color:var(--ink-700); font-weight:500; }
   .st {
     font-size:10px; font-weight:600; text-align:center; padding:3px 0; border-radius:2px;
     font-family:var(--mono); letter-spacing:.04em;
   }
-  .st.todo { border:1px solid var(--line-strong); color:var(--ink-500); background:var(--surface); }
+  .st.todo { border:1px solid var(--line-strong); color:var(--ink-700); background:var(--surface); }
   .st.doing { background:var(--black); color:#fff; border:1px solid var(--black); }
-  .st.done { color:var(--ink-400); border:1px solid transparent; }
+  .st.done { color:var(--ink-500); border:1px solid transparent; }
+  .action-delete, .row-delete {
+    width:24px; height:24px; padding:0; border:1px solid transparent; border-radius:2px;
+    background:transparent; color:var(--ink-400); display:inline-flex; align-items:center; justify-content:center;
+    font-size:17px; line-height:1; font-weight:400; transition:border-color .22s ease, color .22s ease, background-color .22s ease;
+  }
+  .action-delete:hover, .row-delete:hover { border-color:var(--line-strong); color:var(--ink-900); background:var(--surface); }
 
   /* Timeline */
   .tl { position:relative; padding-left:24px; }
@@ -450,6 +457,7 @@
     border-radius:2px; padding:2px 6px; color:var(--ink-500); background:var(--surface);
   }
   .import-files { margin-top:16px; border-top:1px solid var(--line); padding-top:12px; display:flex; flex-direction:column; gap:8px; }
+  .import-empty { padding:10px 11px; border:1px dashed var(--line-strong); color:var(--ink-400); font-size:11px; }
   .file-row {
     display:flex; align-items:center; gap:10px; font-size:11.5px;
     padding:8px 11px; border:1px solid var(--line); border-radius:2px; background:#fcfcfb;
@@ -483,7 +491,7 @@
 
   .dash-row { display:grid; grid-template-columns:minmax(0,1.5fr) minmax(0,1fr); gap:16px; align-items:start; }
   .recent-row {
-    display:grid; grid-template-columns:minmax(0,1fr) 64px 52px auto 16px; gap:14px; align-items:center;
+    display:grid; grid-template-columns:minmax(0,1fr) 64px 52px auto 16px 24px; gap:10px; align-items:center;
     padding:12px 4px 12px 10px; border-bottom:1px solid var(--line); cursor:pointer;
     transition:background .22s ease; position:relative;
   }
@@ -502,6 +510,7 @@
   .r-acts { font-family:var(--mono); font-size:10px; font-weight:700; color:var(--ink-900); border:1px solid var(--ink-900); border-radius:2px; padding:2px 7px; text-align:center; }
   .r-arrow { color:var(--ink-300); display:flex; }
   .recent-row:hover .r-arrow { color:var(--ink-900); }
+  .recent-row:hover .row-delete { color:var(--ink-700); }
   .dept-caption { font-family:var(--mono); font-size:9.5px; color:var(--ink-400); margin-top:12px; display:flex; justify-content:space-between; }
 
   /* ---------- Functional prototype additions ---------- */
@@ -516,7 +525,7 @@
   .fchip.active { background:var(--black); border-color:var(--black); color:#fff; }
   .lib-hint { margin-left:auto; font-family:var(--mono); font-size:10px; color:var(--ink-400); }
   .act-row {
-    display:grid; grid-template-columns:minmax(0,1fr) 84px 60px 70px 40px; gap:12px; align-items:center;
+    display:grid; grid-template-columns:minmax(0,1fr) 84px 60px 70px 40px 24px; gap:12px; align-items:center;
     padding:12px 6px 12px 10px; border-bottom:1px solid var(--line); position:relative;
     transition:background .22s ease;
   }
@@ -524,7 +533,7 @@
   .act-row:hover { background:#fafaf8; }
   .act-row:hover::before { transform:scaleY(1); }
   .act-row:last-child { border-bottom:none; }
-  .act-src { font-family:var(--mono); font-size:10px; color:var(--ink-400); }
+  .act-src { font-family:var(--mono); font-size:10px; color:var(--ink-700); font-weight:500; }
   .act-toggle {
     width:26px; height:26px; border:1px solid var(--line-strong); border-radius:2px;
     background:var(--surface); display:flex; align-items:center; justify-content:center;
@@ -610,6 +619,12 @@
     .sidebar.open, .app.sidebar-collapsed .sidebar.open { transform:translateX(0); box-shadow:18px 0 45px rgba(0,0,0,.14); }
     .sidebar-overlay { position:fixed; inset:52px 0 0; z-index:29; border:0; background:rgba(17,17,17,.28); opacity:0; pointer-events:none; transition:opacity .22s ease; }
     .sidebar-overlay.on { display:block; opacity:1; pointer-events:auto; }
+    .recent-row { grid-template-columns:minmax(0,1fr) 24px 24px; gap:8px; }
+    .recent-row .r-type, .recent-row .r-date, .recent-row .r-acts, .recent-row .r-arrow { display:none; }
+    .action-row { grid-template-columns:minmax(0,1fr) 24px; gap:8px; }
+    .action-row .person, .action-row .due, .action-row .st { display:none; }
+    .act-row { grid-template-columns:minmax(0,1fr) 26px 24px; gap:8px; }
+    .act-row .person, .act-row .due, .act-row .st { display:none; }
   }
   @media (prefers-reduced-motion:reduce) {
     *, *::before, *::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; scroll-behavior:auto !important; }
@@ -707,7 +722,7 @@
         <div class="head value-hero">
           <div class="hero-left">
             <h1 class="value-title">上传会议记录，快速生成可执行结论</h1>
-            <p class="value-sub">自动提炼摘要、行动项与风险，支持录音、视频和会议文稿。</p>
+            <p class="value-sub">自动提炼摘要、行动项与风险。已用于真实会议材料整理，数据默认仅保存在本机浏览器。</p>
             <div class="value-actions">
               <button class="btn btn-solid" id="heroUploadBtn">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
@@ -759,15 +774,15 @@
               </div>
               <div>
                 <div class="import-title" id="importHint">拖拽会议记录到此处，或点击选择文件</div>
-                <div class="import-sub">导入后自动识别格式、转写与结构化分析，全程本机处理、数据不出内网</div>
+                <div class="import-sub">导入后自动识别格式、转写与结构化分析。文稿在本机处理，音视频需配置转写接口。</div>
               </div>
-              <input type="file" id="importFile" multiple accept=".mp3,.wav,.m4a,.aac,.flac,.mp4,.mov,.avi,.mkv,.txt,.md,.docx,.pdf,.srt,.vtt" hidden>
-              <button class="btn btn-ghost" id="importPick" style="margin-left:auto;">选择文件</button>
+              <input type="file" id="importFile" multiple accept=".mp3,.wav,.m4a,.aac,.flac,.mp4,.mov,.avi,.mkv,.txt,.md,.docx,.srt,.vtt" hidden>
+              <label class="btn btn-ghost" id="importPick" for="importFile" style="margin-left:auto;">选择文件</label>
             </div>
             <div class="import-formats">
               <div class="fmt-group"><span class="fmt-label">音频</span><div class="fmt-chips"><span class="fmt-chip">MP3</span><span class="fmt-chip">WAV</span><span class="fmt-chip">M4A</span><span class="fmt-chip">AAC</span><span class="fmt-chip">FLAC</span></div></div>
               <div class="fmt-group"><span class="fmt-label">视频</span><div class="fmt-chips"><span class="fmt-chip">MP4</span><span class="fmt-chip">MOV</span><span class="fmt-chip">AVI</span><span class="fmt-chip">MKV</span></div></div>
-              <div class="fmt-group"><span class="fmt-label">文稿</span><div class="fmt-chips"><span class="fmt-chip">TXT</span><span class="fmt-chip">MD</span><span class="fmt-chip">DOCX</span><span class="fmt-chip">PDF</span><span class="fmt-chip">SRT</span><span class="fmt-chip">VTT</span></div></div>
+              <div class="fmt-group"><span class="fmt-label">文稿</span><div class="fmt-chips"><span class="fmt-chip">TXT</span><span class="fmt-chip">MD</span><span class="fmt-chip">DOCX</span><span class="fmt-chip">SRT</span><span class="fmt-chip">VTT</span></div></div>
             </div>
             <div class="import-files" id="importFiles">
               <div class="file-row">
@@ -991,7 +1006,7 @@
             </div>
           </div>
 
-          <div class="card" data-anim="card">
+          <div class="card" data-anim="card" data-analysis-card="actions">
             <div class="card-head"><h3>行动项</h3><span class="hint">12 项 · 展示 4 项待办</span></div>
             <div class="action-row">
               <div class="action-name">输出 v3.2 需求范围评审稿<small>产品迭代周会 · 08-22</small></div>
@@ -1248,7 +1263,7 @@
       </section>
 
       <div class="foot">
-        <span>纪要智析 · 原型预览 v0.2</span>
+        <span>纪要智析 · 真实材料整理流程</span>
         <span>内部预览 · 数据本机处理</span>
       </div>
       </div>
@@ -1365,10 +1380,10 @@
 
     function enterDetail(onDone) {
       const tl2 = gsap.timeline({ defaults: { ease: "power3.out" } });
-      tl2.to("#page-detail", { autoAlpha: 1, y: 0, scale: 1, duration: 0.45 }, 0)
-        .from("#page-detail .crumb", { y: 8, autoAlpha: 0, duration: 0.32 }, 0.05)
-        .from("#page-detail .head", { y: 12, autoAlpha: 0, duration: 0.4 }, "<0.05")
-        .from("#page-detail .tab", { y: 8, autoAlpha: 0, duration: 0.32, stagger: 0.05 }, "<0.1");
+      tl2.to("#page-analysis", { autoAlpha: 1, y: 0, scale: 1, duration: 0.45 }, 0)
+        .from("#page-analysis .crumb", { y: 8, autoAlpha: 0, duration: 0.32 }, 0.05)
+        .from("#page-analysis .head", { y: 12, autoAlpha: 0, duration: 0.4 }, "<0.05")
+        .from("#page-analysis .tab", { y: 8, autoAlpha: 0, duration: 0.32, stagger: 0.05 }, "<0.1");
       if (onDone) tl2.eventCallback("onComplete", onDone);
     }
 
@@ -1414,9 +1429,9 @@
           next.classList.add("on");
           document.querySelector(".main").scrollTop = 0;
           gsap.set(next, { autoAlpha: 0, y: 20, scale: 0.99 });
-          if (id === "detail" && !detailEntered) {
+          if (id === "analysis" && !detailEntered) {
             detailEntered = true;
-            initScrollReveals("detail");
+            initScrollReveals("analysis");
             enterDetail(function () {
               if (window.ScrollTrigger) ScrollTrigger.refresh();
               animating = false;
@@ -1433,7 +1448,7 @@
             if (id === "dash") {
               tin.from("#page-dash .head, #page-dash .import-card, #page-dash .kpi, #page-dash .mod-grid, #page-dash .dept-band, #page-dash .dash-row", { y: 16, autoAlpha: 0, duration: 0.45, stagger: 0.06 }, 0.05);
             } else {
-              tin.from("#page-detail .crumb, #page-detail .head, #page-detail .tab, #page-detail .grid, #page-detail .sec, #page-detail .foot", { y: 16, autoAlpha: 0, duration: 0.45, stagger: 0.05 }, 0.05);
+              tin.from("#page-analysis .crumb, #page-analysis .head, #page-analysis .tab, #page-analysis .grid, #page-analysis .sec, #page-analysis .foot", { y: 16, autoAlpha: 0, duration: 0.45, stagger: 0.05 }, 0.05);
             }
           }
         }
@@ -1441,7 +1456,7 @@
     }
 
     mm.add("(prefers-reduced-motion: reduce)", () => {
-      gsap.set("#page-dash .crumb, #page-dash .head, #page-dash .value-title, #page-dash .value-sub, #page-dash .value-actions, #page-dash .import-card, #page-dash .kpi, #page-dash .mod-card, #page-dash .sec-head, #page-dash .dept-band, #page-dash .recent-row, .topbar, .nav-item, .side-foot, #page-detail .crumb, #page-detail .head, #page-detail .tab, #page-detail .card, #page-detail .sec-head, #page-detail .foot", { clearProps: "all" });
+      gsap.set("#page-dash .crumb, #page-dash .head, #page-dash .value-title, #page-dash .value-sub, #page-dash .value-actions, #page-dash .import-card, #page-dash .kpi, #page-dash .mod-card, #page-dash .sec-head, #page-dash .dept-band, #page-dash .recent-row, .topbar, .nav-item, .side-foot, #page-analysis .crumb, #page-analysis .head, #page-analysis .tab, #page-analysis .card, #page-analysis .sec-head, #page-analysis .foot", { clearProps: "all" });
     });
 
     mm.add("(prefers-reduced-motion: no-preference)", () => {

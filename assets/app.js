@@ -99,7 +99,7 @@
       desc: "批量录入核对与定期报送，归档零差错",
       meta: "台账维护 / 数据核验 / 定期报送",
       links: [
-        { label: "作品集 PDF", href: "assets/files/作品集-翟靖昊-行政方向-20260812.pdf", blank: true },
+        { label: "作品集 PDF", href: "assets/files/作品集-翟靖昊-行政方向-网站统一版-20260828.pdf", blank: true },
         { label: "简历 DOCX", href: "assets/files/简历-翟靖昊.docx", blank: false }
       ]
     },
@@ -109,14 +109,14 @@
       meta: "报名组织 / 信息核对 / 材料报送",
       img: "assets/images/evidence-rosters.png",
       links: [
-        { label: "作品集 PDF", href: "assets/files/作品集-翟靖昊-行政方向-20260812.pdf", blank: true },
+        { label: "作品集 PDF", href: "assets/files/作品集-翟靖昊-行政方向-网站统一版-20260828.pdf", blank: true },
         { label: "简历 DOCX", href: "assets/files/简历-翟靖昊.docx", blank: false }
       ]
     },
     {
       title: "会议纪要智能分析工作台",
-      desc: "导入会议文稿，生成摘要、行动项与可导出纪要",
-      meta: "独立开发 / 行动项追踪 / DOCX 导出",
+      desc: "已用于真实会议材料整理，生成摘要、行动项与可导出纪要",
+      meta: "独立开发 / 真实材料使用 / 行动项追踪",
       img: "assets/images/workbench-overview.png",
       links: [
         { label: "在线 Demo", href: "workbench/index.html", blank: true },
@@ -129,7 +129,7 @@
       meta: "档案分类 / 公文写作 / PDF 作品集",
       img: "assets/images/portfolio-preview-20260828.png",
       links: [
-        { label: "作品集 PDF", href: "assets/files/作品集-翟靖昊-行政方向-20260812.pdf", blank: true },
+        { label: "作品集 PDF", href: "assets/files/作品集-翟靖昊-行政方向-网站统一版-20260828.pdf", blank: true },
         { label: "简历 DOCX", href: "assets/files/简历-翟靖昊.docx", blank: false }
       ]
     }
@@ -564,6 +564,7 @@
   // 1) 轮播衔接：方向感知 + 退场快进（anticipation）+ 入场缓出错峰（follow-through / overlapping）
   //    + 微过冲（exaggeration）+ 编号数字滚动（timing）
   var carAnimating = false;
+  var queuedCarouselTarget = null;
   var carouselEl = document.querySelector(".carousel"); // 容器：切换时整体预备位移 + 回正
   var layoutObj = { p: 0 };          // 布局进度：0=文字居中+图下方 → 1=左文右图（GSAP 驱动）
   var layoutActivePrev = null;       // 滚动状态机：work 屏进入/离开时触发布局衔接动画
@@ -594,8 +595,11 @@
     viewport.scrollTop = top;
   }
   function animateCarouselTo(target) {
-    if (carAnimating) return;
     target = (target + projects.length) % projects.length;
+    if (carAnimating) {
+      queuedCarouselTarget = target;
+      return;
+    }
     if (target === idx) return;
     var oldIdx = idx;
     var diff = target - oldIdx;                 // 环绕感知：取最短路径方向（3→0 视为 +1）
@@ -606,7 +610,15 @@
     carAnimating = true;
     var items = [counterEl, titleEl, descEl, metaEl, linksEl];
     var xOut = 48 * dir, xIn = -48 * dir; // 方向感知：prev 左出右入，next 右出左入（位移加大，滑动感可见）
-    var tl = gsap.timeline({ onComplete: function () { carAnimating = false; settleWorkPosition(); } });
+    var tl = gsap.timeline({ onComplete: function () {
+      carAnimating = false;
+      settleWorkPosition();
+      if (queuedCarouselTarget !== null) {
+        var nextTarget = queuedCarouselTarget;
+        queuedCarouselTarget = null;
+        if (nextTarget !== idx) animateCarouselTo(nextTarget);
+      }
+    } });
     // 预备动作：容器向切换方向微移（anticipation），随后内容滑出
     tl.to(carouselEl, { x: -10 * dir, duration: 0.12, ease: "power2.in", overwrite: "auto" })
       .to(items, { opacity: 0, x: xOut, duration: 0.3, ease: "power2.in", stagger: 0.04, overwrite: "auto" }, "-=0.1")

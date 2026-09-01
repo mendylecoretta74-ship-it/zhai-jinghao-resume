@@ -114,6 +114,9 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   color: rgba(252, 249, 243, .84);
   text-shadow: 0 1px 12px rgba(0, 0, 0, .72);
 }
+.hero-use {
+  color: rgba(252, 249, 243, .96);
+}
 
 /* ---------- 顶部导航 ---------- */
 .nav {
@@ -322,6 +325,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .hero-meta { bottom: 72px; left: 20px; right: 20px; }
   .hero-role { font-size: 13px; line-height: 1.8; letter-spacing: .04em; }
   .hero-proof { font-size: 12px; line-height: 1.7; }
+  .hero-use { margin-top: 4px; }
   .work-meta { font-size: 13px; letter-spacing: .07em; }
   .work-title, .about-head, .contact-head { font-size: clamp(26px, 7vw, 40px); }
   .work-tabs { grid-template-columns: 1fr; gap: 0; }

@@ -117,12 +117,53 @@
     return meeting;
   }
 
+  function refreshCurrentPage() {
+    const page = $(".page.on");
+    if (page) renderPage(page.id.replace(/^page-/, ""));
+  }
+
   function deleteMeeting(id) {
+    const meeting = getMeeting(id);
+    if (!meeting) return false;
+    const wasCurrent = state.currentId === id;
     state.meetings = state.meetings.filter((m) => m.id !== id);
     state.actions = state.actions.filter((a) => a.meetingId !== id);
     delete state.comments[id];
-    if (state.currentId === id) state.currentId = state.meetings[0] ? state.meetings[0].id : null;
+    if (wasCurrent) state.currentId = state.meetings[0] ? state.meetings[0].id : null;
     persist();
+    if (wasCurrent && $(".page.on") && $(".page.on").id === "page-analysis") gotoPage("library");
+    else refreshCurrentPage();
+    return true;
+  }
+
+  function deleteAction(id) {
+    const action = state.actions.find((a) => a.id === id);
+    if (!action) return false;
+    state.actions = state.actions.filter((a) => a.id !== id);
+    if (action.meetingId) {
+      const meeting = getMeeting(action.meetingId);
+      if (meeting && meeting.analysis) {
+        meeting.analysis.actions = (meeting.analysis.actions || []).filter((a) => a.text !== action.text);
+        if (meeting.analysis.stats) meeting.analysis.stats.actionCount = meeting.analysis.actions.length;
+      }
+    }
+    persist();
+    refreshCurrentPage();
+    return true;
+  }
+
+  function requestDeleteMeeting(id) {
+    const meeting = getMeeting(id);
+    if (!meeting) return;
+    if (!window.confirm("确定删除会议记录“" + meeting.title + "”？关联行动项和评论也会一并删除。")) return;
+    if (deleteMeeting(id)) toast("会议记录已删除");
+  }
+
+  function requestDeleteAction(id) {
+    const action = state.actions.find((a) => a.id === id);
+    if (!action) return;
+    if (!window.confirm("确定删除行动项“" + action.text + "”？所属会议分析中的对应项也会移除。")) return;
+    if (deleteAction(id)) toast("行动项已删除");
   }
 
   function isOverdue(a) {
@@ -191,7 +232,7 @@
     const cross = $("#kpiCross");
     if (cross) cross.textContent = todo;
 
-    const rows = $$(".recent-row");
+    const rows = $$("#page-dash .recent-row");
     state.meetings.slice(0, rows.length).forEach((m, i) => {
       const row = rows[i];
       if (!row) return;
@@ -205,6 +246,15 @@
       const t = $(".r-type", row); if (t) t.textContent = m.templateName;
       const d = $(".r-date", row); if (d) d.textContent = m.date;
       const a = $(".r-acts", row); if (a) a.textContent = state.actions.filter((x) => x.meetingId === m.id && x.status !== "done").length + " 待办";
+      let del = $(".row-delete", row);
+      if (!del) {
+        row.insertAdjacentHTML("beforeend", '<button class="row-delete" type="button" data-delete-meeting="" aria-label="删除会议记录" title="删除会议记录">×</button>');
+        del = $(".row-delete", row);
+      }
+      if (del) {
+        del.dataset.deleteMeeting = m.id;
+        del.onclick = (e) => { e.stopPropagation(); requestDeleteMeeting(del.dataset.deleteMeeting); };
+      }
     });
     rows.forEach((row, i) => {
       row.onclick = () => { state.currentId = row.getAttribute("data-mid"); gotoPage("analysis"); };
@@ -259,6 +309,12 @@
     if (count) count.textContent = state.meetings.length + " RECORDS";
     const list = $("#libList");
     if (list) list.onclick = (e) => {
+      const deleteBtn = e.target.closest("[data-delete-meeting]");
+      if (deleteBtn) {
+        e.stopPropagation();
+        requestDeleteMeeting(deleteBtn.dataset.deleteMeeting);
+        return;
+      }
       const row = e.target.closest("[data-mid]");
       if (row) { state.currentId = row.getAttribute("data-mid"); gotoPage("analysis"); }
     };
@@ -279,6 +335,7 @@
           <span class="r-date">${esc(m.date)}</span>
           <span class="r-acts">${state.actions.filter((a) => a.meetingId === m.id && a.status !== "done").length} 待办</span>
           <span class="r-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span>
+          <button class="row-delete" type="button" data-delete-meeting="${esc(m.id)}" aria-label="删除会议记录" title="删除会议记录">×</button>
         </div>`).join("") : '<div class="empty">暂无匹配的会议，回到工作台导入一份会议记录</div>';
     }
   }
@@ -289,7 +346,7 @@
     $$("#page-analysis .card").forEach((c) => {
       if (c.querySelector(".summary")) map.summary = c;
       else if (c.querySelector(".decision")) map.decisions = c;
-      else if (c.querySelector(".action-row")) map.actions = c;
+      else if (c.matches('[data-analysis-card="actions"]') || c.querySelector(".action-row")) map.actions = c;
       else if (c.querySelector(".tl")) map.timeline = c;
       else if (c.querySelector(".stack") && !c.querySelector(".heat-row")) map.speakers = c;
       else if (c.querySelector(".heat-row")) map.heat = c;
@@ -419,6 +476,7 @@
           <div class="person"><span class="pavatar">${esc((x.owner || "待").slice(0, 1))}</span>${esc(x.owner || "待指定")}</div>
           <div class="due">${esc(x.due || "—")}</div>
           <div class="st ${done ? "done" : "todo"}">${done ? "DONE" : "TODO"}</div>
+          ${synced ? '<button class="action-delete" type="button" data-delete-action="' + esc(synced.id) + '" aria-label="删除行动项" title="删除行动项">×</button>' : ""}
         </div>`);
     });
     $$(".action-row", card).forEach((row) => {
@@ -427,6 +485,12 @@
         if (!aid) return;
         toggleAction(aid);
         renderAnalysis();
+      };
+    });
+    $$('[data-delete-action]', card).forEach((button) => {
+      button.onclick = (e) => {
+        e.stopPropagation();
+        requestDeleteAction(button.dataset.deleteAction);
       };
     });
   }
@@ -663,8 +727,10 @@
           <div class="due">${esc(a.due || "—")}</div>
           <div class="st ${a.status === "done" ? "done" : "todo"}">${a.status === "done" ? "DONE" : "TODO"}</div>
           <button class="act-toggle ${a.status === "done" ? "done" : ""}" data-tid="${a.id}" title="切换状态">${a.status === "done" ? "✓" : ""}</button>
+          <button class="action-delete" type="button" data-delete-action="${esc(a.id)}" aria-label="删除行动项" title="删除行动项">×</button>
         </div>`).join("") : '<div class="empty">当前分类下没有行动项</div>';
       $$("[data-tid]", list).forEach((b) => (b.onclick = (e) => { e.stopPropagation(); toggleAction(b.dataset.tid); }));
+      $$('[data-delete-action]', list).forEach((b) => (b.onclick = (e) => { e.stopPropagation(); requestDeleteAction(b.dataset.deleteAction); }));
     }
 
     function addManual() {
@@ -880,23 +946,30 @@
   function bindImport() {
     const fileInput = $("#importFile");
     const drop = $("#importDrop");
-    const pick = $("#importPick");
     const btn = $("#importBtn");
     const filesBox = $("#importFiles");
     let pending = [];
+    filesBox.innerHTML = '<div class="import-empty">尚未选择文件</div>';
 
-    const openPick = (e) => { if (e) e.preventDefault(); fileInput.click(); };
-    pick.onclick = openPick;
-    drop.addEventListener("click", (e) => { if (!e.target.closest("button")) openPick(e); });
+    let parsing = false;
+    let batchToken = 0;
+
+    const openPick = (e) => {
+      if (e) e.preventDefault();
+      if (!parsing) fileInput.click();
+    };
+    drop.addEventListener("click", (e) => { if (!e.target.closest("label")) openPick(e); });
     drop.addEventListener("dragover", (e) => e.preventDefault());
     drop.addEventListener("drop", (e) => {
       e.preventDefault();
+      e.stopPropagation();
       handleFiles(Array.from(e.dataTransfer.files || []));
     });
     fileInput.addEventListener("change", () => { handleFiles(Array.from(fileInput.files || [])); fileInput.value = ""; });
     btn.addEventListener("click", () => {
+      if (parsing) return toast("文件仍在解析，请稍候");
       if (!pending.length) return toast("请先选择或拖入会议文件");
-      const text = pending.map((p) => p.text).filter(Boolean).join("\n\n");
+      const text = pending.filter((p) => !p.error).map((p) => p.text).filter(Boolean).join("\n\n");
       if (!text) return toast(pending.map((p) => p.error).filter(Boolean).join("；") || "没有可分析的文本");
       const { analysis, templateName, templateId } = analyzeSource(text, state.settings.activeTemplate || "tpl-regular");
       const meeting = saveMeeting({
@@ -951,16 +1024,35 @@
     window.addEventListener("dragover", (e) => e.preventDefault());
 
     function handleFiles(files) {
-      pending = files.map((f) => ({ name: f.name, size: f.size, text: "", error: "" }));
-      filesBox.innerHTML = pending.map((p) => `
+      if (!files.length) return;
+      const token = ++batchToken;
+      parsing = true;
+      btn.disabled = true;
+      btn.setAttribute("aria-busy", "true");
+      const batch = files.map((f) => ({ name: f.name, size: f.size, text: "", error: "" }));
+      pending = batch;
+      filesBox.innerHTML = batch.map((p) => `
         <div class="file-row"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ink-400);"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
         <span class="f-name">${esc(p.name)}</span><span class="f-meta">${fmtSize(p.size)} · 解析中…</span><span class="f-state">待导入</span></div>`).join("");
-      Promise.all(files.map((f, i) => parseFile(f).then((r) => { pending[i] = Object.assign(pending[i], r); return r; }))).then((results) => {
+      Promise.all(files.map((f, i) => Promise.resolve()
+        .then(() => parseFile(f))
+        .catch((err) => ({ error: "解析失败：" + (err.message || "未知错误") }))
+        .then((r) => {
+          const result = Object.assign({ name: f.name, size: f.size }, r);
+          batch[i] = Object.assign(batch[i], result);
+          return result;
+        }))).then((results) => {
+        if (token !== batchToken) return;
         filesBox.innerHTML = results.map((r) => `
           <div class="file-row"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ink-400);"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
           <span class="f-name">${esc(r.name)}</span><span class="f-meta">${r.error ? "处理失败" : (r.text || "").length + " 字"}</span><span class="f-state">${r.error ? "失败" : "已就绪"}</span></div>`).join("");
         const meta = $("#importMeta");
         if (meta) meta.textContent = results.filter((r) => !r.error).length + " 个文件就绪 · " + (results.filter((r) => r.error).map((r) => r.name + "：" + r.error).join("；") || "可一键分析");
+      }).finally(() => {
+        if (token !== batchToken) return;
+        parsing = false;
+        btn.disabled = false;
+        btn.setAttribute("aria-busy", "false");
       });
     }
 
@@ -971,8 +1063,9 @@
         if (!window.mammoth) return Promise.resolve({ error: "DOCX 解析库未加载" });
         return f.arrayBuffer().then((buf) => window.mammoth.extractRawText({ arrayBuffer: buf }).then((r) => ({ text: r.value })));
       }
-      if (f.type.startsWith("audio/") || f.type.startsWith("video/")) return transcribe(f);
-      return Promise.resolve({ error: "不支持该格式（PDF 请先转换为文本）" });
+      if (f.type.startsWith("audio/") || f.type.startsWith("video/") || /\.(mp3|wav|m4a|aac|flac|mp4|mov|avi|mkv)$/i.test(name)) return transcribe(f);
+      if (/\.pdf$/i.test(name)) return Promise.resolve({ error: "暂不支持直接解析 PDF，请先转换为 DOCX 或 TXT" });
+      return Promise.resolve({ error: "不支持该格式，请选择 TXT、MD、DOCX、SRT 或 VTT" });
     }
 
     function transcribe(f) {
